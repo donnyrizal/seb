@@ -150,17 +150,30 @@
         </script>
 
         <script>
-            const linkToChange = document.getElementById("seb");
+    // Wait for the page to be fully loaded to ensure the link exists
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // 1. Find the specific link by its ID
+        const sebLink = document.getElementById("seb");
 
-            if (linkToChange) {
-                // Get the literal value of the href attribute ("./0. Percobaan.seb")
-                const currentHref = linkToChange.getAttribute("href");
+        if (sebLink) {
+            // 2. Get the link's full, absolute URL.
+            // The browser automatically converts "./0. Percobaan.seb"
+            // into "https://donnyrizal.github.io/seb/0.%20Percobaan.seb"
+            let fullUrl = sebLink.href;
 
-                // Set the new href by prepending the protocol
-                linkToChange.href = "sebs://" + currentHref;
-                // This will result in: href="sebs://./0. Percobaan.seb"
-            }
-        </script>
+            // 3. Replace the "https://" protocol with "sebs://"
+            let sebUrl = fullUrl.replace("https://", "sebs://");
+
+            // 4. Set the link's href to the new URL
+            sebLink.href = sebUrl;
+
+            // Optional: Log to console to confirm
+            // console.log("Changed link href to:", sebLink.href); 
+            // This will show: sebs://donnyrizal.github.io/seb/0.%20Percobaan.seb
+        }
+    });
+</script>
         <script>
             $(document).ready(function () {
                 // Get the current date
@@ -182,3 +195,4 @@
 
 
 </html>
+

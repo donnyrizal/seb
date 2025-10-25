@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=gAEABXnBxw">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=gAEABXnBxw" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=gAEABXnBxw" sizes="16x16">
+    <link rel="manifest" href="/manifest.json?v=gAEABXnBxw">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=gAEABXnBxw" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon.ico?v=gAEABXnBxw">
+    <meta name="apple-mobile-web-app-title" content="SEB">
+    <meta name="application-name" content="SEB">
+    <meta name="theme-color" content="#ffffff">
+    <title>UTS Gasal 2025-2026</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="https://safeexambrowser.org/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="https://safeexambrowser.org/css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://safeexambrowser.org/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Docs CSS -->
+    <link href="https://safeexambrowser.org/css/docs.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="https://safeexambrowser.org/css/ekko-lightbox.css" rel="stylesheet">
+
+    <link href="https://safeexambrowser.org/css/basic.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>-->
+                <a href="https://psikologi.ums.ac.id" class="navbar-brand">
+                    <span><img class="sebbrandimg" src="./logo-sarjana-psikologi (1).svg" alt="SEB Logo"
+                            width="150"></span>
+                    <span class="header-white">&nbsp;<strong><em></em></strong></span>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- Page Content -->
+    <div class="container bs-docs-container">
+        <!-- Page Content -->
+        <div class="container">
+
+            <!-- Page Heading/Breadcrumbs -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"> Ujian Tengah Semester <small>Gasal 2025-2026</small>
+                    </h1>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Content Column -->
+                <div class="col-lg-12">
+
+                    <table class="table table-striped sebtable">
+                        <thead>
+                            <tr>
+                                <th>Exams</th>
+                                <th>Date</th>
+                                <th>Teacher</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a id="seb" href="./0. Percobaan.seb">Percobaan Perdana</a>
+                                </td>
+                                <td>25 Oktober 2025</td>
+                                <td>Bayu Suseno</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <p><a href="http://safeexambrowser.org" target="_blank"> Information about SafeExamBrowser</a></p> -->
+
+                </div>
+                <!-- / Content Column -->
+
+            </div>
+            <!-- /.row (Content Row)-->
+
+            <hr>
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Copyright &copy; 2025 Sarjana Psikologi UMS. All rights reserved. | Current Date: <span
+                                id="currentDate"></span></p>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- /.container -->
+
+        <!-- jQuery -->
+        <script src="https://safeexambrowser.org/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="https://safeexambrowser.org/js/bootstrap.min.js"></script>
+
+        <!-- Bootstrap Docs (for Sidebar) JavaScript -->
+        <script src="https://safeexambrowser.org/js/docs.min.js"></script>
+
+        <script src="https://safeexambrowser.org/js/ekko-lightbox.js"></script>
+
+        <script type="text/javascript">
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        </script>
+
+        <script>
+            const linkToChange = document.getElementById("seb");
+
+            if (linkToChange) {
+                // Get the literal value of the href attribute ("./0. Percobaan.seb")
+                const currentHref = linkToChange.getAttribute("href");
+
+                // Set the new href by prepending the protocol
+                linkToChange.href = "sebs://" + currentHref;
+                // This will result in: href="sebs://./0. Percobaan.seb"
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Get the current date
+                var today = new Date();
+
+                // Extract day, month, and year
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+                var yyyy = today.getFullYear();
+
+                // Format the date as DD/MM/YYYY
+                var formattedDate = dd + '/' + mm + '/' + yyyy;
+
+                // Display the formatted date in an HTML element with id "currentDate"
+                $('#currentDate').text(formattedDate);
+            });
+        </script>
+</body>
+
+</html>

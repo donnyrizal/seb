@@ -83,7 +83,7 @@
                 <!-- Content Column -->
                 <div class="col-lg-12">
 
-                    <table class="table table-striped sebtable">
+                    <!-- <table class="table table-striped sebtable">
                         <thead>
                             <tr>
                                 <th>Exams</th>
@@ -100,7 +100,7 @@
                                 <td>Bayu Suseno</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
 
                     <!-- Ujian Per Harinya -->
                     <table class="table table-striped sebtable">
@@ -126,6 +126,14 @@
                                 <td>Jam Ke 1 (08:00-09:00)</td>
                                 <td>Online via <b>SEB (Closedbook)</b></td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <a class="seb" href="./SEB Files (UTS)/3. Metode Penelitian Kualitatif.seb">Metode Penelitian Kualitatif</a>
+                                </td>
+                                <td>1. Prof. Dr. Sri Lestari, S.Psi., M.Si., Psikolog<br>2. Afriza Animawan Arifin, S.Psi., M.A.<br>3. Aad Satria Permadi, S.Psi., M.A, Ph.D</td>
+                                <td>Jam Ke 2 (10:00-11:30)</td>
+                                <td>Online via <b>SEB (Closedbook)</b></td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -149,7 +157,7 @@
                                 </td>
                                 <td>1. Dr. Nisa Rachmah Nur Anganthi, M.Si <br>2. Setiyo Purwanto, S.Psi., M.Si <br>3.
                                     Dr. Usmi Karyani, S.Psi., M.Psi <br>4. Wisnu Sri Hertinjung, S.Psi., M.Psi </td>
-                                <td>Jam Ke 2 (09:30-11:00)</td>
+                                <td>Jam Ke 2 (10:00-11:30)</td>
                                 <td>Online via <b>SEB (Closedbook)</b></td>
                             </tr>
                         </tbody>
@@ -190,37 +198,19 @@
         </script>
 <!-- for ID SEB -->
         <script>
-            // Wait for the page to be fully loaded to ensure the link exists
             document.addEventListener("DOMContentLoaded", function () {
-
-                // 1. Find the specific link by its ID
                 const sebLink = document.getElementById("seb");
 
                 if (sebLink) {
-                    // 2. Get the link's full, absolute URL.
-                    // The browser automatically converts "./0. Percobaan.seb"
-                    // into "https://donnyrizal.github.io/seb/0.%20Percobaan.seb"
                     let fullUrl = sebLink.href;
-
-                    // 3. Replace the "https://" protocol with "sebs://"
-                    let sebUrl = fullUrl.replace("https://", "sebs://");
-
-                    // 4. Set the link's href to the new URL
-                    sebLink.href = sebUrl;
-
-                    // Optional: Log to console to confirm
-                    // console.log("Changed link href to:", sebLink.href); 
-                    // This will show: sebs://donnyrizal.github.io/seb/0.%20Percobaan.seb
-                }
+                   let sebUrl = fullUrl.replace("https://", "sebs://");
+                    sebLink.href = sebUrl;}
             });
         </script>
 <!-- For Classes SEB -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // This gets a *list* of all elements with class "seb"
                 const sebLinks = document.getElementsByClassName("seb");
-
-                // Loop through every element in that list
                 for (let sebLink of sebLinks) {
                     let fullUrl = sebLink.href;
                     let sebUrl = fullUrl.replace("https://", "sebs://");
@@ -231,10 +221,7 @@
 
         <script>
             $(document).ready(function () {
-                // Get the current date
                 var today = new Date();
-
-                // Extract day, month, and year
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0');
                 var yyyy = today.getFullYear();

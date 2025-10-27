@@ -31,13 +31,6 @@
     <!-- Docs CSS -->
     <link href="https://safeexambrowser.org/css/docs.min.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <link href="https://safeexambrowser.org/css/ekko-lightbox.css" rel="stylesheet">
 
     <link href="https://safeexambrowser.org/css/basic.css" rel="stylesheet" type="text/css" media="all">
@@ -50,12 +43,13 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>-->
+                </button>
                 <a href="https://psikologi.ums.ac.id" class="navbar-brand">
                     <span><img class="sebbrandimg" src="./logo-sarjana-psikologi (1).svg" alt="SEB Logo"
                             width="150"></span>
@@ -107,14 +101,61 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <p><a href="http://safeexambrowser.org" target="_blank"> Information about SafeExamBrowser</a></p> -->
 
+                    <!-- Ujian Per Harinya -->
+                    <table class="table table-striped sebtable">
+                        <thead>
+                            <th colspan="4">Selasa: 28 Oktober 2025</th>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Mata Kuliah</th>
+                                <th>Pengampu</th>
+                                <th>Jadwal</th>
+                                <th>Metode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a class="seb" href="./SEB Files (UTS)/2. Komunikasi Ilmiah.seb">Komunikasi
+                                        Ilmiah</a>
+                                </td>
+                                <td>1. Fajar Ruddin, S.Psi., M.Sc., M.A, <br>2. Drs. Soleh Amini Yahman, M.Si.,
+                                    Psikolog<br>3. MB. Sudinadji, S.Psi, M.Psi</td>
+                                <td>Jam Ke 1 (08:00-09:00)</td>
+                                <td>Online via <b>SEB (Closedbook)</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Ujian Per Harinya -->
+                    <table class="table table-striped sebtable">
+                        <thead>
+                            <th colspan="4">Kamis: 30 Oktober 2025</th>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Mata Kuliah</th>
+                                <th>Pengampu</th>
+                                <th>Jadwal</th>
+                                <th>Metode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a class="seb" href="./SEB Files (UTS)/1. Psikologi Klinis.seb">Psikologi Klinis</a>
+                                </td>
+                                <td>1. Dr. Nisa Rachmah Nur Anganthi, M.Si <br>2. Setiyo Purwanto, S.Psi., M.Si <br>3.
+                                    Dr. Usmi Karyani, S.Psi., M.Psi <br>4. Wisnu Sri Hertinjung, S.Psi., M.Psi </td>
+                                <td>Jam Ke 2 (09:30-11:00)</td>
+                                <td>Online via <b>SEB (Closedbook)</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- / Content Column -->
-
             </div>
-            <!-- /.row (Content Row)-->
-
             <hr>
 
             <!-- Footer -->
@@ -147,32 +188,47 @@
                 $(this).ekkoLightbox();
             });
         </script>
-
+<!-- for ID SEB -->
         <script>
-    // Wait for the page to be fully loaded to ensure the link exists
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        // 1. Find the specific link by its ID
-        const sebLink = document.getElementById("seb");
+            // Wait for the page to be fully loaded to ensure the link exists
+            document.addEventListener("DOMContentLoaded", function () {
 
-        if (sebLink) {
-            // 2. Get the link's full, absolute URL.
-            // The browser automatically converts "./0. Percobaan.seb"
-            // into "https://donnyrizal.github.io/seb/0.%20Percobaan.seb"
-            let fullUrl = sebLink.href;
+                // 1. Find the specific link by its ID
+                const sebLink = document.getElementById("seb");
 
-            // 3. Replace the "https://" protocol with "sebs://"
-            let sebUrl = fullUrl.replace("https://", "sebs://");
+                if (sebLink) {
+                    // 2. Get the link's full, absolute URL.
+                    // The browser automatically converts "./0. Percobaan.seb"
+                    // into "https://donnyrizal.github.io/seb/0.%20Percobaan.seb"
+                    let fullUrl = sebLink.href;
 
-            // 4. Set the link's href to the new URL
-            sebLink.href = sebUrl;
+                    // 3. Replace the "https://" protocol with "sebs://"
+                    let sebUrl = fullUrl.replace("https://", "sebs://");
 
-            // Optional: Log to console to confirm
-            // console.log("Changed link href to:", sebLink.href); 
-            // This will show: sebs://donnyrizal.github.io/seb/0.%20Percobaan.seb
-        }
-    });
-</script>
+                    // 4. Set the link's href to the new URL
+                    sebLink.href = sebUrl;
+
+                    // Optional: Log to console to confirm
+                    // console.log("Changed link href to:", sebLink.href); 
+                    // This will show: sebs://donnyrizal.github.io/seb/0.%20Percobaan.seb
+                }
+            });
+        </script>
+<!-- For Classes SEB -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // This gets a *list* of all elements with class "seb"
+                const sebLinks = document.getElementsByClassName("seb");
+
+                // Loop through every element in that list
+                for (let sebLink of sebLinks) {
+                    let fullUrl = sebLink.href;
+                    let sebUrl = fullUrl.replace("https://", "sebs://");
+                    sebLink.href = sebUrl;
+                }
+            });
+        </script>
+
         <script>
             $(document).ready(function () {
                 // Get the current date
@@ -180,13 +236,9 @@
 
                 // Extract day, month, and year
                 var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
                 var yyyy = today.getFullYear();
-
-                // Format the date as DD/MM/YYYY
                 var formattedDate = dd + '/' + mm + '/' + yyyy;
-
-                // Display the formatted date in an HTML element with id "currentDate"
                 $('#currentDate').text(formattedDate);
             });
         </script>
@@ -194,5 +246,3 @@
 
 
 </html>
-
-

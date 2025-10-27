@@ -17,7 +17,7 @@
     <meta name="apple-mobile-web-app-title" content="SEB">
     <meta name="application-name" content="SEB">
     <meta name="theme-color" content="#ffffff">
-    <title>Sarjana Psikologi UTS Gasal 2025-2026</title>
+    <title>UTS Gasal 25-26 Psikologi UMS</title>
 
     <link href="https://safeexambrowser.org/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://safeexambrowser.org/css/modern-business.css" rel="stylesheet">
@@ -28,6 +28,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+        .sebnavbar-background-dark {
+	background-color: #7F00FF!important;
+}
         body,
         .navbar-default,
         .container,
@@ -155,8 +158,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="text-center text-2xl/7 font-bold sm:truncate sm:text-3xl sm:tracking-tight"> Ujian Tengah
-                        Semester
-                        <br><small>Gasal 2025-2026</small>
+                        Semester<br><small>Gasal 2025-2026</small>
                     </h1>
                 </div>
             </div>
@@ -180,8 +182,8 @@
                         <p>Wes wektune leyeh-leyeh 💤</p>
                     </div>
                     <div id="night-message" class="time-section hidden p-4 bg-gray-800 text-gray-100 rounded-lg">
-                        <h2 class="font-semibold text-lg">Have a Nice Dream! 🌙</h2>
-                        <p>Dunia tidak akan berhenti meskipun dikau tidur terlelap</p>
+                        <h2 class="font-semibold text-lg">😴Have a Nice Dream! 🌙</h2>
+                        <p>🌠Only in the darkness can you see the stars ✨</p>
                     </div>
                 </div>
 
@@ -206,15 +208,28 @@
                 <!-- Content Column -->
                 <div class="col-lg-12">
 
-                    <div class="alert alert-info">
-                        <strong>Catatan:</strong> Pastikan untuk mengunduh dan menginstal <a
+                    <div class="text-center alert-info">
+                        <strong>Catatan:</strong> Pastikan sudah terinstall <a
                             href="https://safeexambrowser.org/download_en.html">Safe Exam Browser (SEB)</a>
-                        sebelum mengikuti ujian. Klik pada tautan mata kuliah untuk membuka file SEB yang sesuai.
+                        sebelum mengikuti ujian. Klik pada tautan mata kuliah dibawah untuk mengakses soal.
+                    </div>
+                    <!-- Alert Danger dari Tailwind dan BS -->
+                    <div class="flex items-center justify-center mb-4 text-xl rounded-lg bg-red-800 text-red-100 dark:bg-red-800 dark:text-red-100"
+                        role="alert">
+                        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-bold">Perhatian!</span> Belum memasuki jadwal Ujian! Jadwal akan tampil
+                            sesuai tanggalnya.
+                        </div>
                     </div>
 
-                    <div id="jadwal-placeholder" class="text-center text-gray-500 my-10 hidden">
-                        <p class="text-lg">Belum ada jadwal ujian yang aktif. Jadwal akan tampil sesuai tanggalnya.</p>
-                    </div>
+                    <hr
+                        class="my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400" />
 
                     <div id="jadwal-2025-10-28" class="schedule-section hidden">
                         <table class="table table-striped sebtable">
@@ -303,7 +318,8 @@
                                     </td>
                                     <td>1. Dr. Nisa Rachmah Nur Anganthi, M.Si <br>2. Setiyo Purwanto, S.Psi., M.Si
                                         <br>3.
-                                        Dr. Usmi Karyani, S.Psi., M.Psi <br>4. Wisnu Sri Hertinjung, S.Psi., M.Psi </td>
+                                        Dr. Usmi Karyani, S.Psi., M.Psi <br>4. Wisnu Sri Hertinjung, S.Psi., M.Psi
+                                    </td>
                                     <td>Jam Ke 2 (10:00-11:30)</td>
                                     <td>Online via <b>SEB (Closedbook)</b></td>
                                 </tr>
@@ -356,8 +372,8 @@
             <footer>
                 <div class="text-center row">
                     <div class="col-lg-12">
-                        <p>Copyright &copy; 2025 Sarjana Psikologi UMS. All rights reserved. | <span
-                                id="currentDateFooter"></span></p>
+                        <p>Made with 💓 Donny </p>
+                        <p>Copyright &copy; 2025 <a href="https://psikologi.ums.ac.id">Sarjana Psikologi UMS</a></p>
                     </div>
                 </div>
             </footer>
@@ -443,10 +459,10 @@
                     dateElement.textContent = dateString;
                 }
 
-                const footerDateElement = document.getElementById('currentDateFooter');
-                if (footerDateElement) {
-                    footerDateElement.textContent = `Current Date: ${dateString}`;
-                }
+                // const footerDateElement = document.getElementById('currentDateFooter');
+                // if (footerDateElement) {
+                //     footerDateElement.textContent = `Current Date: ${dateString}`;
+                // }
             }
 
             function showAffirmativeMessage() {
@@ -483,12 +499,11 @@
 
             function showExamSchedules() {
                 const now = new Date();
-                now.setHours(7, 55, 0, 0);
 
                 const scheduleTargets = [
-                    { id: 'jadwal-2025-10-28', date: new Date(2025, 9, 28) },
-                    { id: 'jadwal-2025-10-30', date: new Date(2025, 9, 30) },
-                    { id: 'jadwal-2025-10-31', date: new Date(2025, 9, 31) }
+                    { id: 'jadwal-2025-10-28', date: new Date(2025, 9, 28, 7, 55, 0) },
+                    { id: 'jadwal-2025-10-30', date: new Date(2025, 9, 30, 9, 55, 0) },
+                    { id: 'jadwal-2025-10-31', date: new Date(2025, 9, 31, 12, 25, 0) }
                 ];
 
                 let activeSchedules = 0;
@@ -517,4 +532,5 @@
         </script>
 
 </body>
+
 </html>

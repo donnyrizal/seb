@@ -1,0 +1,103 @@
+.sebnavbar-background-dark {
+  background-color: #7f00ff !important;
+}
+
+body,
+.navbar-default,
+.container,
+#time-dashboard,
+#night-message,
+.sebtable tbody tr,
+.table-striped > tbody > tr:nth-of-type(odd) {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+body.night-mode {
+  background-color: #111827;
+  color: #d1d5db;
+}
+
+body.night-mode .navbar-default {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+body.night-mode .navbar-default .navbar-brand,
+body.night-mode .navbar-default .navbar-nav > li > a {
+  color: #f3f4f6;
+}
+
+body.night-mode .container {
+  background-color: transparent;
+}
+
+body.night-mode h1,
+body.night-mode h1 small {
+  color: #f9fafb;
+}
+
+body.night-mode #time-dashboard {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+body.night-mode #affirmative-message h2 {
+  color: #000000;
+}
+
+body.night-mode #live-clock {
+  color: #f9fafb;
+}
+
+body.night-mode #live-date {
+  color: #9ca3af;
+}
+
+body.night-mode #night-message {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+body.night-mode .sebtable {
+  border-color: #374151;
+}
+
+body.night-mode .sebtable thead th {
+  background-color: #374151;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+body.night-mode .sebtable tbody tr,
+body.night-mode .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #1f2937;
+  color: #d1d5db;
+  border-color: #374151;
+}
+
+body.night-mode .sebtable tbody tr:hover {
+  background-color: #374151;
+}
+
+body.night-mode .sebtable a.seb {
+  color: #60a5fa;
+}
+
+body.night-mode .alert-info {
+  background-color: #2563eb;
+  color: #eff6ff;
+  border-color: #1d4ed8;
+}
+
+body.night-mode .alert-info a {
+  color: #dbeafe;
+  font-weight: bold;
+}
+
+body.night-mode #jadwal-placeholder p {
+  color: #9ca3af;
+}
+
+body.night-mode footer {
+  color: #9ca3af;
+}

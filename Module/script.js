@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- 1. DOM ELEMENTS ---
   const els = {
     clock: document.getElementById("live-clock"),
     date: document.getElementById("live-date"),
@@ -12,33 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
     lightIcon: document.getElementById("theme-toggle-light-icon"),
     body: document.body,
   };
-
-  let EXAM_DATA = []; // Will be populated via JSON
-
-  // --- 2. DATA FETCHING ---
+  let EXAM_DATA = []; 
   async function initData() {
     try {
-      // Fetch the external JSON file
-      // This tricks the browser into thinking it's a new file every time
       const response = await fetch("./Module/data.json?t=" + new Date().getTime());
-
       if (!response.ok) throw new Error("Failed to load schedule data");
-
       const rawData = await response.json();
-
-      // Convert ISO date strings back to real Date objects
       EXAM_DATA = rawData.map((item) => ({
         ...item,
         start: new Date(item.start),
         end: new Date(item.end),
       }));
-
-      // Start the loop only after data is ready
       renderActiveSchedules();
       setInterval(renderActiveSchedules, 1000);
     } catch (error) {
       console.error(error);
-      // Show detailed error on the screen
       els.scheduleContainer.innerHTML = `
                 <div class="text-red-500 text-center p-6 border border-red-200 bg-red-50 rounded shadow-sm mx-4">
                     <h2 class="text-xl font-bold mb-2">⚠️ Gagal Memuat Jadwal</h2>
@@ -50,23 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         Coba buka <a href="checker.html" class="text-blue-600 underline hover:text-blue-800">checker.html</a> untuk memperbaiki error ini.
                     </p>
                 </div>`;
-
-      // Ensure the container is visible so the user sees the error
       els.scheduleContainer.classList.remove("hidden");
       els.placeholder.classList.add("hidden");
     }
   }
-
-  // --- 3. CORE LOGIC ---
-
-  function toSebLink(url) {
-    return url ? url.replace("https://", "sebs://") : "#";
-  }
+ function toSebLink(url) {
+        if (!url) return "#";
+        const fullUrl = new URL(url, window.location.href);
+        fullUrl.protocol = 'sebs:';
+        return fullUrl.href;
+    }
 
   function updateTime() {
     const now = new Date();
-
-    // 1. Update Clock & Date
     els.clock.textContent = now.toLocaleTimeString("en-GB", {
       hour12: false,
       timeZone: "Asia/Jakarta",
@@ -81,8 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
     els.date.textContent = new Intl.DateTimeFormat("id-ID", options).format(
       now
     );
-
-    // 2. Define Greetings with specific colors
     const h = now.getHours();
     const greetings = [
       {
@@ -122,16 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const greet = greetings.find((g) => h < g.max);
 
     if (greet) {
-      // Update Text
       els.msgTitle.textContent = greet.title;
       els.msgBody.textContent = greet.body;
-
-      // 3. TARGET THE DASHBOARD ELEMENT
       const dashboard = document.getElementById("time-dashboard");
-
-      // 4. CLEANUP: Remove all possible color classes from previous states
-      // We must remove the hardcoded defaults (bg-white, dark:bg-gray-800)
-      // otherwise they might override our dynamic colors.
       const allClasses = [
         "bg-white",
         "dark:bg-gray-800", // Remove defaults
@@ -155,17 +129,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastRenderedHTML = "";
   function renderActiveSchedules() {
-    if (!EXAM_DATA.length) return; // Guard clause if data isn't loaded
-
+    if (!EXAM_DATA.length) return;
     const now = new Date();
     let activeCount = 0;
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      // Check if current time is within schedule start and end
       if (now >= schedule.start && now < schedule.end) {
         activeCount++;
-
         const rows = schedule.courses
           .map(
             (course) => `
@@ -228,12 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
         els.scheduleContainer.classList.add("hidden");
         els.placeholder.classList.remove("hidden");
       }
-      // 3. Update the memory
       lastRenderedHTML = htmlContent;
     }
   }
-
-  // --- 4. THEME LOGIC ---
   function toggleTheme(isDark) {
     if (isDark) {
       document.documentElement.classList.add("dark");
@@ -261,9 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const isCurrentDark = els.body.classList.contains("night-mode");
     toggleTheme(!isCurrentDark);
   });
-
-  // --- 5. INIT ---
-  // Security preventions
   document.addEventListener("contextmenu", (e) => e.preventDefault());
   document.addEventListener("keydown", (e) => {
     if (
@@ -277,7 +242,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateTime();
   setInterval(updateTime, 1000);
-
-  // Call the async fetch
   initData();
 });

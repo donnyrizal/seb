@@ -36,54 +36,35 @@
             statusEl.classList.remove('hidden');
 
             try {
-                // Add timestamp to prevent caching
-                const res = await fetch('./Module/data.json?t=' + Date.now());
-                
+                const res = await fetch('./Module/data.json?t=' + Date.now());                
                 if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-                
                 const text = await res.text();
-                
                 try {
-                    // 1. Try to Parse
                     JSON.parse(text);
-                    
-                    // 2. If successful:
                     statusEl.className = 'mt-6 p-4 rounded bg-green-100 text-green-800 border border-green-200';
                     statusEl.innerHTML = `<strong>✅ Success!</strong> Your JSON is valid. The schedule should load correctly.`;
-                    previewEl.textContent = text;
-                    
+                    previewEl.textContent = text;                    
                 } catch (parseError) {
-                    // 3. If Syntax Error found
                     statusEl.className = 'mt-6 p-4 rounded bg-red-100 text-red-800 border border-red-200';
                     statusEl.innerHTML = `<strong>❌ Syntax Error:</strong> ${parseError.message}`;
-                    
-                    // Highlight the error in the preview
                     highlightError(text, parseError);
                 }
-
             } catch (networkError) {
                 statusEl.className = 'mt-6 p-4 rounded bg-red-100 text-red-800 border border-red-200';
                 statusEl.innerHTML = `<strong>⚠️ Network Error:</strong> Could not find 'data.json'.<br>Are you running this via Local Server or GitHub Pages?`;
             }
         }
-
         function highlightError(jsonText, error) {
             const previewEl = document.getElementById('preview');
-            
-            // Try to extract position from error message (e.g., "at position 45")
             const match = error.message.match(/position (\d+)/);
             if (match) {
                 const pos = parseInt(match[1], 10);
                 const before = jsonText.substring(0, pos);
                 const errChar = jsonText.substring(pos, pos + 1) || "END";
                 const after = jsonText.substring(pos + 1);
-
-                // Create highlighted HTML
                 previewEl.innerHTML = escapeHtml(before) + 
                     `<span class="error-highlight"> >>${escapeHtml(errChar)}<< </span>` + 
-                    escapeHtml(after);
-                
-                // Scroll to error
+                    escapeHtml(after);                
                 setTimeout(() => {
                     const el = document.querySelector('.error-highlight');
                     if(el) el.scrollIntoView({behavior: "smooth", block: "center"});
@@ -92,7 +73,6 @@
                 previewEl.textContent = jsonText;
             }
         }
-
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;")
                        .replace(/</g, "&lt;")

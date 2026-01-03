@@ -1,103 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Donny">
-    <link rel="icon" type="image/png" href="https://ums.id/static/assets/image_ums/logo_ums_white.png" sizes="32x32">
-    <link rel="shortcut icon" href="https://ums.id/static/assets/image_ums/logo_ums_white.png">
-    <meta name="apple-mobile-web-app-title" content="SEB">
-    <meta name="application-name" content="SEB">
-    <meta name="theme-color" content="#ffffff">
-    <meta http-equiv="refresh" content="3600">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Donny" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
+      sizes="32x32"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="SEB" />
+    <meta name="application-name" content="SEB" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta http-equiv="refresh" content="3600" />
     <title>Safe Exam Broser Landing Page Psikologi UMS</title>
 
-    <link href="https://safeexambrowser.org/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://safeexambrowser.org/css/modern-business.css" rel="stylesheet">
-    <link href="https://safeexambrowser.org/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://safeexambrowser.org/css/docs.min.css" rel="stylesheet">
-    <link href="https://safeexambrowser.org/css/ekko-lightbox.css" rel="stylesheet">
-    <link href="https://safeexambrowser.org/css/basic.css" rel="stylesheet" type="text/css" media="all">
-    <link rel="stylesheet" href="./Module/style.css">
+    <link
+      href="https://safeexambrowser.org/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://safeexambrowser.org/css/modern-business.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://safeexambrowser.org/font-awesome/css/font-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://safeexambrowser.org/css/docs.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://safeexambrowser.org/css/ekko-lightbox.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://safeexambrowser.org/css/basic.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <link rel="stylesheet" href="./Module/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Minimal custom overrides needed */
-        .sebtable th { background-color: #f8f9fa; }
-        .night-mode .sebtable th { background-color: #374151; color: white; }
-        .night-mode .sebtable td { color: #e5e7eb; }
-        .night-mode .table-striped > tbody > tr:nth-of-type(odd) { background-color: #374151; }
-        .night-mode .table-striped > tbody > tr:nth-of-type(even) { background-color: #1f2937; }
-    </style>
-</head>
+      /* Minimal custom overrides needed */
+      .sebtable th {
+        background-color: #f8f9fa;
+      }
 
-<body class="transition-colors duration-300">
-    <button id="theme-toggle" type="button" class="fixed bottom-4 left-4 z-50 p-3 rounded-full bg-gray-200 text-gray-900 shadow-lg hover:scale-110 transition-all duration-300">
-        <svg id="theme-toggle-dark-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-        <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"></path></svg>
+      .night-mode .sebtable th {
+        background-color: #374151;
+        color: white;
+      }
+
+      .night-mode .sebtable td {
+        color: #e5e7eb;
+      }
+
+      .night-mode .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #374151;
+      }
+
+      .night-mode .table-striped > tbody > tr:nth-of-type(even) {
+        background-color: #1f2937;
+      }
+    </style>
+  </head>
+
+  <body class="transition-colors duration-300">
+    <button
+      id="theme-toggle"
+      type="button"
+      class="fixed bottom-4 left-4 z-50 p-3 rounded-full bg-gray-200 text-gray-900 shadow-lg hover:scale-110 transition-all duration-300"
+    >
+      <svg
+        id="theme-toggle-dark-icon"
+        class="w-6 h-6"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+        ></path>
+      </svg>
+      <svg
+        id="theme-toggle-light-icon"
+        class="w-6 h-6 hidden"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"
+        ></path>
+      </svg>
     </button>
 
-    <nav class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="https://psikologi.ums.ac.id" class="navbar-brand">
-                    <img class="sebbrandimg" src="./logo-sarjana-psikologi (1).svg" alt="SEB Logo" width="150">
-                </a>
-            </div>
+    <nav
+      class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top"
+    >
+      <div class="container">
+        <div class="navbar-header">
+          <a href="https://psikologi.ums.ac.id" class="navbar-brand">
+            <img
+              class="sebbrandimg"
+              src="./logo-sarjana-psikologi (1).svg"
+              alt="SEB Logo"
+              width="150"
+            />
+          </a>
         </div>
+      </div>
     </nav>
-    <br>
+    <br />
 
     <div class="container bs-docs-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="text-center text-2xl/7 font-bold sm:text-3xl"> Ujian Akhir Semester<br><small>Gasal 2025-2026</small></h1>
-                </div>
-            </div>
-
-            <div id="time-dashboard" class="w-full p-6 rounded-lg shadow-lg border text-center my-8 transition-colors duration-500">
-    <div id="affirmative-message" class="mb-4">
-        <h2 class="text-2xl font-semibold" id="msg-title">Memuat pesan...</h2>
-        <p id="msg-body" class="opacity-90"></p>
-    </div>
-    <div class="text-4xl font-mono" id="live-clock">00:00:00</div>
-    <div class="text-xl font-sans opacity-75 mt-2" id="live-date">Memuat tanggal...</div>
-</div>
-
-            <div class="text-center alert-info">
-                        <strong>Catatan:</strong> Pastikan sudah terinstall <a style="color:#FF5555"
-                            href="https://safeexambrowser.org/download_en.html">Safe Exam Browser (SEB)</a>
-                        sebelum mengikuti ujian. <br>Klik pada tautan <b>mata kuliah dibawah</b> untuk mengakses soal!
-                    </div>
-
-            <div id="schedule-container" class="space-y-8">
-                </div>
-
-            <div id="jadwal-placeholder" class="flex items-center justify-center mb-4 text-xl rounded-lg bg-red-800 text-red-100 dark:bg-red-800 dark:text-red-100"
-                        role="alert">
-                        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                <span class="font-bold mr-2">Perhatian!</span>  Belum memasuki jadwal Ujian! Jadwal akan tampil sesuai tanggalnya
-            </div>
-            
-            <hr class="my-8">
-            <footer>
-                <div class="text-center">
-                    <p>Made with 💓 Donny</p>
-                    <p>Copyright &copy; 2025 <a href="https://psikologi.ums.ac.id">Sarjana Psikologi UMS</a></p>
-                </div>
-            </footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1 class="text-center text-2xl/7 font-bold sm:text-3xl">
+              Ujian Akhir Semester<br /><small>Gasal 2025-2026</small>
+            </h1>
+          </div>
         </div>
+
+        <div
+          id="time-dashboard"
+          class="w-full p-6 rounded-lg shadow-lg border text-center my-8 transition-colors duration-500"
+        >
+          <div id="affirmative-message" class="mb-4">
+            <h2 class="text-2xl font-semibold" id="msg-title">
+              Memuat pesan...
+            </h2>
+            <p id="msg-body" class="opacity-90"></p>
+          </div>
+          <div class="text-4xl font-mono" id="live-clock">00:00:00</div>
+          <div class="text-xl font-sans opacity-75 mt-2" id="live-date">
+            Memuat tanggal...
+          </div>
+        </div>
+
+        <div class="text-center alert-info">
+          <strong>Catatan:</strong> Pastikan sudah terinstall
+          <a
+            style="color: #ff5555"
+            href="https://safeexambrowser.org/download_en.html"
+            >Safe Exam Browser (SEB)</a
+          >
+          sebelum mengikuti ujian. <br />Klik pada tautan
+          <b>mata kuliah dibawah</b> untuk mengakses soal!
+        </div>
+
+        <div id="schedule-container" class="space-y-8"></div>
+
+        <div
+          id="jadwal-placeholder"
+          class="flex items-center justify-center mb-4 text-xl rounded-lg bg-red-800 text-red-100 dark:bg-red-800 dark:text-red-100"
+          role="alert"
+        >
+          <svg
+            class="shrink-0 inline w-4 h-4 me-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+            />
+          </svg>
+          <span class="sr-only">Info</span>
+          <span class="font-bold mr-2">Perhatian!</span> Belum memasuki jadwal
+          Ujian! Jadwal akan tampil sesuai tanggalnya
+        </div>
+
+        <hr class="my-8" />
+        <footer>
+          <div class="text-center">
+            <p>Made with 💓 Donny</p>
+            <p>
+              Copyright &copy; 2025
+              <a href="https://psikologi.ums.ac.id">Sarjana Psikologi UMS</a>
+            </p>
+          </div>
+        </footer>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./Module/script.js"></script>
-</body>
+  </body>
 </html>

@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     lightIcon: document.getElementById("theme-toggle-light-icon"),
     body: document.body,
   };
-  let EXAM_DATA = []; 
+  let EXAM_DATA = [];
   async function initData() {
     try {
-      const response = await fetch("./Module/data.json?t=" + new Date().getTime());
+      const response = await fetch(
+        "./Module/data.json?t=" + new Date().getTime()
+      );
       if (!response.ok) throw new Error("Failed to load schedule data");
       const rawData = await response.json();
       EXAM_DATA = rawData.map((item) => ({
@@ -41,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
       els.placeholder.classList.add("hidden");
     }
   }
- function toSebLink(url) {
+
+  function toSebLink(url) {
         if (!url) return "#";
-        const fullUrl = new URL(url, window.location.href);
-        fullUrl.protocol = 'sebs:';
-        return fullUrl.href;
+        const absoluteUrl = new URL(url, window.location.href).href;
+        return absoluteUrl.replace(/^https?:/, 'sebs:');
     }
 
   function updateTime() {

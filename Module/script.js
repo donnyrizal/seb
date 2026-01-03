@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'jadwal-2025-11-7',  start: new Date(2025, 10, 7, 9, 55, 0),  end: new Date(2025, 10, 7, 17, 0, 0) },
         { id: 'jadwal-2025-11-10', start: new Date(2025, 10, 10, 13, 50, 0), end: new Date(2025, 10, 10, 17, 0, 0) },
         { id: 'jadwal-2025-12-22', start: new Date(2025, 11, 22, 9, 55, 0), end: new Date(2026, 0, 4, 17, 0, 0) },
-        { id: 'jadwal-2026-1-9', start: new Date(2026, 0, 9, 7, 55, 0), end: new Date(2026, 0, 9, 17, 0, 0) }
+        { id: 'jadwal-2026-1-9', start: new Date(2026, 0, 9, 7, 55, 0), end: new Date(2026, 0, 9, 17, 0, 0) },
+        { id: 'jadwal-2026-1-8', start: new Date(2026, 0, 8, 7, 55, 0), end: new Date(2026, 0, 8, 17, 0, 0) },
+        { id: 'jadwal-2026-1-5', start: new Date(2026, 0, 5, 7, 55, 0), end: new Date(2026, 0, 5, 17, 0, 0) }
     ];
 
     function applyTheme(isDark) {

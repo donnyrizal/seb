@@ -1,0 +1,118 @@
+[
+    {
+        "dateTitle": "Selasa: 28 Oktober 2025",
+        "start": "2025-10-28T07:55:00",
+        "end": "2025-10-28T17:00:00",
+        "courses": [
+            { "name": "Komunikasi Ilmiah", "link": "./SEB Files (UTS)/2. Komunikasi Ilmiah.seb", "time": "08:00-09:00", "lecturers": ["Fajar Ruddin, S.Psi., M.Sc., M.A", "Drs. Soleh Amini Yahman, M.Si.", "MB. Sudinadji, S.Psi, M.Psi"] },
+            { "name": "Metode Penelitian Kualitatif", "link": "./SEB Files (UTS)/3. Metode Penelitian Kualitatif.seb", "time": "10:00-11:30", "lecturers": ["Prof. Dr. Sri Lestari, S.Psi., M.Si.", "Afriza Animawan Arifin, S.Psi., M.A.", "Aad Satria Permadi, S.Psi., M.A, Ph.D"] }
+        ]
+    },
+    {
+        "dateTitle": "Rabu: 29 Oktober 2025",
+        "start": "2025-10-29T09:55:00",
+        "end": "2025-10-29T17:00:00",
+        "courses": [
+            { "name": "Konstruksi Alat Ukur Psikologi", "link": "./SEB Files (UTS)/8. KAUP.seb", "time": "10:00-11:30", "lecturers": ["Audi Ahmad Rikardi, S.Psi., M.A", "Suwanda Priyadi, S.Psi., M.A", "Achmad Dwityanto, S.Psi, M.Si."] },
+            { "name": "Sejarah Aliran Psikologi", "link": "./SEB Files (UTS)/5. Sejarah Aliran Psikologi.seb", "time": "12:30-14:00", "lecturers": ["Dra. Zahrotul Uyun, M.Si.", "Septian Wahyu Rahmanto, S.Psi., M.Psi.", "Rahma Ayuningtyas Fachrunisa, S.Psi., M.Psi."] }
+        ]
+    },
+    {
+        "dateTitle": "Kamis: 30 Oktober 2025",
+        "start": "2025-10-30T07:55:00",
+        "end": "2025-10-30T17:00:00",
+        "courses": [
+            { "name": "Psikologi Klinis", "link": "./SEB Files (UTS)/1. Psikologi Klinis.seb", "time": "08:00-09:30", "lecturers": ["Dr. Nisa Rachmah Nur Anganthi, M.Si", "Setiyo Purwanto, S.Psi., M.Si", "Dr. Usmi Karyani, S.Psi., M.Psi", "Wisnu Sri Hertinjung, S.Psi., M.Psi"] },
+            { "name": "Pengembangan Organisasi", "link": "./SEB Files (UTS)/9. Pengembangan Organisasi.seb", "time": "14:00-15:00", "lecturers": ["Rizqi Zulfa Qatrunnada, S.Psi., M.Psi.", "Dr. Tutut Handayani, M.Psi."] }
+        ]
+    },
+    {
+        "dateTitle": "Jumat: 31 Oktober 2025",
+        "start": "2025-10-31T09:55:00",
+        "end": "2025-10-31T17:00:00",
+        "courses": [
+            { "name": "Psikologi Abnormal", "link": "./SEB Files (UTS)/11. Psikologi Abnormal.seb", "time": "10:00-11:30", "lecturers": ["Septian Wahyu Rahmanto, S.Psi., M.Psi.", "Dr. Nisa Rachmah Nur Anganthi, M.Si.", "Bayu Suseno, S.Psi., M.Psi.", "Setia Asyanti, S.Psi., M.Si."] },
+            { "name": "Teori Kepribadian Lanjut", "link": "./SEB Files (UTS)/4. Teori Kepribadian Lanjut.seb", "time": "12:30-14:00", "lecturers": ["Dr. Nisa Rachmah Nur Anganthi, M.Si.", "Fiska Puspa Arinda, S.Psi., M.Psi."] },
+            { "name": "Talent Management", "link": "./SEB Files (UTS)/7. Talent Manajemen.seb", "time": "14:00-15:30", "lecturers": ["Dr. Tutut Handayani, M.Psi."] }
+        ]
+    },
+    {
+        "dateTitle": "Selasa: 4 November 2025",
+        "start": "2025-11-04T09:55:00",
+        "end": "2025-11-04T17:00:00",
+        "courses": [
+            { "name": "Biopsikologi", "link": "./SEB Files (UTS)/16. Biopsikologi.seb", "time": "10:00-11:15", "lecturers": ["Fajar Ruddin, S.Psi., M.Sc., M.A", "Bayu Suseno, S.Psi., M.Psi.", "Prof. Dr. Eny Purwandari, S.Psi., M.Si"] },
+            { "name": "Metode Penelitian Kuantitatif", "link": "./SEB Files (UTS)/10. Metopen Kuanti.seb", "time": "12:30-14:00", "lecturers": ["Prof. Dr. Eny Purwandari, S.Psi., M.Si", "Dr. Wiwien Dinar Pratisti, S.Psi., M.Si", "Audi Ahmad Rikardi, S.Psi., M.A"] },
+            { "name": "Psikologi Kebencanaan", "link": "./SEB Files (UTS)/19. Psikologi Kebencanaan.seb", "time": "14:00-15:15", "lecturers": ["Lusi Nuryanti, S.Psi, M.Si., Ph.D."] }
+        ]
+    },
+    {
+        "dateTitle": "Rabu: 5 November 2025",
+        "start": "2025-11-05T07:55:00",
+        "end": "2025-11-05T17:00:00",
+        "courses": [
+            { "name": "Psikologi Keluarga", "link": "./SEB Files (UTS)/17. Psikologi Keluarga.seb", "time": "08:00-09:15", "lecturers": ["Isnaya Arina Hidayati, S.Pd.I., S.Psi., M.Psi"] },
+            { "name": "Psikologi Umum", "link": "./SEB Files (UTS)/15. Psikologi Umum.seb", "time": "10:00-11:30", "lecturers": ["Prof. Taufik, S.Psi., M.Si., Ph.D", "Prof. Dr. Eny Purwandari, S.Psi., M.Si", "Prof. Dr. Muhammad Japar, M.Si."] },
+            { "name": "Asesmen Kepribadian & Perkembangan", "link": "./SEB Files (UTS)/6. AKP.seb", "time": "12:30-14:00", "lecturers": ["Septian Wahyu Rahmanto, S.Psi., M.Psi.", "Permata Ashfi Raihana, S.Psi., M.A", "Wisnu Sri Hertinjung, S.Psi., M.Psi."] },
+            { "name": "Islam IPTEKS", "link": "./SEB Files (UTS)/18. Islam IPTEKS.seb", "time": "14:00-15:15", "lecturers": ["Isnaya Arina Hidayati, S.Pd.I., S.Psi., M.Psi"] }
+        ]
+    },
+    {
+        "dateTitle": "Kamis: 6 November 2025",
+        "start": "2025-11-06T07:55:00",
+        "end": "2025-11-06T17:00:00",
+        "courses": [
+            { "name": "Asesmen Intelegensi - Praktikum", "link": "./SEB Files (UTS)/12. Asesmen Intelegensi  - Praktikum.seb", "time": "08:00-09:30", "lecturers": ["Rahma Ayuningtyas Fachrunisa, S.Psi., M.Psi.", "Dr. Lisnawati Ruhaena, M.Si."] },
+            { "name": "Observasi dan Wawancara - Praktikum (OBI/OBW)", "link": "./SEB Files (UTS)/20. Observasi dan Interview (OBI).seb", "time": "10:00-11:30", "lecturers": ["Prof. Dr. Sri Lestari, S.Psi., M.Si.", "Bayu Suseno, S.Psi., M.Psi.", "Nisrina Hanun Iftadi, S.Psi., M.Psi.", "Gita Aulia Nurani, S.Psi., M.Psi., Ph.D.", "Lusi Nuryanti, S.Psi, M.Si., Ph.D."] },
+            { "name": "Asesmen Minat & Sikap Kerja - Praktikum", "link": "./SEB Files (UTS)/13. Asesmen Minat & Sikap Kerja - Praktikum.seb", "time": "12:30-14:00", "lecturers": ["Rizqi Zulfa Qatrunnada, S.Psi., M.Psi.", "Achmad Dwityanto, S.Psi, M.Si.", "Susatyo Yuwono, S.Psi., M.Si."] }
+        ]
+    },
+    {
+        "dateTitle": "Jumat: 7 November 2025",
+        "start": "2025-11-07T09:55:00",
+        "end": "2025-11-07T17:00:00",
+        "courses": [
+            { "name": "Psikologi Industri dan Organisasi (PIO)", "link": "./SEB Files (UTS)/14. PIO.seb", "time": "10:00-11:30", "lecturers": ["Rizqi Zulfa Qatrunnada, S.Psi., M.Psi.", "Achmad Dwityanto, S.Psi, M.Si.", "Nisrina Hanun Iftadi, S.Psi., M.Psi."] }
+        ]
+    },
+    {
+        "dateTitle": "Senin: 10 November 2025 (Susulan)",
+        "start": "2025-11-10T13:50:00",
+        "end": "2025-11-10T17:00:00",
+        "courses": [
+            { "name": "(Susulan) Metode Penelitian Kuantitatif", "link": "./SEB Files (UTS)/10. Metopen Kuanti.seb", "time": "12:30-14:00", "lecturers": ["Prof. Dr. Eny Purwandari, S.Psi., M.Si", "Dr. Wiwien Dinar Pratisti, S.Psi., M.Si", "Audi Ahmad Rikardi, S.Psi., M.A"] }
+        ]
+    },
+    {
+        "dateTitle": "Senin: 22 Desember 2025",
+        "start": "2025-12-22T09:55:00",
+        "end": "2026-01-04T17:00:00",
+        "courses": [
+            { "name": "Percobaan Ujian SEB", "link": "./SEB Files (UAS)/Percobaan.seb", "time": "s/d Minggu: 4 Januari 2026 pukul 17:00 WIB", "lecturers": ["Bayu Suseno","Donny Rizal"] }
+        ]
+    },
+    {
+        "dateTitle": "Senin: 5 Januari 2026",
+        "start": "2026-01-05T07:55:00",
+        "end": "2026-01-05T17:00:00",
+        "courses": [
+            { "name": "Konseling Individu Kelompok", "link": "./SEB Files (UAS)/2. KIK.seb", "time": "08:00-09:15", "lecturers": ["Fiska Puspa Arinda, S.Psi., M.Psi.", "Dra. Partini, M.Si.", "Dr. Wiwien Dinar Pratisti, M.Si.", "Rini Lestari, S.Psi., M.Si."] }
+        ]
+    },
+    {
+        "dateTitle": "Kamis: 8 Januari 2026",
+        "start": "2026-01-08T07:55:00",
+        "end": "2026-01-08T17:00:00",
+        "courses": [
+            { "name": "Asesmen Klinis", "link": "./SEB Files (UAS)/3. Asesmen Klinis.seb", "time": "10:00-11:15", "lecturers": ["Prilya Shanty Andrianie, S.Psi., M.Psi.", "Dr. Usmi Karyani, S.Psi., M.Si."] }
+        ]
+    },
+    {
+        "dateTitle": "Jumat: 9 Januari 2026",
+        "start": "2026-01-09T07:55:00",
+        "end": "2026-01-09T17:00:00",
+        "courses": [
+            { "name": "Filsafat Umum", "link": "./SEB Files (UAS)/1. Filsafat Umum.seb", "time": "08:00-09:00", "lecturers": ["Aad Satria Permadi, S.Psi., M.A, Ph.D", "Dr. Daliman, S.U"] }
+        ]
+    }
+]

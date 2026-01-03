@@ -1,189 +1,283 @@
-document.addEventListener('DOMContentLoaded', () => {
-        
-    const SCHEDULE_TARGETS = [
-        { id: 'jadwal-2025-10-28', start: new Date(2025, 9, 28, 7, 55, 0),  end: new Date(2025, 9, 28, 17, 0, 0) },
-        { id: 'jadwal-2025-10-29', start: new Date(2025, 9, 29, 9, 55, 0),  end: new Date(2025, 9, 29, 17, 0, 0) },
-        { id: 'jadwal-2025-10-30', start: new Date(2025, 9, 30, 7, 55, 0),  end: new Date(2025, 9, 30, 17, 0, 0) },
-        { id: 'jadwal-2025-10-31', start: new Date(2025, 9, 31, 9, 55, 0),  end: new Date(2025, 9, 31, 17, 0, 0) },
-        { id: 'jadwal-2025-11-4',  start: new Date(2025, 10, 4, 9, 55, 0),  end: new Date(2025, 10, 4, 17, 0, 0) },
-        { id: 'jadwal-2025-11-5',  start: new Date(2025, 10, 5, 7, 55, 0),  end: new Date(2025, 10, 5, 17, 0, 0) },
-        { id: 'jadwal-2025-11-6',  start: new Date(2025, 10, 6, 7, 55, 0),  end: new Date(2025, 10, 6, 17, 0, 0) },
-        { id: 'jadwal-2025-11-7',  start: new Date(2025, 10, 7, 9, 55, 0),  end: new Date(2025, 10, 7, 17, 0, 0) },
-        { id: 'jadwal-2025-11-10', start: new Date(2025, 10, 10, 13, 50, 0), end: new Date(2025, 10, 10, 17, 0, 0) },
-        { id: 'jadwal-2025-12-22', start: new Date(2025, 11, 22, 9, 55, 0), end: new Date(2026, 0, 4, 17, 0, 0) },
-        { id: 'jadwal-2026-1-9', start: new Date(2026, 0, 9, 7, 55, 0), end: new Date(2026, 0, 9, 17, 0, 0) },
-        { id: 'jadwal-2026-1-8', start: new Date(2026, 0, 8, 7, 55, 0), end: new Date(2026, 0, 8, 17, 0, 0) },
-        { id: 'jadwal-2026-1-5', start: new Date(2026, 0, 5, 7, 55, 0), end: new Date(2026, 0, 5, 17, 0, 0) }
+document.addEventListener("DOMContentLoaded", () => {
+  // --- 1. DOM ELEMENTS ---
+  const els = {
+    clock: document.getElementById("live-clock"),
+    date: document.getElementById("live-date"),
+    scheduleContainer: document.getElementById("schedule-container"),
+    placeholder: document.getElementById("jadwal-placeholder"),
+    msgTitle: document.getElementById("msg-title"),
+    msgBody: document.getElementById("msg-body"),
+    themeBtn: document.getElementById("theme-toggle"),
+    darkIcon: document.getElementById("theme-toggle-dark-icon"),
+    lightIcon: document.getElementById("theme-toggle-light-icon"),
+    body: document.body,
+  };
+
+  let EXAM_DATA = []; // Will be populated via JSON
+
+  // --- 2. DATA FETCHING ---
+  async function initData() {
+    try {
+      // Fetch the external JSON file
+      // This tricks the browser into thinking it's a new file every time
+      const response = await fetch("./Module/data.json?t=" + new Date().getTime());
+
+      if (!response.ok) throw new Error("Failed to load schedule data");
+
+      const rawData = await response.json();
+
+      // Convert ISO date strings back to real Date objects
+      EXAM_DATA = rawData.map((item) => ({
+        ...item,
+        start: new Date(item.start),
+        end: new Date(item.end),
+      }));
+
+      // Start the loop only after data is ready
+      renderActiveSchedules();
+      setInterval(renderActiveSchedules, 1000);
+    } catch (error) {
+      console.error(error);
+      // Show detailed error on the screen
+      els.scheduleContainer.innerHTML = `
+                <div class="text-red-500 text-center p-6 border border-red-200 bg-red-50 rounded shadow-sm mx-4">
+                    <h2 class="text-xl font-bold mb-2">⚠️ Gagal Memuat Jadwal</h2>
+                    <p class="mb-4">Terjadi kesalahan pada file <code>data.json</code>.</p>
+                    <div class="bg-white p-3 rounded text-left font-mono text-sm overflow-auto border border-red-100 text-red-700">
+                        ${error.message}
+                    </div>
+                    <p class="mt-4 text-sm text-gray-600">
+                        Coba buka <a href="checker.html" class="text-blue-600 underline hover:text-blue-800">checker.html</a> untuk memperbaiki error ini.
+                    </p>
+                </div>`;
+
+      // Ensure the container is visible so the user sees the error
+      els.scheduleContainer.classList.remove("hidden");
+      els.placeholder.classList.add("hidden");
+    }
+  }
+
+  // --- 3. CORE LOGIC ---
+
+  function toSebLink(url) {
+    return url ? url.replace("https://", "sebs://") : "#";
+  }
+
+  function updateTime() {
+    const now = new Date();
+
+    // 1. Update Clock & Date
+    els.clock.textContent = now.toLocaleTimeString("en-GB", {
+      hour12: false,
+      timeZone: "Asia/Jakarta",
+    });
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Jakarta",
+    };
+    els.date.textContent = new Intl.DateTimeFormat("id-ID", options).format(
+      now
+    );
+
+    // 2. Define Greetings with specific colors
+    const h = now.getHours();
+    const greetings = [
+      {
+        max: 12,
+        title: "Sugeng Enjang! ☀️",
+        body: "Ngopi Ndisik Ngab ☕",
+        bg: "bg-yellow-100",
+        text: "text-yellow-800",
+        border: "border-yellow-200",
+      },
+      {
+        max: 15,
+        title: "Sugeng Siang! 🕶️",
+        body: "Jare Pakdhe Jokowi, Kerja Kerja Kerja 🐂",
+        bg: "bg-blue-100",
+        text: "text-blue-800",
+        border: "border-blue-200",
+      },
+      {
+        max: 18,
+        title: "Sugeng Sonten! 🌆",
+        body: "Wes wektune leyeh-leyeh 💤",
+        bg: "bg-indigo-100",
+        text: "text-indigo-800",
+        border: "border-indigo-200",
+      },
+      {
+        max: 24,
+        title: "😴 Have a Nice Dream! 🌙",
+        body: "🌠 Only in the darkness can you see the stars ✨",
+        bg: "bg-gray-800",
+        text: "text-gray-100",
+        border: "border-gray-600",
+      },
     ];
 
-    function applyTheme(isDark) {
-        const body = document.body;
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
-        const themeToggleBtn = document.getElementById('theme-toggle');
+    const greet = greetings.find((g) => h < g.max);
 
-        if (!body || !darkIcon || !lightIcon || !themeToggleBtn) return;
+    if (greet) {
+      // Update Text
+      els.msgTitle.textContent = greet.title;
+      els.msgBody.textContent = greet.body;
 
-        if (isDark) {
-            body.classList.add('night-mode');
-            darkIcon.classList.add('hidden');
-            lightIcon.classList.remove('hidden');
-            themeToggleBtn.classList.remove('bg-gray-200', 'text-gray-900');
-            themeToggleBtn.classList.add('bg-gray-700', 'text-gray-100');
-        } else {
-            body.classList.remove('night-mode');
-            darkIcon.classList.remove('hidden');
-            lightIcon.classList.add('hidden');
-            themeToggleBtn.classList.add('bg-gray-200', 'text-gray-900');
-            themeToggleBtn.classList.remove('bg-gray-700', 'text-gray-100');
-        }
+      // 3. TARGET THE DASHBOARD ELEMENT
+      const dashboard = document.getElementById("time-dashboard");
+
+      // 4. CLEANUP: Remove all possible color classes from previous states
+      // We must remove the hardcoded defaults (bg-white, dark:bg-gray-800)
+      // otherwise they might override our dynamic colors.
+      const allClasses = [
+        "bg-white",
+        "dark:bg-gray-800", // Remove defaults
+        "bg-yellow-100",
+        "text-yellow-800",
+        "border-yellow-200",
+        "bg-blue-100",
+        "text-blue-800",
+        "border-blue-200",
+        "bg-indigo-100",
+        "text-indigo-800",
+        "border-indigo-200",
+        "bg-gray-800",
+        "text-gray-100",
+        "border-gray-600",
+      ];
+      dashboard.classList.remove(...allClasses);
+      dashboard.classList.add(greet.bg, greet.text, greet.border);
     }
-    function updateClock() {
-        const now = new Date();
-        const timeString = [now.getHours(), now.getMinutes(), now.getSeconds()]
-            .map(num => String(num).padStart(2, '0'))
-            .join(':');
+  }
 
-        const clockElement = document.getElementById('live-clock');
-        if (clockElement) {
-            clockElement.textContent = timeString;
-        }
-    }
+  let lastRenderedHTML = "";
+  function renderActiveSchedules() {
+    if (!EXAM_DATA.length) return; // Guard clause if data isn't loaded
 
-    function setCurrentDate() {
-        const now = new Date();
-        const options = {
-            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta'
-        };
-        const dateFormatter = new Intl.DateTimeFormat('id-ID', options);
-        const dateElement = document.getElementById('live-date');
-        
-        if (dateElement) {
-            dateElement.textContent = dateFormatter.format(now);
-        }
-    }
+    const now = new Date();
+    let activeCount = 0;
+    let htmlContent = "";
 
-    function showAffirmativeMessage() {
-        const currentHour = new Date().getHours();
- 
-        document.querySelectorAll('#affirmative-message .time-section').forEach(section => {
-            section.classList.add('hidden');
-        });
-        const loadingTitle = document.querySelector('#affirmative-message h2');
-        if (loadingTitle) loadingTitle.classList.add('hidden');
+    EXAM_DATA.forEach((schedule) => {
+      // Check if current time is within schedule start and end
+      if (now >= schedule.start && now < schedule.end) {
+        activeCount++;
 
-        let sectionToShowId;
-        if (currentHour >= 5 && currentHour < 12) sectionToShowId = 'morning-message';
-        else if (currentHour >= 12 && currentHour < 17) sectionToShowId = 'afternoon-message';
-        else if (currentHour >= 17 && currentHour < 21) sectionToShowId = 'evening-message';
-        else sectionToShowId = 'night-message';
+        const rows = schedule.courses
+          .map(
+            (course) => `
+                    <tr>
+                        <td>
+                            <a class="seb" href="${toSebLink(course.link)}">${
+              course.name
+            }</a>
+                            <a href="${toSebLink(
+                              course.link
+                            )}" class="inline-flex items-center justify-center p-1 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="3"
+                                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                            </svg>
+                            </a>
+                        </td>
+                        <td>
+    <ol class="list-decimal pl-4 space-y-1">
+        ${course.lecturers.map((l) => `<li>${l}</li>`).join("")}
+    </ol>
+</td>
+                        <td>${course.time}</td>
+                        <td>Online via <b>SEB (Closedbook)</b></td>
+                    </tr>
+                `
+          )
+          .join("");
 
-        const sectionToShow = document.getElementById(sectionToShowId);
-        if (sectionToShow) sectionToShow.classList.remove('hidden');
-
-        if (!localStorage.getItem('theme')) {
-            const shouldBeDark = (currentHour >= 17 || currentHour < 5);
-            applyTheme(shouldBeDark);
-        }
-    }
-
-    function showExamSchedules() {
-        const now = new Date();
-        let activeSchedules = 0;
-
-        SCHEDULE_TARGETS.forEach(target => {
-            const element = document.getElementById(target.id);
-            if (!element) return;
-
-            if (now >= target.start && now < target.end) {
-                element.classList.remove('hidden');
-                activeSchedules++;
-            } else {
-                element.classList.add('hidden');
-            }
-        });
-
-        const placeholder = document.getElementById('jadwal-placeholder');
-        if (placeholder) {
-            activeSchedules === 0 
-                ? placeholder.classList.remove('hidden') 
-                : placeholder.classList.add('hidden');
-        }
-    }
-
-
-    function convertToSebLink(element) {
-        if (element && element.href) {
-            element.href = element.href.replace("https://", "sebs://");
-        }
-    }
-
-    if (typeof $ !== 'undefined') {
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
-        });
-    }
-
-    const sebIdLink = document.getElementById("seb");
-    if (sebIdLink) convertToSebLink(sebIdLink);
-    
-    const sebClassLinks = document.getElementsByClassName("seb");
-    for (let link of sebClassLinks) {
-        convertToSebLink(link);
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-        applyTheme(savedTheme === 'dark');
-    } else {
-        applyTheme(prefersDark);
-    }
-
-    updateClock();
-    setCurrentDate();
-    showAffirmativeMessage();
-    showExamSchedules();
-    setInterval(updateClock, 1000);
-    setInterval(showAffirmativeMessage, 60000);
-    setInterval(showExamSchedules, 1000);
-
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const isNowDark = !document.body.classList.contains('night-mode');
-            applyTheme(isNowDark);
-            localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
-        });
-    }
-
-    if (window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                applyTheme(e.matches);
-            }
-        });
-    }
-
-    document.addEventListener('contextmenu', (event) => event.preventDefault());
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'F12' || e.keyCode === 123) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
-            e.preventDefault();
-            return false;
-        }
+        htmlContent += `
+                    <div class="schedule-block animate-fade-in mb-8">
+                        <table class="table table-striped sebtable w-full border">
+                            <thead>
+                                <th colspan="4">${schedule.dateTitle}</th>
+                                </thead>
+                                <thead>
+                                <tr>
+                                    <th>Mata Kuliah</th>
+                                    <th>Pengampu</th>
+                                    <th>Jadwal</th>
+                                    <th>Metode</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                `;
+      }
     });
+    if (htmlContent !== lastRenderedHTML) {
+      console.log("Status Changed: Updating Screen...");
+      if (activeCount > 0) {
+        els.scheduleContainer.innerHTML = htmlContent;
+        els.scheduleContainer.classList.remove("hidden");
+        els.placeholder.classList.add("hidden");
+      } else {
+        els.scheduleContainer.innerHTML = "";
+        els.scheduleContainer.classList.add("hidden");
+        els.placeholder.classList.remove("hidden");
+      }
+      // 3. Update the memory
+      lastRenderedHTML = htmlContent;
+    }
+  }
+
+  // --- 4. THEME LOGIC ---
+  function toggleTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      els.body.classList.add("night-mode");
+      els.darkIcon.classList.add("hidden");
+      els.lightIcon.classList.remove("hidden");
+      els.themeBtn.classList.replace("bg-gray-200", "bg-gray-700");
+      els.themeBtn.classList.replace("text-gray-900", "text-gray-100");
+    } else {
+      document.documentElement.classList.remove("dark");
+      els.body.classList.remove("night-mode");
+      els.darkIcon.classList.remove("hidden");
+      els.lightIcon.classList.add("hidden");
+      els.themeBtn.classList.replace("bg-gray-700", "bg-gray-200");
+      els.themeBtn.classList.replace("text-gray-100", "text-gray-900");
+    }
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }
+
+  const savedTheme = localStorage.getItem("theme");
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  toggleTheme(savedTheme ? savedTheme === "dark" : systemDark);
+
+  els.themeBtn.addEventListener("click", () => {
+    const isCurrentDark = els.body.classList.contains("night-mode");
+    toggleTheme(!isCurrentDark);
+  });
+
+  // --- 5. INIT ---
+  // Security preventions
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.addEventListener("keydown", (e) => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "u")
+    ) {
+      e.preventDefault();
+    }
+  });
+
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  // Call the async fetch
+  initData();
 });

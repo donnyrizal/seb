@@ -12,187 +12,23 @@ document.addEventListener("DOMContentLoaded", () => {
     body: document.body,
   };
   let EXAM_DATA = [];
-  let serverTimeOffset = 0;
-  const SHEET_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLFzIPXW64oTw6dcpH0g-Y4H_w2EFGx4tYTSvzlTM_G16bL68NnDeAUFQqDzTXvd9sSPlkw_0Iqm3X/pub?gid=1005242582&single=true&output=csv";
   async function initData() {
     try {
-      // JSON Lama
-      // const response = await fetch("./Module/data.json?t=" + Date.now());
-      // if (!response.ok) throw new Error("Failed to load schedule data");
-      // const rawData = await response.json();
-      // EXAM_DATA = rawData.map((item) => ({
-      //   ...item,
-      //   start: new Date(item.start),
-      //   end: new Date(item.end),
-      // }));
-
-      // GSheet
-      console.log("1. Starting Fetch...");
-      const response = await fetch(SHEET_URL);
-      console.log("2. Response Status:", response.status); // Debug
-      if (!response.ok)
-        throw new Error("Gagal mengambil data dari Google Sheets");
-
-      const serverDateHeader = response.headers.get("Date");
-      if (serverDateHeader) {
-        const serverTime = new Date(serverDateHeader).getTime();
-        const clientTime = Date.now();
-        serverTimeOffset = serverTime - clientTime;
-
-        console.log(
-          "🕒 Time Synced with Server.",
-          "Offset:",
-          serverTimeOffset,
-          "ms",
-          "Server Time:",
-          new Date(serverTime).toLocaleTimeString()
-        );
-      } else {
-        console.warn(
-          "⚠️ Could not fetch Server Date header. Falling back to local time."
-        );
-      }
-
-      // GSheet
-      const csvText = await response.text();
-      console.log("3. RAW CSV Data:\n", csvText); // ⭐ CRITICAL:
-      // Check if Google sent us an HTML error page instead of CSV
-      if (csvText.includes("<!DOCTYPE html>")) {
-        console.error(
-          "🚨 ERROR: Google returned a webpage, not CSV. Check Publish settings."
-        );
-        return;
-      }
-
-      const rawRows = parseCSV(csvText);
-      console.log("4. Parsed Rows:", rawRows); // Debug
-      EXAM_DATA = rawRows.map((row) => {
-        // Now use the standardized "datePart" (YYYY-MM-DD)
-        let datePart = row.Date;
-        console.log(`Checking Row: ${row.Course} | Raw Date: '${datePart}'`);
-        const cleanStart = row.Start.trim().padStart(5, "0");
-        const cleanEnd = row.End.trim().padStart(5, "0");
-
-        const startStr = `${datePart}T${cleanStart}:00+07:00`;
-        const endStr = `${datePart}T${cleanEnd}:00+07:00`;
-
-        return {
-          dateTitle: new Date(startStr).toLocaleDateString("id-ID", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }),
-          start: new Date(startStr),
-          end: new Date(endStr),
-          courses: [
-            {
-              name: row.Course,
-              // Split lecturers by comma (e.g. "Dosen A, Dosen B")
-              // Option B: If you use Alt+Enter in Excel/Sheets
-              lecturers: row.Lecturers
-                ? row.Lecturers.split("\n").map((l) => l.trim())
-                : [],
-              time: `Jam (${row.Start}-${row.End})`,
-              link: row.Link,
-            },
-          ],
-        };
-      });
-
+      const response = await fetch(
+        "./Module/data.json?t=" + new Date().getTime()
+      );
+      if (!response.ok) throw new Error("Failed to load schedule data");
+      const rawData = await response.json();
+      EXAM_DATA = rawData.map((item) => ({
+        ...item,
+        start: new Date(item.start),
+        end: new Date(item.end),
+      }));
       renderActiveSchedules();
-      updateTime(); // Update immediately
-      setInterval(updateTime, 1000);
       setInterval(renderActiveSchedules, 1000);
     } catch (error) {
       console.error(error);
-      showErrorUI(error);
-    }
-  }
-
-  // function parseCSV(text) {
-  //   const lines = text.split("\n").filter((line) => line.trim() !== "");
-  //   const headers = lines[0].split(",").map((h) => h.trim()); // Get headers (Date, Start, etc)
-
-  //   return lines.slice(1).map((line) => {
-  //     const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Split by comma but ignore commas inside quotes
-  //     const entry = {};
-  //     headers.forEach((h, i) => {
-  //       // Clean quotes if Excel added them
-  //       let val = values[i] ? values[i].trim() : "";
-  //       val = val.replace(/^"|"$/g, "");
-  //       entry[h] = val;
-  //     });
-  //     return entry;
-  //   });
-  // }
-
-  function parseCSV(text) {
-    const arr = [];
-    let quote = false; // Track if we are inside quotes
-    let row = 0,
-      col = 0;
-
-    // Initialize first row/col
-    arr[row] = [];
-    arr[row][col] = "";
-
-    // Loop through every single character
-    for (let c = 0; c < text.length; c++) {
-      let cc = text[c]; // Current Character
-      let nc = text[c + 1]; // Next Character
-
-      // A. Handle Quotes (Toggle "Inside Quote" mode)
-      if (cc === '"') {
-        if (quote && nc === '"') {
-          // Double quote "" means a literal quote
-          arr[row][col] += cc;
-          c++; // Skip next char
-        } else {
-          quote = !quote;
-        }
-      }
-
-      // B. Handle Comma (Only if NOT inside quote)
-      else if (cc === "," && !quote) {
-        col++; // Move to next column
-        arr[row][col] = ""; // Init empty string
-      }
-
-      // C. Handle Newline (Only if NOT inside quote)
-      else if (cc === "\n" && !quote) {
-        row++; // Move to next row
-        col = 0; // Reset column
-        arr[row] = [];
-        arr[row][col] = "";
-      }
-
-      // D. Normal Character (or Newline inside quote)
-      else {
-        if (cc !== "\r") arr[row][col] += cc;
-      }
-    }
-
-    // Convert Array of Arrays -> Array of Objects
-    const headers = arr[0].map((h) => h.trim());
-
-    // Remove empty rows and map to headers
-    return arr
-      .slice(1)
-      .filter((r) => r.length > 1)
-      .map((values) => {
-        const obj = {};
-        headers.forEach((h, i) => {
-          // Remove extra quotes around the value if they exist
-          obj[h] = values[i] ? values[i].trim() : "";
-        });
-        return obj;
-      });
-  }
-
-  function showErrorUI(error) {
-    els.scheduleContainer.innerHTML = `
+      els.scheduleContainer.innerHTML = `
                 <div class="text-red-500 text-center p-6 border border-red-200 bg-red-50 rounded shadow-sm mx-4">
                     <h2 class="text-xl font-bold mb-2">⚠️ Gagal Memuat Jadwal</h2>
                     <p class="mb-4">Terjadi kesalahan pada file <code>data.json</code>.</p>
@@ -203,8 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         Coba buka <a href="checker.html" class="text-blue-600 underline hover:text-blue-800">checker.html</a> untuk memperbaiki error ini.
                     </p>
                 </div>`;
-    els.scheduleContainer.classList.remove("hidden");
-    els.placeholder.classList.add("hidden");
+      els.scheduleContainer.classList.remove("hidden");
+      els.placeholder.classList.add("hidden");
+    }
   }
 
   function toSebLink(url) {
@@ -213,19 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return absoluteUrl.replace(/^https?:/, "sebs:");
   }
 
-  function getServerTime() {
-    // Current Local Time + The Calculated Offset = Real Server Time
-    return new Date(Date.now() + serverTimeOffset);
-    // return new Date("2026-01-05T08:31:00+07:00");
-  }
-
   function updateTime() {
-    const now = getServerTime();
+    const now = new Date();
     els.clock.textContent = now.toLocaleTimeString("en-GB", {
       hour12: false,
       timeZone: "Asia/Jakarta",
     });
-
     const options = {
       weekday: "long",
       day: "numeric",
@@ -233,17 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
       year: "numeric",
       timeZone: "Asia/Jakarta",
     };
-
     els.date.textContent = new Intl.DateTimeFormat("id-ID", options).format(
       now
     );
-    const jakartaHour = parseInt(
-      now.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Jakarta",
-      })
-    );
+    const h = now.getHours();
     const greetings = [
       {
         max: 12,
@@ -279,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     ];
 
-    const greet = greetings.find((g) => jakartaHour < g.max);
+    const greet = greetings.find((g) => h < g.max);
 
     if (greet) {
       els.msgTitle.textContent = greet.title;
@@ -287,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const dashboard = document.getElementById("time-dashboard");
       const allClasses = [
         "bg-white",
-        "dark:bg-gray-800",
+        "dark:bg-gray-800", // Remove defaults
         "bg-yellow-100",
         "text-yellow-800",
         "border-yellow-200",
@@ -309,13 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastRenderedHTML = "";
   function renderActiveSchedules() {
     if (!EXAM_DATA.length) return;
-    const now = getServerTime();
+    const now = new Date();
     let activeCount = 0;
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
       if (now >= schedule.start && now < schedule.end) {
-      // if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(
@@ -419,5 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
     }
   });
+
+  updateTime();
+  setInterval(updateTime, 1000);
   initData();
 });

@@ -246,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getServerTime() {
     // Current Local Time + The Calculated Offset = Real Server Time
-    // return new Date(Date.now() + serverTimeOffset);
-    return new Date("2026-01-05T08:31:00+07:00");
+    return new Date(Date.now() + serverTimeOffset);
+    // return new Date("2026-01-05T08:31:00+07:00");
   }
 
   function updateTime() {

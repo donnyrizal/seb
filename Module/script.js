@@ -71,26 +71,57 @@ document.addEventListener("DOMContentLoaded", () => {
         // Now use the standardized "datePart" (YYYY-MM-DD)
         let datePart = row.Date;
         console.log(`Checking Row: ${row.Course} | Raw Date: '${datePart}'`);
+
+        if (datePart.includes("/")) {
+          const parts = datePart.split("/");
+          if (parts.length === 3) {
+             // Assumes format: DD/MM/YYYY
+             const day = parts[0].padStart(2, "0");
+             const month = parts[1].padStart(2, "0");
+             const year = parts[2];
+             datePart = `${year}-${month}-${day}`;
+          }
+        } 
+        
+        // 3. Fix "Comma" Dates if necessary
+        else if (datePart.includes(",")) {
+            const parts = datePart.split(",");
+            if (parts.length === 3) {
+                 const day = parts[0].padStart(2, "0");
+                 const month = parts[1].padStart(2, "0");
+                 const year = parts[2];
+                 datePart = `${year}-${month}-${day}`;
+            }
+        }
+
         const cleanStart = row.Start.trim().padStart(5, "0");
         const cleanEnd = row.End.trim().padStart(5, "0");
 
         const startStr = `${datePart}T${cleanStart}:00+07:00`;
         const endStr = `${datePart}T${cleanEnd}:00+07:00`;
 
+        const startDate = new Date(startStr);
+        const endDate = new Date(endStr);
+        
+        // 5. Final Safety Check
+        if (isNaN(startDate.getTime())) {
+            console.error(`🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`);
+        }
+
         return {
-          dateTitle: new Date(startStr).toLocaleDateString("id-ID", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }),
-          start: new Date(startStr),
-          end: new Date(endStr),
+          dateTitle: isNaN(startDate.getTime()) 
+            ? "⚠️ Invalid Date Detected" 
+            : startDate.toLocaleDateString("id-ID", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }),
+          start: startDate,
+          end: endDate,
           courses: [
             {
               name: row.Course,
-              // Split lecturers by comma (e.g. "Dosen A, Dosen B")
-              // Option B: If you use Alt+Enter in Excel/Sheets
               lecturers: row.Lecturers
                 ? row.Lecturers.split("\n").map((l) => l.trim())
                 : [],
@@ -215,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getServerTime() {
     // Current Local Time + The Calculated Offset = Real Server Time
-    return new Date(Date.now() + serverTimeOffset);
-    // return new Date("2026-01-05T08:31:00+07:00");
+    // return new Date(Date.now() + serverTimeOffset);
+    return new Date("2026-01-05T08:31:00+07:00");
   }
 
   function updateTime() {

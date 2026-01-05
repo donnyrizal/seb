@@ -320,8 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      // if (now >= schedule.start && now < schedule.end) {
-        if (true) {
+      if (now >= schedule.start && now < schedule.end) {
+        // if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(

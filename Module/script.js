@@ -56,8 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // GSheet
       const csvText = await response.text();
-      console.log("3. RAW CSV Data:\n", csvText); // ⭐ CRITICAL:
-      // Check if Google sent us an HTML error page instead of CSV
+      console.log("3. RAW CSV Data:\n", csvText);
       if (csvText.includes("<!DOCTYPE html>")) {
         console.error(
           "🚨 ERROR: Google returned a webpage, not CSV. Check Publish settings."
@@ -66,32 +65,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const rawRows = parseCSV(csvText);
-      console.log("4. Parsed Rows:", rawRows); // Debug
+      console.log("4. Parsed Rows:", rawRows);
       EXAM_DATA = rawRows.map((row) => {
-        // Now use the standardized "datePart" (YYYY-MM-DD)
         let datePart = row.Date;
+        let duration = row["Waktu Ujian"];
         console.log(`Checking Row: ${row.Course} | Raw Date: '${datePart}'`);
 
         if (datePart.includes("/")) {
           const parts = datePart.split("/");
           if (parts.length === 3) {
-             // Assumes format: DD/MM/YYYY
-             const day = parts[0].padStart(2, "0");
-             const month = parts[1].padStart(2, "0");
-             const year = parts[2];
-             datePart = `${year}-${month}-${day}`;
+            const day = parts[0].padStart(2, "0");
+            const month = parts[1].padStart(2, "0");
+            const year = parts[2];
+            datePart = `${year}-${month}-${day}`;
           }
-        } 
-        
-        // 3. Fix "Comma" Dates if necessary
-        else if (datePart.includes(",")) {
-            const parts = datePart.split(",");
-            if (parts.length === 3) {
-                 const day = parts[0].padStart(2, "0");
-                 const month = parts[1].padStart(2, "0");
-                 const year = parts[2];
-                 datePart = `${year}-${month}-${day}`;
-            }
+        } else if (datePart.includes(",")) {
+          const parts = datePart.split(",");
+          if (parts.length === 3) {
+            const day = parts[0].padStart(2, "0");
+            const month = parts[1].padStart(2, "0");
+            const year = parts[2];
+            datePart = `${year}-${month}-${day}`;
+          }
         }
 
         const cleanStart = row.Start.trim().padStart(5, "0");
@@ -102,15 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const startDate = new Date(startStr);
         const endDate = new Date(endStr);
-        
-        // 5. Final Safety Check
+
         if (isNaN(startDate.getTime())) {
-            console.error(`🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`);
+          console.error(
+            `🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`
+          );
         }
 
         return {
-          dateTitle: isNaN(startDate.getTime()) 
-            ? "⚠️ Invalid Date Detected" 
+          dateTitle: isNaN(startDate.getTime())
+            ? "⚠️ Invalid Date Detected"
             : startDate.toLocaleDateString("id-ID", {
                 weekday: "long",
                 year: "numeric",
@@ -125,15 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
               lecturers: row.Lecturers
                 ? row.Lecturers.split("\n").map((l) => l.trim())
                 : [],
-              time: `Jam (${row.Start}-${row.End})`,
+              time: `${row.Start}-${row.End} WIB (${duration})`,
               link: row.Link,
+              method: row.Method,
             },
           ],
         };
       });
 
       renderActiveSchedules();
-      updateTime(); // Update immediately
+      updateTime();
       setInterval(updateTime, 1000);
       setInterval(renderActiveSchedules, 1000);
     } catch (error) {
@@ -161,61 +158,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function parseCSV(text) {
     const arr = [];
-    let quote = false; // Track if we are inside quotes
+    let quote = false;
     let row = 0,
       col = 0;
-
-    // Initialize first row/col
     arr[row] = [];
     arr[row][col] = "";
-
-    // Loop through every single character
     for (let c = 0; c < text.length; c++) {
-      let cc = text[c]; // Current Character
-      let nc = text[c + 1]; // Next Character
-
-      // A. Handle Quotes (Toggle "Inside Quote" mode)
+      let cc = text[c];
+      let nc = text[c + 1];
       if (cc === '"') {
         if (quote && nc === '"') {
-          // Double quote "" means a literal quote
           arr[row][col] += cc;
-          c++; // Skip next char
+          c++;
         } else {
           quote = !quote;
         }
-      }
-
-      // B. Handle Comma (Only if NOT inside quote)
-      else if (cc === "," && !quote) {
-        col++; // Move to next column
-        arr[row][col] = ""; // Init empty string
-      }
-
-      // C. Handle Newline (Only if NOT inside quote)
-      else if (cc === "\n" && !quote) {
-        row++; // Move to next row
-        col = 0; // Reset column
+      } else if (cc === "," && !quote) {
+        col++;
+        arr[row][col] = "";
+      } else if (cc === "\n" && !quote) {
+        row++;
+        col = 0;
         arr[row] = [];
         arr[row][col] = "";
-      }
-
-      // D. Normal Character (or Newline inside quote)
-      else {
+      } else {
         if (cc !== "\r") arr[row][col] += cc;
       }
     }
-
-    // Convert Array of Arrays -> Array of Objects
     const headers = arr[0].map((h) => h.trim());
-
-    // Remove empty rows and map to headers
     return arr
       .slice(1)
       .filter((r) => r.length > 1)
       .map((values) => {
         const obj = {};
         headers.forEach((h, i) => {
-          // Remove extra quotes around the value if they exist
           obj[h] = values[i] ? values[i].trim() : "";
         });
         return obj;
@@ -245,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getServerTime() {
-    // Current Local Time + The Calculated Offset = Real Server Time
     return new Date(Date.now() + serverTimeOffset);
     // return new Date("2026-01-05T08:31:00+07:00");
   }
@@ -345,8 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      if (now >= schedule.start && now < schedule.end) {
-      // if (true) {
+      // if (now >= schedule.start && now < schedule.end) {
+        if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(
@@ -373,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </ol>
 </td>
                         <td>${course.time}</td>
-                        <td>Online via <b>SEB (Closedbook)</b></td>
+                        <td>Online via <b>${course.method} (Closedbook)</b></td>
                     </tr>
                 `
           )

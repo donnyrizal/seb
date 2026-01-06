@@ -91,13 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cleanStart = row.Start.trim().padStart(5, "0");
         const cleanEnd = row.End.trim().padStart(5, "0");
-
         const startStr = `${datePart}T${cleanStart}:00+07:00`;
         const endStr = `${datePart}T${cleanEnd}:00+07:00`;
-
         const startDate = new Date(startStr);
         const endDate = new Date(endStr);
+        const originalLink = row.Link || "";
+        const lowerLink = originalLink.toLowerCase();
+        let finalMethod = "SEB";                 
+        let finalLink = toSebLink(originalLink); 
 
+        if (lowerLink.includes("myujian")) {
+            finalMethod = "MyUjian";
+            finalLink = "https://myujian.ums.ac.id";
+        } 
+        else if (lowerLink.includes("spada")) {
+            finalMethod = "SPADA";
+            finalLink = "https://spada12.ums.ac.id"; 
+        }
+        
         if (isNaN(startDate.getTime())) {
           console.error(
             `🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`
@@ -121,9 +132,9 @@ document.addEventListener("DOMContentLoaded", () => {
               lecturers: row.Lecturers
                 ? row.Lecturers.split("\n").map((l) => l.trim())
                 : [],
-              time: `${row.Start}-${row.End} WIB (${duration})`,
-              link: row.Link,
-              method: row.Method,
+              time: `${cleanStart}-${cleanEnd} WIB (${duration || '90 menit'})`,
+              link: finalLink,
+              method: finalMethod, 
             },
           ],
         };
@@ -320,12 +331,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      const fiveMinutesMillis = 5 * 60 * 1000; 
+      const fiveMinutesMillis = 5 * 60 * 1000;
       const earlyStart = new Date(schedule.start.getTime() - fiveMinutesMillis);
       const lateFinish = new Date(schedule.end.getTime() + fiveMinutesMillis);
-      
+
       if (now >= earlyStart && now < lateFinish) {
-        // if (true) {
+      // if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(
@@ -351,7 +362,12 @@ document.addEventListener("DOMContentLoaded", () => {
     </ol>
 </td>
                         <td>${course.time}</td>
-                        <td>Online via <b>${course.method} (Closedbook)</b></td>
+                        <td>Online via <b>
+                             <a href="${course.link}" target="_blank" class="hover:underline text-blue-600 dark:text-blue-400">
+                               ${course.method} (Closedbook)
+                             </a>
+                           </b>
+                           </td>
                     </tr>
                 `
           )

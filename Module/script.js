@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
               lecturers: row.Lecturers
                 ? row.Lecturers.split("\n").map((l) => l.trim())
                 : [],
-              time: `${cleanStart}-${cleanEnd} WIB (${duration || '90 menit'})`,
+              time: `${cleanStart}-${cleanEnd} WIB (${duration})`,
               link: finalLink,
               method: finalMethod, 
             },
@@ -335,8 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const earlyStart = new Date(schedule.start.getTime() - fiveMinutesMillis);
       const lateFinish = new Date(schedule.end.getTime() + fiveMinutesMillis);
 
-      if (now >= earlyStart && now < lateFinish) {
-      // if (true) {
+      // if (now >= earlyStart && now < lateFinish) {
+      if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(

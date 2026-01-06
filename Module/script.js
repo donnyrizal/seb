@@ -320,7 +320,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      if (now >= schedule.start && now < schedule.end) {
+      const fiveMinutesMillis = 4 * 60 * 1000; 
+      const earlyStart = new Date(schedule.start.getTime() - fiveMinutesMillis);
+      
+      if (now >= earlyStart && now < schedule.end) {
         // if (true) {
         activeCount++;
         const rows = schedule.courses

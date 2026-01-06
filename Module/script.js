@@ -320,10 +320,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let htmlContent = "";
 
     EXAM_DATA.forEach((schedule) => {
-      const fiveMinutesMillis = 4 * 60 * 1000; 
+      const fiveMinutesMillis = 5 * 60 * 1000; 
       const earlyStart = new Date(schedule.start.getTime() - fiveMinutesMillis);
+      const lateFinish = new Date(schedule.end.getTime() + fiveMinutesMillis);
       
-      if (now >= earlyStart && now < schedule.end) {
+      if (now >= earlyStart && now < lateFinish) {
         // if (true) {
         activeCount++;
         const rows = schedule.courses
@@ -337,12 +338,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             <a href="${
                               course.link
                             }" class="inline-flex items-center justify-center p-1 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="3"
-                                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" />
+</svg>
+
+
                             </a>
                         </td>
                         <td>

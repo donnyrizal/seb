@@ -53,39 +53,49 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class', 
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
               brand: {
-                light: '#9d4dff',
-                DEFAULT: '#7f00ff',
-                dark: '#6002ee',
-              }
-            }
-          }
-        }
-      }
+                light: "#9d4dff",
+                DEFAULT: "#7f00ff",
+                dark: "#6002ee",
+              },
+            },
+          },
+        },
+      };
     </script>
     <style>
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
+
       .sebnavbar-background-dark {
         background-color: #7f00ff !important;
       }
-            a.badge-link, a.badge-link:hover, a.badge-link:focus {
+
+      a.badge-link,
+      a.badge-link:hover,
+      a.badge-link:focus {
         text-decoration: none !important;
       }
+
       .loader {
         border-top-color: #7f00ff;
         -webkit-animation: spinner 1.5s linear infinite;
         animation: spinner 1.5s linear infinite;
       }
-      
+
       @keyframes spinner {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
     <style>
@@ -112,51 +122,75 @@
     </style>
   </head>
 
-  <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-
-    <button id="theme-toggle" type="button" class="fixed bottom-6 left-6 z-50 p-3 rounded-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-xl hover:scale-110 transition-all border border-gray-200 dark:border-gray-600">
-      <svg id="theme-toggle-dark-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+  <body
+    class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300"
+  >
+    <button
+      id="theme-toggle"
+      type="button"
+      class="fixed bottom-6 left-6 z-50 p-3 rounded-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-xl hover:scale-110 transition-all border border-gray-200 dark:border-gray-600"
+    >
+      <svg
+        id="theme-toggle-dark-icon"
+        class="w-6 h-6"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+        ></path>
       </svg>
-      <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"></path>
+      <svg
+        id="theme-toggle-light-icon"
+        class="w-6 h-6 hidden"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"
+        ></path>
       </svg>
     </button>
 
- <nav class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top">
-  <div class="container">
-    
-    <div class="navbar-header pull-left">
-      <a href="../index.html" class="navbar-brand" style="padding-top: 10px;">
-        <img
-          class="sebbrandimg"
-          src="../logo-sarjana-psikologi (1).svg"
-          alt="SEB Logo"
-          width="150"
-        />
-      </a>
-    </div>
-
-    <ul class="navbar-header nav pull-right">
-      <li>
-          <a href="index.html" class="navbar-brand">
-             <img
-          class="sebbrandimg"
-          src="../upcomingg.svg"
-          alt="upcoming"
-          width="150"
-        />
+    <nav
+      class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top"
+    >
+      <div class="container">
+        <div class="navbar-header pull-left">
+          <a
+            href="../index.html"
+            class="navbar-brand"
+            style="padding-top: 10px"
+          >
+            <img
+              class="sebbrandimg"
+              src="../logo-sarjana-psikologi (1).svg"
+              alt="SEB Logo"
+              width="150"
+            />
           </a>
-      </li>
-    </ul>
+        </div>
 
-  </div>
-</nav>
+        <ul class="navbar-header nav pull-right">
+          <li>
+            <a href="index.html" class="navbar-brand">
+              <img
+                class="sebbrandimg"
+                src="../upcomingg.svg"
+                alt="upcoming"
+                width="150"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <div class="container mx-auto px-1 py-3 mt-16 max-w-7xl min-h-screen">
-      
       <div class="text-center mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+        <h1
+          class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
+        >
           Jadwal Mendatang
         </h1>
         <p class="text-gray-600 dark:text-gray-400 text-lg">
@@ -164,27 +198,39 @@
         </p>
       </div>
 
-      <div id="loading-spinner" class="flex flex-col items-center justify-center py-20">
-        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+      <div
+        id="loading-spinner"
+        class="flex flex-col items-center justify-center py-20"
+      >
+        <div
+          class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"
+        ></div>
         <p class="text-gray-500 dark:text-gray-400">Menyinkronkan Data...</p>
       </div>
 
-      <div id="upcoming-container" class="space-y-8 hidden">
-        </div>
+      <div id="upcoming-container" class="space-y-8 hidden"></div>
 
-      <div id="empty-state" class="hidden text-center py-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+      <div
+        id="empty-state"
+        class="hidden text-center py-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+      >
         <div class="text-6xl mb-4">🎉</div>
-        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Tidak ada jadwal mendatang</h3>
-        <p class="text-gray-500 dark:text-gray-400 mt-2">Semua ujian telah selesai atau belum dijadwalkan.</p>
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+          Tidak ada jadwal mendatang
+        </h3>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">
+          Semua ujian telah selesai atau belum dijadwalkan.
+        </p>
       </div>
-
     </div>
 
-    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12 py-8">
-        <div class="text-center text-gray-500 dark:text-gray-400 text-sm">
-            <p>Made with 💓 Donny</p>
-            <p>&copy; 2025 Sarjana Psikologi UMS</p>
-        </div>
+    <footer
+      class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12 py-8"
+    >
+      <div class="text-center text-gray-500 dark:text-gray-400 text-sm">
+        <p>Made with 💓 Donny</p>
+        <p>&copy; 2025 Sarjana Psikologi UMS</p>
+      </div>
     </footer>
     <script src="./script.js"></script>
   </body>

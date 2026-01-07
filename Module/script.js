@@ -115,6 +115,23 @@ document.addEventListener("DOMContentLoaded", () => {
           );
         }
 
+         let lecturersList = [];
+        if (row.Lecturers) {
+            const rawLec = row.Lecturers.trim();
+            if (rawLec.match(/\r?\n/)) {
+                lecturersList = rawLec.split(/\r?\n/);
+            } 
+            else if (rawLec.includes('", "')) {
+                lecturersList = rawLec.split('", "');
+            }
+            else {
+                lecturersList = [rawLec];
+            }
+            lecturersList = lecturersList.map(name => {
+                return name.trim().replace(/^["']+|["']+$/g, "");
+            });
+        }
+
         return {
           dateTitle: isNaN(startDate.getTime())
             ? "⚠️ Invalid Date Detected"
@@ -129,9 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
           courses: [
             {
               name: row.Course,
-              lecturers: row.Lecturers
-                ? row.Lecturers.split("\n").map((l) => l.trim())
-                : [],
+              lecturers: lecturersList,
               time: `${cleanStart}-${cleanEnd} WIB (${duration})`,
               link: finalLink,
               method: finalMethod, 

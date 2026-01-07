@@ -335,8 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const earlyStart = new Date(schedule.start.getTime() - fiveMinutesMillis);
       const lateFinish = new Date(schedule.end.getTime() + fiveMinutesMillis);
 
-      // if (now >= earlyStart && now < lateFinish) {
-      if (true) {
+      if (now >= earlyStart && now < lateFinish) {
+      // if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(

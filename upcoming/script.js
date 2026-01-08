@@ -28,21 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
           const endStr = `${datePart}T${cleanEnd}:00+07:00`;
 
           let lecturersList = [];
-        if (row.Lecturers) {
+          if (row.Lecturers) {
             const rawLec = row.Lecturers.trim();
             if (rawLec.match(/\r?\n/)) {
-                lecturersList = rawLec.split(/\r?\n/);
-            } 
-            else if (rawLec.includes('", "')) {
-                lecturersList = rawLec.split('", "');
+              lecturersList = rawLec.split(/\r?\n/);
+            } else if (rawLec.includes('", "')) {
+              lecturersList = rawLec.split('", "');
+            } else {
+              lecturersList = [rawLec];
             }
-            else {
-                lecturersList = [rawLec];
-            }
-            lecturersList = lecturersList.map(name => {
-                return name.trim().replace(/^["']+|["']+$/g, "");
+            lecturersList = lecturersList.map((name) => {
+              return name.trim().replace(/^["']+|["']+$/g, "");
             });
-        }
+          }
 
           return {
             dateRaw: datePart,
@@ -69,17 +67,21 @@ document.addEventListener("DOMContentLoaded", () => {
       els.loader.innerHTML = `<p class="text-red-500">Gagal memuat data: ${error.message}</p>`;
     }
   }
+
   function renderUpcoming() {
     const now = new Date();
-    const upcomingEvents = EXAM_DATA.filter((item) => item.end > now);
-    upcomingEvents.sort((a, b) => a.start - b.start);
 
-    if (upcomingEvents.length === 0) {
+    // MODIFIED: Do not filter out past events.
+    // Instead, sort all events chronologically.
+    const allEvents = [...EXAM_DATA];
+    allEvents.sort((a, b) => a.start - b.start);
+
+    if (allEvents.length === 0) {
       els.empty.classList.remove("hidden");
       return;
     }
 
-    const grouped = upcomingEvents.reduce((acc, item) => {
+    const grouped = allEvents.reduce((acc, item) => {
       (acc[item.dateTitle] = acc[item.dateTitle] || []).push(item);
       return acc;
     }, {});
@@ -90,73 +92,104 @@ document.addEventListener("DOMContentLoaded", () => {
       const items = grouped[dateKey];
 
       const cardsHtml = items
-        .map(
-          (item) => `
-            <div class="course-card relative flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mb-4 gap-6 shadow-sm">
-                
-                <div class="md:w-1/4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700 pb-4 md:pb-0 md:pr-4">
-                    <span class="text-2xl font-bold text-gray-800 dark:text-white">
-                        ${formatTime(item.start)}
-                    </span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">
-                        s.d. ${formatTime(item.end)} WIB
-                    </span>
-                    <span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 w-fit">
-                        ${item.duration}
-                    </span>
-                </div>
+        .map((item) => {
+          // MODIFIED: Check if event is finished
+          const isFinished = item.end < now;
 
-                <div class="md:w-3/4 flex flex-col justify-center">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">
-                            ${item.course}
-                        </h3>
-                        
-                        <a href="${item.method.url}" 
-                           target="_blank"
-                           class="badge-link shrink-0 inline-flex items-center px-3 py-1 text-xs font-bold rounded-full hover:scale-105 transition-transform shadow-sm hover:shadow-md ${getMethodColor(
-                             item.method.name
-                           )}">
-                            ${item.method.name} 
-                            <svg class="w-3 h-3 ml-1.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
-                    </div>
-                    
-                    <div class="mt-2">
-                        <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Pengampu</p>
-                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                            ${item.lecturers
-                              .map(
-                                (l) =>
-                                  `<li class="flex items-center"><svg class="w-3 h-3 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>${l}</li>`
-                              )
-                              .join("")}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-          `
-        )
+          // Styles for finished vs upcoming
+          const cardClasses = isFinished
+            ? "card-finished border-gray-100 dark:border-gray-800"
+            : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700";
+
+          const titleDecoration = isFinished
+            ? "line-through text-gray-500 dark:text-gray-500"
+            : "text-gray-900 dark:text-white";
+
+          const timeColor = isFinished
+            ? "text-gray-400"
+            : "text-gray-800 dark:text-white";
+
+          const badgeStatus = isFinished
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 ml-2">Sudah Selesai</span>`
+            : ``;
+
+          // Disable button visual if finished
+          const btnOpacity = isFinished
+            ? "opacity-50 grayscale cursor-not-allowed"
+            : "hover:scale-105 hover:shadow-md";
+
+          return `
+                  <div class="course-card relative flex flex-col md:flex-row rounded-xl p-6 border mb-4 gap-6 shadow-sm ${cardClasses} transition-all">
+                      
+                      <div class="md:w-1/4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700 pb-4 md:pb-0 md:pr-4">
+                          <span class="text-2xl font-bold ${timeColor}">
+                              ${formatTime(item.start)}
+                          </span>
+                          <span class="text-sm text-gray-500 dark:text-gray-400">
+                              s.d. ${formatTime(item.end)} WIB
+                          </span>
+                          <span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 w-fit ${
+                            isFinished ? "opacity-50" : ""
+                          }">
+                              ${item.duration}
+                          </span>
+                      </div>
+
+                      <div class="md:w-3/4 flex flex-col justify-center">
+                          <div class="flex justify-between items-start mb-2">
+                              <div class="flex-1">
+                                <h3 class="text-xl font-bold leading-tight ${titleDecoration}">
+                                    ${item.course}${badgeStatus}
+                                </h3>
+                                
+                              </div>
+                              
+                              <a href="${item.method.url}" 
+                                 target="_blank"
+                                 class="badge-link shrink-0 inline-flex items-center px-3 py-1 text-xs font-bold rounded-full transition-transform shadow-sm ${btnOpacity} ${getMethodColor(
+            item.method.name
+          )}">
+                                  ${item.method.name} 
+                                  <svg class="w-3 h-3 ml-1.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                              </a>
+                          </div>
+                          
+                          <div class="mt-2 ${isFinished ? "opacity-60" : ""}">
+                              <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Pengampu</p>
+                              <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                  ${item.lecturers
+                                    .map(
+                                      (l) =>
+                                        `<li class="flex items-center"><svg class="w-3 h-3 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>${l}</li>`
+                                    )
+                                    .join("")}
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                `;
+        })
         .join("");
 
       htmlContent += `
-            <div class="date-group">
-                <div class="timeline-date-sticky flex items-center justify-between">
-                    <h2 class="text-lg md:text-xl font-bold text-indigo-600 dark:text-indigo-400 bg-white/50 dark:bg-gray-900/50 px-2 rounded">
-                        ${dateKey}
-                    </h2>
-                    <span class="text-xs font-medium text-gray-400 px-2 border border-gray-200 dark:border-gray-700 rounded-full">
-                        ${items.length} Matkul
-                    </span>
-                </div>
-                ${cardsHtml}
-            </div>
-          `;
+                  <div class="date-group">
+                      <div class="timeline-date-sticky flex items-center justify-between">
+                          <h2 class="text-lg md:text-xl font-bold text-indigo-600 dark:text-indigo-400 bg-white/50 dark:bg-gray-900/50 px-2 rounded">
+                              ${dateKey}
+                          </h2>
+                          <span class="text-xs font-medium text-gray-400 px-2 border border-gray-200 dark:border-gray-700 rounded-full">
+                              ${items.length} Matkul
+                          </span>
+                      </div>
+                      ${cardsHtml}
+                  </div>
+                `;
     });
 
     els.container.innerHTML = htmlContent;
     els.container.classList.remove("hidden");
   }
+
   function cleanDate(datePart) {
     if (datePart && datePart.includes("/")) {
       const parts = datePart.split("/");

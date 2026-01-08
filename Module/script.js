@@ -97,39 +97,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const endDate = new Date(endStr);
         const originalLink = row.Link || "";
         const lowerLink = originalLink.toLowerCase();
-        let finalMethod = "SEB";                 
-        let finalLink = toSebLink(originalLink); 
+        let finalMethod = "SEB";
+        let finalLink = toSebLink(originalLink);
 
         if (lowerLink.includes("myujian")) {
-            finalMethod = "MyUjian";
-            finalLink = "https://myujian.ums.ac.id";
-        } 
-        else if (lowerLink.includes("spada")) {
-            finalMethod = "SPADA";
-            finalLink = "https://spada12.ums.ac.id"; 
+          finalMethod = "MyUjian";
+          finalLink = "https://myujian.ums.ac.id";
+        } else if (lowerLink.includes("spada")) {
+          finalMethod = "SPADA";
+          finalLink = "https://spada12.ums.ac.id";
         }
-        
+
         if (isNaN(startDate.getTime())) {
           console.error(
             `🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`
           );
         }
 
-         let lecturersList = [];
+        let lecturersList = [];
         if (row.Lecturers) {
-            const rawLec = row.Lecturers.trim();
-            if (rawLec.match(/\r?\n/)) {
-                lecturersList = rawLec.split(/\r?\n/);
-            } 
-            else if (rawLec.includes('", "')) {
-                lecturersList = rawLec.split('", "');
-            }
-            else {
-                lecturersList = [rawLec];
-            }
-            lecturersList = lecturersList.map(name => {
-                return name.trim().replace(/^["']+|["']+$/g, "");
-            });
+          const rawLec = row.Lecturers.trim();
+          if (rawLec.match(/\r?\n/)) {
+            lecturersList = rawLec.split(/\r?\n/);
+          } else if (rawLec.includes('", "')) {
+            lecturersList = rawLec.split('", "');
+          } else {
+            lecturersList = [rawLec];
+          }
+          lecturersList = lecturersList.map((name) => {
+            return name.trim().replace(/^["']+|["']+$/g, "");
+          });
         }
 
         return {
@@ -149,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
               lecturers: lecturersList,
               time: `${cleanStart}-${cleanEnd} WIB (${duration})`,
               link: finalLink,
-              method: finalMethod, 
+              method: finalMethod,
             },
           ],
         };
@@ -157,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       renderActiveSchedules();
       updateTime();
+      setGreeting();
       setInterval(updateTime, 1000);
       setInterval(renderActiveSchedules, 1000);
     } catch (error) {
@@ -253,11 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateTime() {
     const now = getServerTime();
+
+    // 1. Update Clock
     els.clock.textContent = now.toLocaleTimeString("en-GB", {
       hour12: false,
       timeZone: "Asia/Jakarta",
     });
 
+    // 2. Update Date
     const options = {
       weekday: "long",
       day: "numeric",
@@ -265,10 +266,14 @@ document.addEventListener("DOMContentLoaded", () => {
       year: "numeric",
       timeZone: "Asia/Jakarta",
     };
-
     els.date.textContent = new Intl.DateTimeFormat("id-ID", options).format(
       now
     );
+  }
+
+  function setGreeting() {
+    // Calculate the hour just for the greeting logic
+    const now = getServerTime();
     const jakartaHour = parseInt(
       now.toLocaleTimeString("en-GB", {
         hour: "2-digit",
@@ -276,11 +281,73 @@ document.addEventListener("DOMContentLoaded", () => {
         timeZone: "Asia/Jakarta",
       })
     );
+
+    // --- YOUR QUOTE ARRAYS (Moved here) ---
+    const morningQuotes = [
+      "Ngopi Ndisik Ngab ☕",
+      "Awali hari dengan Bismillah ☀️",
+      "Hey Kevin! 🥒",
+      "Sarapan dulu, biar kuat menghadapi kenyataan 🍳",
+      "Kerja mulu, kaya kagak",
+      "Urip iku urup, jangan lupa sarapan sup 🍲",
+    ];
+
+    const noonQuotes = [
+      "Selesai ga selesai kumpulkan",
+      "Jare Pakdhe Jokowi, Kerja Kerja Kerja 🐂",
+      "Hidup gua emang ga enak, tapi ada mie ayam",
+      "Panas kenthang-kenthang, tetep semangat sayang 🥵",
+      "Ojo lali madhang 🍛",
+      "datang kerjakan lupakan",
+      "Mata ngantuk, perut lapar, dompet aman? 💸",
+      "Harta, Tahta, Tatjana",
+    ];
+
+    const eveningQuotes = [
+      "Wes wektune leyeh-leyeh 💤",
+      "Senja telah tiba, tugas belum reda 🌆",
+      "Info angkringan bolo? 🍢",
+      "Muliho, wes digoleki makmu",
+      "Yeah you are, the brightest star in my sky 🌟",
+      "Healing tipis-tipis sebelum besok nangis 🥲",
+    ];
+
+    const nightQuotes = [
+      "🌠 Only in the darkness can you see the stars ✨",
+      "Turu is the best therapy 😴",
+      "ingat skripsi ingat mantan",
+      "Overthinking Mode: ON 🧠",
+      "Matikan HP, Nyalakan Mimpi 🌌",
+      "Besok masih ada hari, istirahatlah 🛌",
+    ];
+
+    const psychQuotes = [
+      '"The good life is a process, not a state of being." - Carl Rogers',
+      '"He who has a why to live can bear almost any how." - Nietzsche',
+      '"Your vision will become clear only when you can look into your own heart." - Carl Jung',
+      "Without effort, your talent is nothing more than your unmet potential — Angela Duckworth, PhD",
+      "Mental health matters, take a break if you need to 💚",
+      "The worst temptation is instant gratification ― Jon Luvelli",
+      "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.― Marilyn Monroe",
+    ];
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function getMessage(timeSpecificArray) {
+      // 20% chance to show a smart quote
+      if (Math.random() < 0.2) {
+        return pickRandom(psychQuotes);
+      }
+      return pickRandom(timeSpecificArray);
+    }
+
     const greetings = [
       {
         max: 12,
         title: "Sugeng Enjang! ☀️",
-        body: "Ngopi Ndisik Ngab ☕",
+        body: getMessage(morningQuotes),
         bg: "bg-yellow-100",
         text: "text-yellow-800",
         border: "border-yellow-200",
@@ -288,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         max: 15,
         title: "Sugeng Siang! 🕶️",
-        body: "Jare Pakdhe Jokowi, Kerja Kerja Kerja 🐂",
+        body: getMessage(noonQuotes),
         bg: "bg-blue-100",
         text: "text-blue-800",
         border: "border-blue-200",
@@ -296,45 +363,51 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         max: 18,
         title: "Sugeng Sonten! 🌆",
-        body: "Wes wektune leyeh-leyeh 💤",
+        body: getMessage(eveningQuotes),
         bg: "bg-indigo-100",
         text: "text-indigo-800",
         border: "border-indigo-200",
       },
       {
         max: 24,
-        title: "😴 Have a Nice Dream! 🌙",
-        body: "🌠 Only in the darkness can you see the stars ✨",
+        title: "Have a Nice Dream! 🌙",
+        body: getMessage(nightQuotes),
         bg: "bg-gray-800",
         text: "text-gray-100",
         border: "border-gray-600",
       },
     ];
 
+    // Find the correct greeting object
     const greet = greetings.find((g) => jakartaHour < g.max);
 
     if (greet) {
       els.msgTitle.textContent = greet.title;
       els.msgBody.textContent = greet.body;
+
+      // Update Dashboard Colors
       const dashboard = document.getElementById("time-dashboard");
-      const allClasses = [
-        "bg-white",
-        "dark:bg-gray-800",
-        "bg-yellow-100",
-        "text-yellow-800",
-        "border-yellow-200",
-        "bg-blue-100",
-        "text-blue-800",
-        "border-blue-200",
-        "bg-indigo-100",
-        "text-indigo-800",
-        "border-indigo-200",
-        "bg-gray-800",
-        "text-gray-100",
-        "border-gray-600",
-      ];
-      dashboard.classList.remove(...allClasses);
-      dashboard.classList.add(greet.bg, greet.text, greet.border);
+      // Safety check in case dashboard element isn't found
+      if (dashboard) {
+        const allClasses = [
+          "bg-white",
+          "dark:bg-gray-800",
+          "bg-yellow-100",
+          "text-yellow-800",
+          "border-yellow-200",
+          "bg-blue-100",
+          "text-blue-800",
+          "border-blue-200",
+          "bg-indigo-100",
+          "text-indigo-800",
+          "border-indigo-200",
+          "bg-gray-800",
+          "text-gray-100",
+          "border-gray-600",
+        ];
+        dashboard.classList.remove(...allClasses);
+        dashboard.classList.add(greet.bg, greet.text, greet.border);
+      }
     }
   }
 
@@ -378,7 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </td>
                         <td>${course.time}</td>
                         <td>Online via <b>
-                             <a href="${course.link}" target="_blank" class="hover:underline text-blue-600 dark:text-blue-400">
+                             <a href="${
+                               course.link
+                             }" target="_blank" class="hover:underline text-blue-600 dark:text-blue-400">
                                ${course.method} (Closedbook)
                              </a>
                            </b>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="Dashboard Ujian Psikologi UMS" />
     <meta name="author" content="Donny" />
     <link
       rel="icon"
@@ -12,123 +12,59 @@
       href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
       sizes="32x32"
     />
-    <link
-      rel="shortcut icon"
-      href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
-    />
-    <meta name="apple-mobile-web-app-title" content="SEB" />
-    <meta name="application-name" content="SEB" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta http-equiv="refresh" content="3600" />
-    <title>Safe Exam Browser Landing Page Psikologi UMS</title>
-
-    <link
-      href="https://safeexambrowser.org/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://safeexambrowser.org/css/modern-business.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://safeexambrowser.org/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://safeexambrowser.org/css/docs.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://safeexambrowser.org/css/ekko-lightbox.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://safeexambrowser.org/css/basic.css"
-      rel="stylesheet"
-      type="text/css"
-      media="all"
-    />
-    <link rel="stylesheet" href="../Module/style.css" />
+    <title>Dashboard Ujian Psikologi UMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                light: "#9d4dff",
-                DEFAULT: "#7f00ff",
-                dark: "#6002ee",
-              },
-            },
-          },
-        },
-      };
-    </script>
+    <link rel="stylesheet" href="../Module/style.css" />
     <style>
+      html {
+        font-family: "Montserrat", sans-serif;
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
       }
 
-      .sebnavbar-background-dark {
-        background-color: #7f00ff !important;
-      }
-
-      a.badge-link,
-      a.badge-link:hover,
-      a.badge-link:focus {
-        text-decoration: none !important;
-      }
-
-      .loader {
-        border-top-color: #7f00ff;
-        -webkit-animation: spinner 1.5s linear infinite;
-        animation: spinner 1.5s linear infinite;
-      }
-
-      @keyframes spinner {
-        0% {
-          transform: rotate(0deg);
-        }
-
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-    <style>
-      .sebtable th {
-        background-color: #f8f9fa;
-      }
-
-      .night-mode .sebtable th {
-        background-color: #374151;
+      /* Dark Mode Specific Overrides */
+      body.night-mode ::selection {
+        background-color: #7f00ff;
         color: white;
       }
 
-      .night-mode .sebtable td {
-        color: #e5e7eb;
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      .night-mode .table-striped > tbody > tr:nth-of-type(odd) {
-        background-color: #374151;
+      .course-card {
+        animation: fadeIn 0.5s ease-out forwards;
       }
 
-      .night-mode .table-striped > tbody > tr:nth-of-type(even) {
-        background-color: #1f2937;
+      /* Hover effects for cards */
+      .group:hover .badge-link {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
     </style>
   </head>
 
   <body
-    class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300"
+    class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col"
   >
+    <!-- Theme Toggle -->
     <button
       id="theme-toggle"
       type="button"
       class="fixed bottom-6 left-6 z-50 p-3 rounded-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-xl hover:scale-110 transition-all border border-gray-200 dark:border-gray-600"
+      aria-label="Toggle Dark Mode"
     >
       <svg
         id="theme-toggle-dark-icon"
@@ -152,86 +88,109 @@
       </svg>
     </button>
 
+    <!-- Navbar -->
     <nav
-      class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top"
+      class="sebnavbar-background-dark fixed top-0 left-0 w-full z-50 shadow-md"
     >
-      <div class="container">
-        <div class="navbar-header pull-left">
-          <a
-            href="../index.html"
-            class="navbar-brand"
-            style="padding-top: 10px"
-          >
+      <div
+        class="container mx-auto px-4 flex justify-between items-center h-24"
+      >
+        <div class="flex items-center">
+          <a href="../index.html" class="block">
             <img
               class="sebbrandimg"
               src="../logo-sarjana-psikologi (1).svg"
               alt="SEB Logo"
-              width="150"
+              width="250"
             />
           </a>
         </div>
 
-        <ul class="navbar-header nav pull-right">
-          <li>
-            <a href="index.html" class="navbar-brand">
-              <img
-                class="sebbrandimg"
-                src="../upcomingg.svg"
-                alt="upcoming"
-                width="150"
-              />
-            </a>
-          </li>
-        </ul>
+        <div class="flex items-center">
+          <a href="index.html" class="block">
+            <img
+              class="sebbrandimg"
+              src="../upcomingg.svg"
+              alt="upcoming"
+              width="250"
+            />
+          </a>
+        </div>
       </div>
     </nav>
 
-    <div class="container mx-auto px-1 py-3 mt-16 max-w-7xl min-h-screen">
-      <div class="text-center mb-12">
-        <h1
-          class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
-        >
-          Jadwal Mendatang
-        </h1>
-        <p class="text-gray-600 dark:text-gray-400 text-lg">
-          Informasi waktu dan mata kuliah untuk ujian semester ini.
-        </p>
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 pt-28 max-w-5xl flex-grow">
+      <!-- Dashboard Header / Stats -->
+      <div
+        id="stats-container"
+        class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 hidden course-card"
+      >
+        <!-- Populated by JS -->
       </div>
 
+      <!-- Loading State -->
       <div
         id="loading-spinner"
         class="flex flex-col items-center justify-center py-20"
       >
         <div
-          class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"
+          class="animate-spin rounded-full border-4 border-t-4 border-brand h-12 w-12 mb-4 border-gray-200"
         ></div>
-        <p class="text-gray-500 dark:text-gray-400">Menyinkronkan Data...</p>
+        <p class="text-gray-500 dark:text-gray-400 font-medium">
+          Menyinkronkan Data...
+        </p>
       </div>
 
-      <div id="upcoming-container" class="space-y-8 hidden"></div>
+      <!-- UPCOMING SECTION -->
+      <div id="upcoming-wrapper" class="hidden">
+        <div class="flex items-center gap-3 mb-6">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+            Upcoming Schedule
+          </h2>
+          <div
+            class="h-1 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full"
+          ></div>
+        </div>
+        <div id="upcoming-container" class="space-y-6"></div>
+      </div>
 
+      <!-- EMPTY STATE (No Upcoming) -->
       <div
         id="empty-state"
-        class="hidden text-center py-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+        class="hidden text-center py-12 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-10"
       >
-        <div class="text-6xl mb-4">🎉</div>
+        <div class="text-5xl mb-4">🎉</div>
         <h3 class="text-xl font-bold text-gray-800 dark:text-white">
           Tidak ada jadwal mendatang
         </h3>
         <p class="text-gray-500 dark:text-gray-400 mt-2">
-          Semua ujian telah selesai atau belum dijadwalkan.
+          Selamat! Anda bisa beristirahat sejenak.
         </p>
+      </div>
+
+      <!-- HISTORY / DONE SECTION -->
+      <div id="history-wrapper" class="mt-16 hidden">
+        <div class="flex items-center gap-3 mb-6">
+          <h2 class="text-xl font-bold text-gray-500 dark:text-gray-400">
+            Riwayat Selesai
+          </h2>
+          <div class="h-px flex-1 bg-gray-200 dark:bg-gray-800"></div>
+        </div>
+        <div id="history-container" class="space-y-4"></div>
       </div>
     </div>
 
-    <footer
-      class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12 py-8"
-    >
-      <div class="text-center text-gray-500 dark:text-gray-400 text-sm">
+    <!-- Footer -->
+    <footer>
+      <div class="text-center">
         <p>Made with 💓 Donny</p>
-        <p>&copy; 2025 Sarjana Psikologi UMS</p>
+        <p>
+          Copyright &copy; 2025
+          <a href="https://psikologi.ums.ac.id">Sarjana Psikologi UMS</a>
+        </p>
       </div>
     </footer>
-    <script src="./script.js"></script>
   </body>
+  <script src="./script.js"></script>
 </html>

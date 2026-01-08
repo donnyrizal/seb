@@ -80,70 +80,49 @@
     <button
       id="theme-toggle"
       type="button"
-      class="fixed bottom-4 left-4 z-50 p-3 rounded-full bg-gray-200 text-gray-900 shadow-lg hover:scale-110 transition-all duration-300"
+      class="fixed bottom-6 left-6 z-50 p-4 rounded-full bg-gray-200 text-gray-900 shadow-xl hover:scale-110 transition-all duration-300"
     >
-      <svg
-        id="theme-toggle-dark-icon"
-        class="w-6 h-6"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-        ></path>
+      <svg id="theme-toggle-dark-icon" class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
       </svg>
-      <svg
-        id="theme-toggle-light-icon"
-        class="w-6 h-6 hidden"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"
-        ></path>
+      <svg id="theme-toggle-light-icon" class="w-10 h-10 hidden" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"></path>
       </svg>
     </button>
 
     <nav
       class="navbar navbar-default sebnavbar-background-dark navbar-fixed-top"
+      style="border: none !important; box-shadow: none !important;"
     >
       <div class="container">
-        <div class="navbar-header pull-left">
-          <a
-            href="./index.html"
-            class="navbar-brand"
-            style="padding-top: 10px"
-          >
-            <img
-              class="sebbrandimg"
-              src="./logo-sarjana-psikologi (1).svg"
-              alt="SEB Logo"
-              width="150"
-            />
-          </a>
-        </div>
+        <div class="flex justify-between items-center w-full py-2" style="border-bottom: 1px solid rgba(255,255,255,0.3);">
+            
+            <a href="./index.html" class="flex items-center">
+              <img
+                class="sebbrandimg"
+                src="./logo-sarjana-psikologi (1).svg"
+                alt="SEB Logo"
+                width="250"
+              />
+            </a>
 
-        <ul class="navbar-header nav pull-right">
-          <li>
-            <a href="./upcoming/index.html" class="navbar-brand">
+            <a href="./upcoming/index.html" class="flex items-center">
               <img
                 class="sebbrandimg"
                 src="./upcomingg.svg"
                 alt="upcoming"
-                width="150"
+                width="250"
               />
             </a>
-          </li>
-        </ul>
+            
+        </div>
       </div>
     </nav>
-    <br />
-
-    <div class="container bs-docs-container">
-      <div class="container">
+    <hr class="my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400" />
+      
         <div class="row">
           <div class="col-lg-12">
-            <h1 class="text-center text-2xl/7 font-bold sm:text-3xl">
+            <h1 class="text-center text-3xl font-bold sm:text-4xl">
               Ujian Akhir Semester<br /><small>Gasal 2025-2026</small>
             </h1>
           </div>
@@ -151,115 +130,78 @@
 
         <div
           id="time-dashboard"
-          class="w-full p-6 rounded-lg shadow-lg border text-center my-8 transition-colors duration-500"
+          class="w-full p-10 rounded-lg shadow-lg border text-center my-10 transition-colors duration-500"
         >
-          <div id="affirmative-message" class="mb-4">
-            <h2 class="text-2xl font-semibold" id="msg-title">
+          <div id="affirmative-message" class="mb-6">
+            <h2 class="text-4xl font-semibold mb-2" id="msg-title">
               Memuat pesan...
             </h2>
-            <p id="msg-body" class="opacity-90"></p>
+            <blockquote class="relative"><p id="msg-body" class="text-2xl opacity-90"></p></blockquote>
           </div>
-          <div class="text-4xl font-mono" id="live-clock">00:00:00</div>
-          <div class="text-xl font-sans opacity-75 mt-2" id="live-date">
+          <div class="text-6xl font-mono font-bold" id="live-clock">00:00:00</div>
+          <div class="text-3xl font-sans opacity-75 mt-4" id="live-date">
             Memuat tanggal...
           </div>
         </div>
 
-<!-- Upcoming -->
         <div
-          class="flex items-center bg-yellow-100 border-l-4 border-yellow-500 p-4"
+          class="flex items-center bg-yellow-100 border-l-4 border-yellow-500 p-6"
           role="alert"
         >
-          <svg
-            class="w-6 h-6 text-yellow-600 mr-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="www.w3.org"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            ></path>
+          <svg class="w-10 h-10 text-yellow-600 mr-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="www.w3.org">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
           </svg>
           <div>
-            <p class="font-bold text-yellow-700">Upcoming Schedule!</p>
-            <p class="text-sm text-yellow-600">
+            <p class="font-bold text-2xl text-yellow-700">Upcoming Schedule!</p>
+            <p class="text-xl text-yellow-600 mt-1">
               Rekan-rekan bisa mengecek di dalam link
-              <a
-                class="hover:underline text-blue-600 dark:text-blue-400"
-                href="./upcoming/index.html"
-                >berikut</a
-              >
+              <a class="hover:underline text-blue-600 dark:text-blue-400 font-bold" href="./upcoming/index.html">berikut</a>
               untuk dapat mengecek jadwal ya!
             </p>
           </div>
-          <button
-            class="dark:bg-red-800 ml-auto text-yellow-600 hover:text-yellow-800 rounded-lg focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-              />
+          <button class="dark:bg-red-800 ml-auto text-yellow-600 hover:text-yellow-800 rounded-lg focus:outline-none p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </button>
         </div>
-        <div class="text-center alert-info">
+
+        <div class="text-center alert-info mt-8 text-xl leading-relaxed p-4">
           <strong>Catatan:</strong> Pastikan sudah terinstall
-          <a
-            style="color: #ff5555"
-            href="https://safeexambrowser.org/download_en.html"
-            >Safe Exam Browser (SEB)</a
-          >
+          <a style="color: #ff5555; font-weight: bold;" href="https://safeexambrowser.org/download_en.html">Safe Exam Browser (SEB)</a>
           sebelum mengikuti ujian. <br />Klik pada tautan
           <b>mata kuliah dibawah</b> untuk mengakses soal!
         </div>
 
-        <div id="schedule-container" class="space-y-8"></div>
+        <div id="schedule-container" class="space-y-8 mt-10 text-lg"></div>
 
         <div
           id="jadwal-placeholder"
-          class="flex items-center justify-center mb-4 text-xl rounded-lg bg-red-800 text-red-100 dark:bg-red-800 dark:text-red-100"
+          class="flex items-center justify-center mb-4 text-2xl p-6 rounded-lg bg-red-800 text-red-100 dark:bg-red-800 dark:text-red-100 mt-8"
           role="alert"
         >
-          <svg
-            class="shrink-0 inline w-4 h-4 me-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-            />
+          <svg class="shrink-0 inline w-8 h-8 me-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
           </svg>
-          <span class="sr-only">Info</span>
-          <span class="font-bold mr-2">Perhatian!</span> Belum memasuki jadwal
-          Ujian! Jadwal akan tampil sesuai tanggalnya
+          <div>
+             <span class="sr-only">Info</span>
+             <span class="font-bold mr-2">Perhatian!</span> Belum memasuki jadwal Ujian! Jadwal akan tampil sesuai tanggalnya
+          </div>
         </div>
 
-        <hr class="my-8" />
+        <hr class="my-10" />
+        
         <footer>
-          <div class="text-center">
-            <p>Made with 💓 Donny</p>
+          <div class="text-center text-2xl">
+            <p class="mb-2">Made with 💓 Donny</p>
             <p>
               Copyright &copy; 2025
-              <a href="https://psikologi.ums.ac.id">Sarjana Psikologi UMS</a>
+              <a href="https://psikologi.ums.ac.id" class="hover:underline">Sarjana Psikologi UMS</a>
             </p>
           </div>
         </footer>
-      </div>
+        <br><br>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -16,6 +16,18 @@ tailwind.config = {
         },
       };
 
+function changeFontSize(element){
+    var currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+    if (currentSize) {    
+        currentSize = parseFloat(currentSize.replace("px",""));
+        element.style.fontSize = (currentSize * 1.2) + "px";
+        for(var i=0; i < element.children.length; i++){
+            changeFontSize(element.children[i]);
+        }
+    }
+}
+changeFontSize(document.body);
+
 document.addEventListener("DOMContentLoaded", () => {
         const els = {
           upcomingContainer: document.getElementById("upcoming-container"),
@@ -94,19 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function processAndRender() {
           const now = new Date();
-          
-          // Sort all events chronologically
-          const sortedEvents = [...EXAM_DATA].sort((a, b) => a.start - b.start);
-
-          // Split into Upcoming and History
-          // An exam is 'History' if the end time has passed
+                 const sortedEvents = [...EXAM_DATA].sort((a, b) => a.start - b.start);
           const upcomingEvents = sortedEvents.filter(item => item.end >= now);
           const historyEvents = sortedEvents.filter(item => item.end < now);
-
-          // 1. Render Stats Dashboard
           renderStats(upcomingEvents, historyEvents);
-
-          // 2. Render Upcoming
           if (upcomingEvents.length > 0) {
               renderGroupedEvents(upcomingEvents, els.upcomingContainer, false);
               els.upcomingWrapper.classList.remove("hidden");
@@ -115,10 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
               els.upcomingWrapper.classList.add("hidden");
               els.empty.classList.remove("hidden");
           }
-
-          // 3. Render History (Selesai)
           if (historyEvents.length > 0) {
-              // Reverse sort history so most recently finished is at top
               const reversedHistory = [...historyEvents].sort((a, b) => b.end - a.end);
               renderGroupedEvents(reversedHistory, els.historyContainer, true);
               els.historyWrapper.classList.remove("hidden");
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
               if (diffDays <= 0) {
                   dayLabel = "Hari Ini!";
               } else if (diffDays === 1) {
-                  dayLabel = "Besok";
+                  dayLabel = "Next";
               } else {
                   dayLabel = `${diffDays} Hari Lagi`;
               }
@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const cardsHtml = items
               .map((item) => {
-                // Visual Config based on History vs Upcoming
                 const containerClass = isHistory 
                   ? "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-800 grayscale-[0.8] opacity-75 hover:opacity-100" 
                   : "bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 shadow-sm hover:border-brand/30 dark:hover:border-brand/30";
@@ -279,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
           container.innerHTML = htmlContent;
         }
 
-        // --- Helpers ---
         function cleanDate(datePart) {
           if (datePart && datePart.includes("/")) {
             const parts = datePart.split("/");

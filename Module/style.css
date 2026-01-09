@@ -4,8 +4,17 @@
   background-color: #7f00ff !important;
 }
 
+body {
+    font-size: 1.125rem;
+}
+
 html {
   font-family: 'Montserrat', sans-serif;
+  .bold {
+        /* Montserrat Bold = 700 */
+        font-weight: 700;
+        font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    }
 }
 
 body,

@@ -11,26 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
     lightIcon: document.getElementById("theme-toggle-light-icon"),
     body: document.body,
   };
+
   let EXAM_DATA = [];
   let serverTimeOffset = 0;
   const SHEET_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLFzIPXW64oTw6dcpH0g-Y4H_w2EFGx4tYTSvzlTM_G16bL68NnDeAUFQqDzTXvd9sSPlkw_0Iqm3X/pub?gid=1005242582&single=true&output=csv";
+
   async function initData() {
     try {
-      // JSON Lama
-      // const response = await fetch("./Module/data.json?t=" + Date.now());
-      // if (!response.ok) throw new Error("Failed to load schedule data");
-      // const rawData = await response.json();
-      // EXAM_DATA = rawData.map((item) => ({
-      //   ...item,
-      //   start: new Date(item.start),
-      //   end: new Date(item.end),
-      // }));
-
-      // GSheet
       console.log("1. Starting Fetch...");
       const response = await fetch(SHEET_URL);
-      console.log("2. Response Status:", response.status); // Debug
+      console.log("2. Response Status:", response.status);
+
       if (!response.ok)
         throw new Error("Gagal mengambil data dari Google Sheets");
 
@@ -39,54 +31,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const serverTime = new Date(serverDateHeader).getTime();
         const clientTime = Date.now();
         serverTimeOffset = serverTime - clientTime;
-
-        console.log(
-          "🕒 Time Synced with Server.",
-          "Offset:",
-          serverTimeOffset,
-          "ms",
-          "Server Time:",
-          new Date(serverTime).toLocaleTimeString()
-        );
-      } else {
-        console.warn(
-          "⚠️ Could not fetch Server Date header. Falling back to local time."
-        );
+        console.log("🕒 Time Synced. Offset:", serverTimeOffset, "ms");
       }
 
-      // GSheet
       const csvText = await response.text();
-      console.log("3. RAW CSV Data:\n", csvText);
       if (csvText.includes("<!DOCTYPE html>")) {
-        console.error(
-          "🚨 ERROR: Google returned a webpage, not CSV. Check Publish settings."
-        );
+        console.error("🚨 ERROR: Google returned a webpage, not CSV.");
         return;
       }
 
       const rawRows = parseCSV(csvText);
-      console.log("4. Parsed Rows:", rawRows);
       EXAM_DATA = rawRows.map((row) => {
         let datePart = row.Date;
         let duration = row["Waktu Ujian"];
-        console.log(`Checking Row: ${row.Course} | Raw Date: '${datePart}'`);
 
+        // Date Parsing Logic
         if (datePart.includes("/")) {
           const parts = datePart.split("/");
-          if (parts.length === 3) {
-            const day = parts[0].padStart(2, "0");
-            const month = parts[1].padStart(2, "0");
-            const year = parts[2];
-            datePart = `${year}-${month}-${day}`;
-          }
+          if (parts.length === 3)
+            datePart = `${parts[2]}-${parts[1].padStart(
+              2,
+              "0"
+            )}-${parts[0].padStart(2, "0")}`;
         } else if (datePart.includes(",")) {
           const parts = datePart.split(",");
-          if (parts.length === 3) {
-            const day = parts[0].padStart(2, "0");
-            const month = parts[1].padStart(2, "0");
-            const year = parts[2];
-            datePart = `${year}-${month}-${day}`;
-          }
+          if (parts.length === 3)
+            datePart = `${parts[2]}-${parts[1].padStart(
+              2,
+              "0"
+            )}-${parts[0].padStart(2, "0")}`;
         }
 
         const cleanStart = row.Start.trim().padStart(5, "0");
@@ -95,10 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const endStr = `${datePart}T${cleanEnd}:00+07:00`;
         const startDate = new Date(startStr);
         const endDate = new Date(endStr);
+
         const originalLink = row.Link || "";
         const lowerLink = originalLink.toLowerCase();
         let finalMethod = "SEB";
-        let finalLink = toSebLink(originalLink);
+        let finalLink = originalLink;
 
         if (lowerLink.includes("myujian")) {
           finalMethod = "MyUjian";
@@ -108,30 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
           finalLink = "https://spada12.ums.ac.id";
         }
 
-        if (isNaN(startDate.getTime())) {
-          console.error(
-            `🚨 FATAL: Could not parse date for ${row.Course}. Raw: '${row.Date}' -> Parsed: '${startStr}'`
-          );
-        }
-
         let lecturersList = [];
         if (row.Lecturers) {
           const rawLec = row.Lecturers.trim();
-          if (rawLec.match(/\r?\n/)) {
-            lecturersList = rawLec.split(/\r?\n/);
-          } else if (rawLec.includes('", "')) {
+          if (rawLec.match(/\r?\n/)) lecturersList = rawLec.split(/\r?\n/);
+          else if (rawLec.includes('", "'))
             lecturersList = rawLec.split('", "');
-          } else {
-            lecturersList = [rawLec];
-          }
-          lecturersList = lecturersList.map((name) => {
-            return name.trim().replace(/^["']+|["']+$/g, "");
-          });
+          else lecturersList = [rawLec];
+          lecturersList = lecturersList.map((name) =>
+            name.trim().replace(/^["']+|["']+$/g, "")
+          );
         }
 
         return {
           dateTitle: isNaN(startDate.getTime())
-            ? "⚠️ Invalid Date Detected"
+            ? "⚠️ Invalid Date"
             : startDate.toLocaleDateString("id-ID", {
                 weekday: "long",
                 year: "numeric",
@@ -144,7 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
             {
               name: row.Course,
               lecturers: lecturersList,
-              time: `${cleanStart}-${cleanEnd} WIB (${duration})`,
+              duration: duration,
+              time: `${cleanStart}-${cleanEnd} WIB`,
               link: finalLink,
               method: finalMethod,
             },
@@ -163,23 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // function parseCSV(text) {
-  //   const lines = text.split("\n").filter((line) => line.trim() !== "");
-  //   const headers = lines[0].split(",").map((h) => h.trim()); // Get headers (Date, Start, etc)
-
-  //   return lines.slice(1).map((line) => {
-  //     const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Split by comma but ignore commas inside quotes
-  //     const entry = {};
-  //     headers.forEach((h, i) => {
-  //       // Clean quotes if Excel added them
-  //       let val = values[i] ? values[i].trim() : "";
-  //       val = val.replace(/^"|"$/g, "");
-  //       entry[h] = val;
-  //     });
-  //     return entry;
-  //   });
-  // }
-
   function parseCSV(text) {
     const arr = [];
     let quote = false;
@@ -188,8 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     arr[row] = [];
     arr[row][col] = "";
     for (let c = 0; c < text.length; c++) {
-      let cc = text[c];
-      let nc = text[c + 1];
+      let cc = text[c],
+        nc = text[c + 1];
       if (cc === '"') {
         if (quote && nc === '"') {
           arr[row][col] += cc;
@@ -224,55 +173,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showErrorUI(error) {
     els.scheduleContainer.innerHTML = `
-                <div class="text-red-500 text-center p-6 border border-red-200 bg-red-50 rounded shadow-sm mx-4">
-                    <h2 class="text-xl font-bold mb-2">⚠️ Gagal Memuat Jadwal</h2>
-                    <p class="mb-4">Terjadi kesalahan pada file <code>data.json</code>.</p>
-                    <div class="bg-white p-3 rounded text-left font-mono text-sm overflow-auto border border-red-100 text-red-700">
-                        ${error.message}
-                    </div>
-                    <p class="mt-4 text-sm text-gray-600">
-                        Coba buka <a href="checker.html" class="text-blue-600 underline hover:text-blue-800">checker.html</a> untuk memperbaiki error ini.
-                    </p>
-                </div>`;
+      <div class="p-6 bg-red-50 border border-red-200 rounded-lg text-center">
+        <h2 class="text-xl font-bold text-red-700 mb-2">⚠️ Gagal Memuat Jadwal</h2>
+        <p class="text-red-600 mb-4">${error.message}</p>
+        <p class="text-sm text-gray-500">Silakan refresh halaman atau hubungi admin.</p>
+      </div>`;
     els.scheduleContainer.classList.remove("hidden");
     els.placeholder.classList.add("hidden");
   }
 
   function toSebLink(url) {
     if (!url) return "#";
-    const absoluteUrl = new URL(url, window.location.href).href;
-    return absoluteUrl.replace(/^https?:/, "sebs:");
+    try {
+      const absoluteUrl = new URL(url, window.location.href).href;
+      return absoluteUrl.replace(/^https?:/, "sebs:");
+    } catch (e) {
+      return "#";
+    }
   }
 
   function getServerTime() {
     return new Date(Date.now() + serverTimeOffset);
-    // return new Date("2026-01-05T08:31:00+07:00");
   }
 
   function updateTime() {
     const now = getServerTime();
-
-    // 1. Update Clock
     els.clock.textContent = now.toLocaleTimeString("en-GB", {
       hour12: false,
       timeZone: "Asia/Jakarta",
     });
-
-    // 2. Update Date
-    const options = {
+    els.date.textContent = new Intl.DateTimeFormat("id-ID", {
       weekday: "long",
       day: "numeric",
       month: "long",
       year: "numeric",
       timeZone: "Asia/Jakarta",
-    };
-    els.date.textContent = new Intl.DateTimeFormat("id-ID", options).format(
-      now
-    );
+    }).format(now);
   }
 
   function setGreeting() {
-    // Calculate the hour just for the greeting logic
     const now = getServerTime();
     const jakartaHour = parseInt(
       now.toLocaleTimeString("en-GB", {
@@ -282,65 +221,36 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     );
 
-    // --- YOUR QUOTE ARRAYS (Moved here) ---
     const morningQuotes = [
       "Ngopi Ndisik Ngab ☕",
       "Awali hari dengan Bismillah ☀️",
-      "Hey Kevin! 🥒",
-      "Sarapan dulu, biar kuat menghadapi kenyataan 🍳",
-      "Kerja mulu, kaya kagak",
-      "Urip iku urup, jangan lupa sarapan sup 🍲",
+      "Urip iku urup 🍲",
     ];
-
     const noonQuotes = [
-      "Selesai ga selesai kumpulkan",
-      "Jare Pakdhe Jokowi, Kerja Kerja Kerja 🐂",
-      "Hidup gua emang ga enak, tapi ada mie ayam",
-      "Panas kenthang-kenthang, tetep semangat sayang 🥵",
+      "Kerja Kerja Kerja 🐂",
       "Ojo lali madhang 🍛",
-      "datang kerjakan lupakan",
-      "Mata ngantuk, perut lapar, dompet aman? 💸",
-      "Harta, Tahta, Tatjana",
+      "Mata ngantuk, perut lapar? 💸",
     ];
-
     const eveningQuotes = [
       "Wes wektune leyeh-leyeh 💤",
-      "Senja telah tiba, tugas belum reda 🌆",
       "Info angkringan bolo? 🍢",
-      "Muliho, wes digoleki makmu",
-      "Yeah you are, the brightest star in my sky 🌟",
-      "Healing tipis-tipis sebelum besok nangis 🥲",
+      "Healing tipis-tipis 🥲",
     ];
-
     const nightQuotes = [
-      "🌠 Only in the darkness can you see the stars ✨",
       "Turu is the best therapy 😴",
-      "ingat skripsi ingat mantan",
       "Overthinking Mode: ON 🧠",
-      "Matikan HP, Nyalakan Mimpi 🌌",
-      "Besok masih ada hari, istirahatlah 🛌",
+      "Besok masih ada hari 🛌",
     ];
-
     const psychQuotes = [
-      '"The good life is a process, not a state of being." - Carl Rogers',
-      '"He who has a why to live can bear almost any how." - Nietzsche',
-      '"Your vision will become clear only when you can look into your own heart." - Carl Jung',
-      "Without effort, your talent is nothing more than your unmet potential — Angela Duckworth, PhD",
-      "Mental health matters, take a break if you need to 💚",
-      "The worst temptation is instant gratification ― Jon Luvelli",
-      "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.― Marilyn Monroe",
+      '"The good life is a process." - Rogers',
+      "Mental health matters 💚",
     ];
 
     function pickRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
-
-    function getMessage(timeSpecificArray) {
-      // 20% chance to show a smart quote
-      if (Math.random() < 0.2) {
-        return pickRandom(psychQuotes);
-      }
-      return pickRandom(timeSpecificArray);
+    function getMessage(arr) {
+      return Math.random() < 0.2 ? pickRandom(psychQuotes) : pickRandom(arr);
     }
 
     const greetings = [
@@ -348,70 +258,56 @@ document.addEventListener("DOMContentLoaded", () => {
         max: 12,
         title: "Sugeng Enjang! ☀️",
         body: getMessage(morningQuotes),
-        bg: "bg-yellow-100",
-        text: "text-yellow-800",
-        border: "border-yellow-200",
+        theme: "yellow",
       },
       {
         max: 15,
         title: "Sugeng Siang! 🕶️",
         body: getMessage(noonQuotes),
-        bg: "bg-blue-100",
-        text: "text-blue-800",
-        border: "border-blue-200",
+        theme: "blue",
       },
       {
         max: 18,
         title: "Sugeng Sonten! 🌆",
         body: getMessage(eveningQuotes),
-        bg: "bg-indigo-100",
-        text: "text-indigo-800",
-        border: "border-indigo-200",
+        theme: "indigo",
       },
       {
         max: 24,
         title: "Have a Nice Dream! 🌙",
         body: getMessage(nightQuotes),
-        bg: "bg-gray-800",
-        text: "text-gray-100",
-        border: "border-gray-600",
+        theme: "gray",
       },
     ];
 
-    // Find the correct greeting object
     const greet = greetings.find((g) => jakartaHour < g.max);
-
     if (greet) {
       els.msgTitle.textContent = greet.title;
       els.msgBody.textContent = greet.body;
-
-      // Update Dashboard Colors
-      const dashboard = document.getElementById("time-dashboard");
-      // Safety check in case dashboard element isn't found
-      if (dashboard) {
-        const allClasses = [
-          "bg-white",
-          "dark:bg-gray-800",
-          "bg-yellow-100",
-          "text-yellow-800",
-          "border-yellow-200",
-          "bg-blue-100",
-          "text-blue-800",
-          "border-blue-200",
-          "bg-indigo-100",
-          "text-indigo-800",
-          "border-indigo-200",
-          "bg-gray-800",
-          "text-gray-100",
-          "border-gray-600",
-        ];
-        dashboard.classList.remove(...allClasses);
-        dashboard.classList.add(greet.bg, greet.text, greet.border);
-      }
+      updateDashboardTheme(greet.theme);
     }
   }
 
-  let lastRenderedHTML = "";
+  function updateDashboardTheme(theme) {
+    const dashboard = document.getElementById("time-dashboard");
+    if (!dashboard) return;
+
+    dashboard.className =
+      "w-full p-8 md:p-12 rounded-2xl shadow-xl border text-center mb-12 transition-all duration-500";
+
+    const themes = {
+      yellow:
+        "bg-yellow-50 text-yellow-900 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-100 dark:border-yellow-700",
+      blue: "bg-blue-50 text-blue-900 border-blue-200 dark:bg-blue-900/20 dark:text-blue-100 dark:border-blue-700",
+      indigo:
+        "bg-indigo-50 text-indigo-900 border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-100 dark:border-indigo-700",
+      gray: "bg-gray-800 text-white border-gray-600 dark:bg-black dark:border-gray-800",
+    };
+
+    dashboard.classList.add(...themes[theme].split(" "));
+  }
+
+  let lastRenderedHTML = null;
   function renderActiveSchedules() {
     if (!EXAM_DATA.length) return;
     const now = getServerTime();
@@ -424,67 +320,84 @@ document.addEventListener("DOMContentLoaded", () => {
       const lateFinish = new Date(schedule.end.getTime() + fiveMinutesMillis);
 
       if (now >= earlyStart && now < lateFinish) {
-      // if (true) {
+        // if (true) {
         activeCount++;
         const rows = schedule.courses
           .map(
             (course) => `
-                    <tr>
-                        <td>
-                            <a class="seb" href="${toSebLink(course.link)}">${
-              course.name
-            }</a>
-                            <a href="${
-                              course.link
-                            }" class="inline-flex items-center justify-center p-1 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" />
-</svg>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <td class="p-4 align-top">
+                    <div class="flex items-center gap-3">
+    <a href="${toSebLink(course.link)}" 
+       class="text-lg font-bold text-seb hover:text-seb-dark dark:text-purple-400 dark:hover:text-purple-300 transition-colors">
+        ${course.name}
+    </a>
 
-
-                            </a>
-                        </td>
-                        <td>
-    <ol class="list-decimal pl-4 space-y-1">
-        ${course.lecturers.map((l) => `<li>${l}</li>`).join("")}
-    </ol>
-</td>
-                        <td>${course.time}</td>
-                        <td>Online via <b>
-                             <a href="${
-                               course.link
-                             }" target="_blank" class="hover:underline text-blue-600 dark:text-blue-400">
-                               ${course.method} (Closedbook)
-                             </a>
-                           </b>
-                           </td>
-                    </tr>
-                `
+    <a href="${course.link}" 
+       class="animate-pulse inline-flex items-center justify-center p-1.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors"
+       title="unduh">
+       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"></path>
+       </svg>
+    </a>
+</div>
+                </td>
+                <td class="p-4 align-top">
+                    <ol class="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                        ${course.lecturers.map((l) => `<li>${l}</li>`).join("")}
+                    </ol>
+                </td>
+                <td class="p-4 align-top whitespace-nowrap text-gray-700 dark:text-gray-300">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        ${course.time}
+                        <span class="inline-block px-2 py-1 text-[10px] font-semibold rounded bg-gray-100 text-blue-500 dark:bg-gray-700 dark:text-blue-400">
+                        ${course.duration}
+                        </span>
+                    </div>
+                </td>
+                <td class="p-4 align-top text-gray-700 dark:text-gray-300">
+                    <a href="${toSebLink(
+                      course.link
+                    )}"class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                        ${course.method}
+                    </a>
+                    <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Closedbook</div>
+                </td>
+            </tr>
+        `
           )
           .join("");
 
         htmlContent += `
-                    <div class="schedule-block animate-fade-in mb-8">
-                        <table class="table table-striped sebtable w-full border">
-                            <thead>
-                                <th colspan="4">${schedule.dateTitle}</th>
-                                </thead>
-                                <thead>
-                                <tr>
-                                    <th>Mata Kuliah</th>
-                                    <th>Pengampu</th>
-                                    <th>Jadwal</th>
-                                    <th>Metode</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows}</tbody>
-                        </table>
-                    </div>
-                `;
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6 animate-fade-in">
+                <div class="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-seb" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        ${schedule.dateTitle}
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-50 dark:bg-gray-700 uppercase text-gray-500 dark:text-gray-400 font-medium text-xs">
+                            <tr>
+                                <th class="p-4 w-1/3">Mata Kuliah</th>
+                                <th class="p-4">Pengampu</th>
+                                <th class="p-4">Waktu</th>
+                                <th class="p-4">Metode</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            ${rows}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
       }
     });
+
     if (htmlContent !== lastRenderedHTML) {
-      console.log("Status Changed: Updating Screen...");
       if (activeCount > 0) {
         els.scheduleContainer.innerHTML = htmlContent;
         els.scheduleContainer.classList.remove("hidden");
@@ -497,21 +410,16 @@ document.addEventListener("DOMContentLoaded", () => {
       lastRenderedHTML = htmlContent;
     }
   }
+
   function toggleTheme(isDark) {
     if (isDark) {
       document.documentElement.classList.add("dark");
-      els.body.classList.add("night-mode");
       els.darkIcon.classList.add("hidden");
       els.lightIcon.classList.remove("hidden");
-      els.themeBtn.classList.replace("bg-gray-200", "bg-gray-700");
-      els.themeBtn.classList.replace("text-gray-900", "text-gray-100");
     } else {
       document.documentElement.classList.remove("dark");
-      els.body.classList.remove("night-mode");
       els.darkIcon.classList.remove("hidden");
       els.lightIcon.classList.add("hidden");
-      els.themeBtn.classList.replace("bg-gray-700", "bg-gray-200");
-      els.themeBtn.classList.replace("text-gray-100", "text-gray-900");
     }
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }
@@ -521,9 +429,10 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleTheme(savedTheme ? savedTheme === "dark" : systemDark);
 
   els.themeBtn.addEventListener("click", () => {
-    const isCurrentDark = els.body.classList.contains("night-mode");
+    const isCurrentDark = document.documentElement.classList.contains("dark");
     toggleTheme(!isCurrentDark);
   });
+
   document.addEventListener("contextmenu", (e) => e.preventDefault());
   document.addEventListener("keydown", (e) => {
     if (
@@ -534,5 +443,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
     }
   });
+
   initData();
 });

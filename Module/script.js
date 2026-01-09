@@ -180,18 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //   });
   // }
 
-function changeFontSize(element){
-    var currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
-    if (currentSize) {    
-        currentSize = parseFloat(currentSize.replace("px",""));
-        element.style.fontSize = (currentSize * 1.2) + "px";
-        for(var i=0; i < element.children.length; i++){
-            changeFontSize(element.children[i]);
-        }
-    }
-}
-changeFontSize(document.body);
-
   function parseCSV(text) {
     const arr = [];
     let quote = false;

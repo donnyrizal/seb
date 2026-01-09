@@ -10,12 +10,12 @@ body {
 
 html {
   font-family: 'Montserrat', sans-serif;
-  .bold {
-        /* Montserrat Bold = 700 */
+}
+
+.bold {
         font-weight: 700;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
     }
-}
 
 body,
 .navbar-default,

@@ -44,8 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
       EXAM_DATA = rawRows.map((row) => {
         let datePart = row.Date;
         let duration = row["Waktu Ujian"];
-
-        // Date Parsing Logic
         if (datePart.includes("/")) {
           const parts = datePart.split("/");
           if (parts.length === 3)
@@ -80,6 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (lowerLink.includes("spada")) {
           finalMethod = "SPADA";
           finalLink = "https://spada12.ums.ac.id";
+        } else if (lowerLink.includes("tugas")) {
+          finalMethod = "Tugas";
+          finalLink = "#";
+        } else if (lowerLink.includes("paper")) {
+          finalMethod = "Paper";
+          finalLink = "#";
         }
 
         let lecturersList = [];

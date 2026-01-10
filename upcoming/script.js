@@ -283,12 +283,16 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
         function determineMethod(link) {
-          if (!link) return { name: "Offline / TBC", url: "#" };
+          if (!link) return { name: "To Be Announced", url: "#" };
           const l = link.toLowerCase();
           if (l.includes("myujian"))
             return { name: "MyUjian", url: "https://myujian.ums.ac.id" };
           if (l.includes("spada"))
             return { name: "SPADA", url: "https://spada12.ums.ac.id" };
+          if (l.includes("paper"))
+            return { name: "Offline / Paper Based", url: "#" };
+          if (l.includes("tugas"))
+            return { name: "Tugas", url: "#" };
           return { name: "SEB", url: "https://donnyrizal.github.io/seb" };
         }
         function getMethodColor(methodName) {

@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
               nextExamHTML = `
                   <div class="flex justify-between items-start mb-2">
                       <div class="text-brand dark:text-brand-light text-xs font-bold uppercase tracking-wider">Ujian Berikutnya</div>
-                      <span class="bg-brand/10 text-brand dark:text-brand-light text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">${dayLabel}</span>
+                      <span class="animate-pulse bg-brand/10 text-brand dark:text-brand-light text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">${dayLabel}</span>
                   </div>
                   <div class="text-lg font-bold text-gray-800 dark:text-white truncate leading-tight" title="${nextExam.course}">${nextExam.course}</div>
                   <div class="text-xs text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-1">

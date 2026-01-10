@@ -4,154 +4,321 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Ujian Akhir Semester Psikologi UMS" />
-    <meta name="author" content="Donny" />
+
+    <title>Jadwal Ujian & Safe Exam Browser - Psikologi UMS</title>
+    <meta
+      name="title"
+      content="Jadwal Ujian & Safe Exam Browser - Psikologi UMS"
+    />
+    <meta
+      name="description"
+      content="Portal resmi ujian online Fakultas Psikologi UMS. Download konfigurasi Safe Exam Browser (SEB) terbaru dan cek jadwal ujian real-time di sini."
+    />
+    <meta name="author" content="Donny Rizal" />
+    <meta
+      name="keywords"
+      content="SEB, UMS, Psikologi, Ujian Online, Safe Exam Browser, Jadwal Ujian, Surakarta, Universitas Muhammadiyah Surakarta"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://donnyrizal.github.io/seb/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://donnyrizal.github.io/seb/" />
+    <meta
+      property="og:title"
+      content="Jadwal Ujian & Safe Exam Browser - Psikologi UMS"
+    />
+    <meta
+      property="og:description"
+      content="Portal jadwal dan akses ujian online menggunakan Safe Exam Browser (SEB). Cek jadwal dan download config disini."
+    />
+    <meta
+      property="og:image"
+      content="https://ums.id/static/assets/image_ums/logo_ums_white.png"
+    />
+    <meta property="og:locale" content="id_ID" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://donnyrizal.github.io/seb/" />
+    <meta
+      property="twitter:title"
+      content="Jadwal Ujian & Safe Exam Browser - Psikologi UMS"
+    />
+    <meta
+      property="twitter:description"
+      content="Portal jadwal dan akses ujian online menggunakan Safe Exam Browser (SEB). Cek jadwal dan download config disini."
+    />
+    <meta
+      property="twitter:image"
+      content="https://ums.id/static/assets/image_ums/logo_ums_white.png"
+    />
+
+    <meta name="theme-color" content="#7f00ff" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
     <link
       rel="icon"
       type="image/png"
       href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
       sizes="32x32"
     />
-    <title>Safe Exam Browser Landing Page Psikologi UMS</title>
+    <link
+      rel="apple-touch-icon"
+      href="https://ums.id/static/assets/image_ums/logo_ums_white.png"
+    />
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Montserrat', 'sans-serif'],
-            },
-            colors: {
-              seb: {
-                DEFAULT: '#7f00ff', 
-                dark: '#5e00bd',
-              }
-            }
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Safe Exam Browser Landing Page Psikologi UMS",
+        "description": "Ujian Akhir Semester Psikologi UMS. Portal jadwal dan akses ujian online menggunakan Safe Exam Browser (SEB).",
+        "url": "https://donnyrizal.github.io/seb",
+        "author": {
+          "@type": "Person",
+          "name": "Donny Rizal"
+        },
+        "publisher": {
+          "@type": "EducationalOrganization",
+          "name": "Universitas Muhammadiyah Surakarta",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://ums.id/static/assets/image_ums/logo_ums_white.png"
           }
         }
       }
     </script>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Montserrat", "sans-serif"],
+            },
+            colors: {
+              seb: {
+                DEFAULT: "#7f00ff",
+                dark: "#5e00bd",
+              },
+            },
+          },
+        },
+      };
+    </script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    
     <link rel="stylesheet" href="./Module/style.css" />
   </head>
 
-  <body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased flex flex-col min-h-screen">
-    
+  <body
+    class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased flex flex-col min-h-screen"
+  >
     <button
       id="theme-toggle"
       type="button"
       class="fixed bottom-6 left-6 z-50 p-3 rounded-full bg-white text-gray-800 shadow-xl border border-gray-200 hover:scale-110 transition-all duration-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
     >
-      <svg id="theme-toggle-dark-icon" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+      <svg
+        id="theme-toggle-dark-icon"
+        class="w-8 h-8"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+        ></path>
       </svg>
-      <svg id="theme-toggle-light-icon" class="w-8 h-8 hidden" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"></path>
+      <svg
+        id="theme-toggle-light-icon"
+        class="w-8 h-8 hidden"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-1.636 4.364a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM3.636 4.364a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414L3.636 5.778a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM4.636 15.636a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0z"
+        ></path>
       </svg>
     </button>
 
     <nav class="w-full bg-seb sticky top-0 z-40 shadow-md">
       <div class="container mx-auto px-4 py-3">
-        <div class="flex justify-between items-center border-b border-white/20 pb-2">
-            <a href="./index.html" class="flex items-center transition-opacity hover:opacity-90">
-              <img class="h-12 object-contain" src="./logo-sarjana-psikologi (1).svg" alt="SEB Logo" width="250"/>
-            </a>
+        <div
+          class="flex justify-between items-center border-b border-white/20 pb-2"
+        >
+          <a
+            href="./index.html"
+            class="flex items-center transition-opacity hover:opacity-90"
+          >
+            <img
+              class="h-12 object-contain"
+              src="./logo-sarjana-psikologi (1).svg"
+              alt="SEB Logo"
+              width="250"
+            />
+          </a>
 
-            <a href="./upcoming/index.html" class="flex items-center transition-opacity hover:opacity-90">
-              <img class="h-12 object-contain" src="./upcomingg.svg" alt="upcoming" width="250"/>
-            </a>
+          <a
+            href="./upcoming/index.html"
+            class="flex items-center transition-opacity hover:opacity-90"
+          >
+            <img
+              class="h-12 object-contain"
+              src="./upcomingg.svg"
+              alt="upcoming"
+              width="250"
+            />
+          </a>
         </div>
       </div>
     </nav>
-    
-    <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-gray-600 my-8"></div>
+
+    <div
+      class="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-gray-600 my-8"
+    ></div>
 
     <div class="container mx-auto px-4 flex-grow max-w-5xl">
-      
-        <div class="text-center mb-10">
-          <h1 class="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-100">
-            Ujian Akhir Semester
-          </h1>
-          <p class="text-xl text-gray-500 dark:text-gray-400 mt-2">
-            Gasal 2025-2026
-          </p>
+      <div class="text-center mb-10">
+        <h1
+          class="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-100"
+        >
+          Ujian Akhir Semester
+        </h1>
+        <p class="text-xl text-gray-500 dark:text-gray-400 mt-2">
+          Gasal 2025-2026
+        </p>
+      </div>
+
+      <div
+        id="time-dashboard"
+        class="w-full p-8 rounded-2xl shadow-xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-center mb-12 transition-all duration-500"
+      >
+        <div id="affirmative-message" class="mb-8">
+          <h2 class="text-2xl font-bold mb-3" id="msg-title">
+            Memuat pesan...
+          </h2>
+          <blockquote
+            class="italic text-lg md:text-2xl opacity-80 max-w-3xl mx-auto"
+          >
+            "<span id="msg-body">...</span>"
+          </blockquote>
+        </div>
+
+        <div class="flex justify-center items-center gap-4 flex-wrap">
+          <div
+            class="text-5xl font-mono font-bold tracking-widest"
+            id="live-clock"
+          >
+            00:00:00
+          </div>
         </div>
 
         <div
-          id="time-dashboard"
-          class="w-full p-8 rounded-2xl shadow-xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-center mb-12 transition-all duration-500"
+          class="text-xl font-medium text-gray-500 dark:text-gray-400 mt-4 uppercase tracking-wide"
+          id="live-date"
         >
-          <div id="affirmative-message" class="mb-8">
-            <h2 class="text-2xl font-bold mb-3" id="msg-title">
-              Memuat pesan...
-            </h2>
-            <blockquote class="italic text-lg md:text-2xl opacity-80 max-w-3xl mx-auto">
-              "<span id="msg-body">...</span>"
-            </blockquote>
-          </div>
-          
-          <div class="flex justify-center items-center gap-4 flex-wrap">
-             <div class="text-5xl font-mono font-bold tracking-widest" id="live-clock">00:00:00</div>
-          </div>
-          
-          <div class="text-xl font-medium text-gray-500 dark:text-gray-400 mt-4 uppercase tracking-wide" id="live-date">
-            Memuat tanggal...
-          </div>
+          Memuat tanggal...
         </div>
+      </div>
 
-        <div class="flex flex-col md:flex-row items-start md:items-center bg-yellow-50 dark:bg-yellow-900/30 border-l-8 border-yellow-500 p-6 rounded-r-lg shadow-sm mb-10">
-          <svg class="w-8 h-8 text-yellow-600 dark:text-yellow-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-          </svg>
-          <div class="flex-grow">
-            <p class="font-bold text-xl text-yellow-800 dark:text-yellow-200">Upcoming Schedule!</p>
-            <p class="text-lg text-yellow-700 dark:text-yellow-300/80 mt-1">
-              Rekan-rekan bisa mengecek jadwal mendatang di 
-              <a class="underline decoration-2 underline-offset-2 hover:text-yellow-900 dark:hover:text-yellow-100 font-bold" href="./upcoming/index.html">link berikut ini</a>.
-            </p>
-          </div>
-        </div>
-
-        <div class="text-center bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-lg p-6 mb-10">
-          <p class="text-lg leading-relaxed text-blue-900 dark:text-blue-100">
-            <strong>Catatan Penting:</strong> Pastikan Anda sudah menginstall
-            <a class="text-red-600 dark:text-red-400 font-bold hover:underline" href="https://safeexambrowser.org/download_en.html" target="_blank">Safe Exam Browser (SEB)</a>
-            sebelum memulai ujian. <br />Klik pada tautan <b>mata kuliah dibawah</b> untuk mengakses soal!
+      <div
+        class="flex flex-col md:flex-row items-start md:items-center bg-yellow-50 dark:bg-yellow-900/30 border-l-8 border-yellow-500 p-6 rounded-r-lg shadow-sm mb-10"
+      >
+        <svg
+          class="w-8 h-8 text-yellow-600 dark:text-yellow-500 mr-4 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          ></path>
+        </svg>
+        <div class="flex-grow">
+          <p class="font-bold text-xl text-yellow-800 dark:text-yellow-200">
+            Upcoming Schedule!
+          </p>
+          <p class="text-lg text-yellow-700 dark:text-yellow-300/80 mt-1">
+            Rekan-rekan bisa mengecek jadwal mendatang di
+            <a
+              class="underline decoration-2 underline-offset-2 hover:text-yellow-900 dark:hover:text-yellow-100 font-bold"
+              href="./upcoming/index.html"
+              >link berikut ini</a
+            >.
           </p>
         </div>
+      </div>
 
-        <div id="schedule-container" class="space-y-8 min-h-[200px]"></div>
+      <div
+        class="text-center bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-lg p-6 mb-10"
+      >
+        <p class="text-lg leading-relaxed text-blue-900 dark:text-blue-100">
+          <strong>Catatan Penting:</strong> Pastikan Anda sudah menginstall
+          <a
+            class="text-red-600 dark:text-red-400 font-bold hover:underline"
+            href="https://safeexambrowser.org/download_en.html"
+            target="_blank"
+            >Safe Exam Browser (SEB)</a
+          >
+          sebelum memulai ujian. <br />Klik pada tautan
+          <b>mata kuliah dibawah</b> untuk mengakses soal!
+        </p>
+      </div>
 
-        <div
-          id="jadwal-placeholder"
-          class="flex flex-col items-center justify-center p-12 text-center rounded-2xl bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700"
+      <div id="schedule-container" class="space-y-8 min-h-[200px]"></div>
+
+      <div
+        id="jadwal-placeholder"
+        class="flex flex-col items-center justify-center p-12 text-center rounded-2xl bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700"
+      >
+        <svg
+          class="w-16 h-16 text-gray-400 mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <h3 class="text-2xl font-bold text-gray-600 dark:text-gray-300">Belum Ada Jadwal Aktif</h3>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">
-             Jadwal ujian akan muncul secara otomatis saat waktu ujian tiba.
-          </p>
-        </div>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-600 dark:text-gray-300">
+          Belum Ada Jadwal Aktif
+        </h3>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">
+          Jadwal ujian akan muncul secara otomatis saat waktu ujian tiba.
+        </p>
+      </div>
 
-        <div class="w-full h-px bg-gray-200 dark:bg-gray-700 my-12"></div>
+      <div class="w-full h-px bg-gray-200 dark:bg-gray-700 my-12"></div>
     </div>
 
-    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-auto">
+    <footer
+      class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-auto"
+    >
       <div class="container mx-auto px-4 text-center">
-        <p class="text-lg font-medium text-gray-700 dark:text-gray-300">Made with 💓 Donny</p>
+        <p class="text-lg font-medium text-gray-700 dark:text-gray-300">
+          Made with 💓 Donny
+        </p>
         <p class="text-gray-500 dark:text-gray-500 mt-1">
           Copyright &copy; 2025
-          <a href="https://psikologi.ums.ac.id" class="hover:text-seb dark:hover:text-purple-400 transition-colors">Sarjana Psikologi UMS</a>
+          <a
+            href="https://psikologi.ums.ac.id"
+            class="hover:text-seb dark:hover:text-purple-400 transition-colors"
+            >Sarjana Psikologi UMS</a
+          >
         </p>
       </div>
     </footer>

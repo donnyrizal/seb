@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200 border border-orange-200 dark:border-orange-800";
           if (methodName === "Offline / Paper Based")
             return "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200 border border-red-200 dark:border-red-800";
-          if (methodName === "To Be Announced")
+          if (methodName === "To Be Announced!")
             return "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200 border border-amber-200 dark:border-amber-800";
           if (methodName === "Tugas")
             return "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 border border-sky-200 dark:border-sky-800";

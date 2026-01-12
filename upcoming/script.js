@@ -198,8 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 return `
                   <div class="course-card relative flex flex-col md:flex-row rounded-xl border p-5 gap-4 md:gap-6 ${containerClass} transition-all duration-300 group">
-                      
-                      <!-- Time Column -->
                       <div class="md:w-28 md:flex-shrink-0 flex flex-row md:flex-col items-center md:items-start md:justify-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700 pb-3 md:pb-0 md:pr-4 gap-3 md:gap-0">
                           <div class="text-center md:text-left">
                               <span class="block text-xl font-bold ${isHistory ? 'text-gray-400' : 'text-gray-800 dark:text-white'}">
@@ -214,8 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
                               ${item.duration}
                           </span>
                       </div>
-
-                      <!-- Content Column -->
                       <div class="flex-1 flex flex-col justify-center">
                           <div class="flex flex-col md:flex-row justify-between md:items-start gap-4">
                               <div>
@@ -223,7 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                   <h3 class="text-lg md:text-xl font-bold leading-tight ${titleColor} mb-2">
                                       ${item.course}
                                   </h3>
-                                  <!-- Lecturers -->
                                    <div class="flex flex-wrap gap-2">
                                       ${item.lecturers.map(l => 
                                           `<span class="inline-flex items-center text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded">
@@ -233,9 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                       ).join('')}
                                    </div>
                               </div>
-                              
-                              <!-- Action Button -->
-                              <div class="flex-shrink-0 mt-2 md:mt-0">
+                                  <div class="flex-shrink-0 mt-2 md:mt-0">
                                    <a href="${item.method.url}" 
                                       target="_blank"
                                       class="${btnClass}">
@@ -283,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
         function determineMethod(link) {
-          if (!link) return { name: "To Be Announced", url: "#" };
+          if (!link) return { name: "To Be Announced!", url: "#" };
           const l = link.toLowerCase();
           if (l.includes("myujian"))
             return { name: "MyUjian", url: "https://myujian.ums.ac.id" };
@@ -300,6 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200 border border-green-200 dark:border-green-800";
           if (methodName === "SPADA")
             return "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200 border border-orange-200 dark:border-orange-800";
+          if (methodName === "Offline / Paper Based")
+            return "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200 border border-red-200 dark:border-red-800";
+          if (methodName === "To Be Announced")
+            return "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200 border border-amber-200 dark:border-amber-800";
+          if (methodName === "Tugas")
+            return "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 border border-sky-200 dark:border-sky-800";
           return "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-200 border border-purple-200 dark:border-purple-800";
         }
         function parseCSV(text) {

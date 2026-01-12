@@ -67,23 +67,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const startDate = new Date(startStr);
         const endDate = new Date(endStr);
 
-        const originalLink = row.Link || "";
+       const originalLink = row.Link || "";
         const lowerLink = originalLink.toLowerCase();
         let finalMethod = "SEB";
         let finalLink = originalLink;
+        let methodColorClass = "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
 
         if (lowerLink.includes("myujian")) {
           finalMethod = "MyUjian";
           finalLink = "https://myujian.ums.ac.id";
+          methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
         } else if (lowerLink.includes("spada")) {
           finalMethod = "SPADA";
           finalLink = "https://spada12.ums.ac.id";
+          methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
         } else if (lowerLink.includes("tugas")) {
           finalMethod = "Tugas";
           finalLink = "#";
+          methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
         } else if (lowerLink.includes("paper")) {
           finalMethod = "Paper";
           finalLink = "#";
+          methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
         }
 
         let lecturersList = [];
@@ -117,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
               time: `${cleanStart}-${cleanEnd} WIB`,
               link: finalLink,
               method: finalMethod,
+              methodColorClass: methodColorClass, 
             },
           ],
         };
@@ -361,9 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </td>
                 <td class="p-4 align-top text-gray-700 dark:text-gray-300">
-                    <a href="${toSebLink(
-                      course.link
-                    )}"class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                    <a href="${toSebLink(course.link)}"class="${course.methodColorClass} text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                         ${course.method}
                     </a>
                     <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Closedbook</div>

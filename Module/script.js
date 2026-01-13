@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startDate = new Date(startStr);
         const endDate = new Date(endStr);
 
-       const originalLink = row.Link || "";
+        const originalLink = row.Link || "";
         const lowerLink = originalLink.toLowerCase();
         let finalMethod = "SEB";
         let finalLink = originalLink;
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
       showErrorUI(error);
     }
-  }
+  } 
 
   function parseCSV(text) {
     const arr = [];

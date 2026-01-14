@@ -239,12 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const noonQuotes = [
       "Kerja Kerja Kerja 🐂",
       "Ojo lali madhang 🍛",
-      "Mata ngantuk, perut lapar? 💸",
+      "dan mungkin bila nanti, kita kan bertemu lagi",
+      "To become what you are not, behave as you do not. - T.S. Eliot",
     ];
     const eveningQuotes = [
       "Wes wektune leyeh-leyeh 💤",
       "Info angkringan bolo? 🍢",
-      "Healing tipis-tipis 🥲",
+     "Ujian wes,barikut apa?",
+     "Alhamdulillah for today",
     ];
     const nightQuotes = [
       "Turu is the best therapy 😴",
@@ -254,6 +256,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const psychQuotes = [
       '"The good life is a process." - Rogers',
       "Mental health matters 💚",
+      '"Today you are you, that is truer than true. There is no one alive who is you-er than you." - Dr. Seuss',
+      '"Be happy now, without reason - or you never will be at all" - Dan Millman',
+      '"True kindness is not what drives relationships of mere utility, but it is at the core of relationships of goodness.” — Suzann Pileggi Pawelski, MAPP, and James Pawelski, PhD',
+      '“Without effort, your talent is nothing more than your unmet potential.”— Angela Duckworth, PhD',
+      `"It's in responsibility that most people find the meaning that sustains them through life. It's not in happiness. It's not in impulsive pleasure." - Jordan Peterson`,
+      `"Life is really simple, but we insist on making it complicated. - Confucius"`,
+      'The best way to find yourself is to lose yourself in the service of others". - Mahatma Gandhi',
+      '"It is better to be violent, if there is violence in our hearts, than to put on the cloak of nonviolence to cover impotence."- Mahatma Gandhi',
     ];
 
     function pickRandom(arr) {

@@ -71,24 +71,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const lowerLink = originalLink.toLowerCase();
         let finalMethod = "SEB";
         let finalLink = originalLink;
-        let methodColorClass = "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+        let methodColorClass =
+          "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
 
         if (lowerLink.includes("myujian")) {
           finalMethod = "MyUjian";
           finalLink = "https://myujian.ums.ac.id";
-          methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+          methodColorClass =
+            "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
         } else if (lowerLink.includes("spada")) {
           finalMethod = "SPADA";
           finalLink = "https://spada12.ums.ac.id";
-          methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+          methodColorClass =
+            "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
         } else if (lowerLink.includes("tugas")) {
           finalMethod = "Tugas";
           finalLink = "#";
-          methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+          methodColorClass =
+            "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
         } else if (lowerLink.includes("paper")) {
           finalMethod = "Paper";
           finalLink = "#";
-          methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+          methodColorClass =
+            "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
         }
 
         let lecturersList = [];
@@ -122,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
               time: `${cleanStart}-${cleanEnd} WIB`,
               link: finalLink,
               method: finalMethod,
-              methodColorClass: methodColorClass, 
+              methodColorClass: methodColorClass,
             },
           ],
         };
@@ -137,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
       showErrorUI(error);
     }
-  } 
+  }
 
   function parseCSV(text) {
     const arr = [];
@@ -232,47 +237,103 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     const morningQuotes = [
+      "(〃￣︶￣)人(￣︶￣〃)",
       "Ngopi Ndisik Ngab ☕",
-      "Awali hari dengan Bismillah ☀️",
-      "Urip iku urup 🍲",
+      "Awali hari dengan Bismillah 🙏",
+      "Urip iku urup (❁´◡`❁)",
+      "○( ＾皿＾)っ Hehehe…",
+      "Focus on the step in front of you, not the whole staircase.",
+      "Ora et Labora (づ￣ 3￣)づ",
+      "Tetap ilmu padi, abangkuh 🌾",
+      "Don't stop when you're tired, stop when you're done.",
+      "~~~///(^v^)\\~~~",
     ];
     const noonQuotes = [
       "Kerja Kerja Kerja 🐂",
       "Ojo lali madhang 🍛",
       "dan mungkin bila nanti, kita kan bertemu lagi",
       "To become what you are not, behave as you do not. - T.S. Eliot",
+      "Trust the process, even the messy parts.",
+      "Duit ora teko dewe, ayo kerjo! 💸",
+      "ƪ(˘⌣˘)ʃ",
     ];
     const eveningQuotes = [
+      "(●ˇ∀ˇ●)",
+      "┻━┻ ︵ ＼( °□° )／ ︵ ┻━┻",
       "Wes wektune leyeh-leyeh 💤",
       "Info angkringan bolo? 🍢",
-     "Ujian wes,barikut apa?",
-     "Alhamdulillah for today",
+      "Ujian wes, bar kui apa?",
+      "Alhamdulillah for today",
+      "Senja: Proof that endings can be beautiful too.",
+      "Tarik napas, syukuri yang sudah lewat hari ini.",
+      "Dunia butuh istirahat, kamu juga.( $ _ $ )",
+      "Copot topengmu, jadilah dirimu sendiri di rumah.",
+      "Ngopi senja biar kaya anak indie 🎸",
+      "┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻",
     ];
     const nightQuotes = [
+      "( *^-^)ρ(^0^* )",
       "Turu is the best therapy 😴",
       "Overthinking Mode: ON 🧠",
       "Besok masih ada hari 🛌",
+      "Simpan cemasmu, besok kita sambat lagi 🤐",
+      "Reset. Restart. Refocus.",
+      "Mimpi gratis, mimpilah yang tinggi 🌙",
+      "Matikan HP, nyalakan mimpi.",
+      "Let it go. You did your best today.",
+      "ᕦ(ò_óˇ)ᕤ",
     ];
     const psychQuotes = [
-      'The quality of your life is the quality of your relationships. - Tony Robbinss',
-      'Luck is a matter of preparation meeting opportunity. - Oprah Winfrey',
-      'The good life is a process. - Rogers',
+      "o(*￣▽￣*)ブ",
+      "The quality of your life is the quality of your relationships. - Tony Robbinss",
+      "Luck is a matter of preparation meeting opportunity. - Oprah Winfrey",
+      "The good life is a process. - Rogers",
       "Mental health matters 💚",
-      'Today you are you, that is truer than true. There is no one alive who is you-er than you. - Dr. Seuss',
-      'Be happy now, without reason - or you never will be at all - Dan Millman',
-      'True kindness is not what drives relationships of mere utility, but it is at the core of relationships of goodness.” — Suzann Pileggi Pawelski, MAPP, and James Pawelski, PhD',
-      '“Without effort, your talent is nothing more than your unmet potential.”— Angela Duckworth, PhD',
+      "Today you are you, that is truer than true. There is no one alive who is you-er than you. - Dr. Seuss",
+      "Be happy now, without reason - or you never will be at all - Dan Millman",
+      "True kindness is not what drives relationships of mere utility, but it is at the core of relationships of goodness.” — Suzann Pileggi Pawelski, MAPP, and James Pawelski, PhD",
+      "“Without effort, your talent is nothing more than your unmet potential.”— Angela Duckworth, PhD",
       `It's in responsibility that most people find the meaning that sustains them through life. It's not in happiness. It's not in impulsive pleasure. - Jordan Peterson`,
       `Life is really simple, but we insist on making it complicated. - Confucius`,
-      'The best way to find yourself is to lose yourself in the service of others. - Mahatma Gandhi',
-      'It is better to be violent, if there is violence in our hearts, than to put on the cloak of nonviolence to cover impotence.- Mahatma Gandhi',
+      "The best way to find yourself is to lose yourself in the service of others. - Mahatma Gandhi",
+      "It is better to be violent, if there is violence in our hearts, than to put on the cloak of nonviolence to cover impotence.- Mahatma Gandhi",
+      "We suffer more often in imagination than in reality. - Seneca",
+      "Comparison is the thief of joy. - Theodore Roosevelt",
+      "Happiness is not something ready made. It comes from your own actions. - Dalai Lama",
+      "What you think, you become. What you feel, you attract. What you imagine, you create. - Buddha",
+      "You are not your thoughts; you are the observer of your thoughts.",
+      "Knowing your own darkness is the best method for dealing with the darknesses of other people. - Carl Jung",
+      "Boundaries are the distance at which I can love you and me simultaneously. - Prentis Hemphill",
+      "Vulnerability is not winning or losing; it's having the courage to show up when you can't control the outcome. - Brené Brown",
+    ];
+
+    const islamicQuotes = [
+      "Do not explain yourself to anyone. Because the one who likes you will not need it, and the one who dislikes you will not believe it. - Ali bin Abi Talib (u_u)",
+      "To get what you love, you must first be patient with what you hate. - Imam Al-Ghazali",
+      "The wound is the place where the Light enters you. - Rumi ✨",
+      "Speak a good word or remain silent. - Prophet Muhammad (PBUH) 🤫",
+      "Don't let your heart be sad, Allah is with us. (La Tahzan) 🤲",
+      "Taking pains to remove the pains of others is the true essence of generosity. - Abu Bakr As-Siddiq",
+      "Man jadda wajada (He who succeeds is he who strives) ",
+      "Calmness is a sign of intelligence. - Imam Ali",
+      "Time is like a sword. If you do not cut it, it will cut you. - Imam Shafi'i ⚔️",
+      "When the world pushes you to your knees, you're in the perfect position to pray. - Rumi",
+      "A moment of patience in a moment of anger prevents a thousand moments of regret. - Ali bin Abi Talib (˘_˘٥)",
+      "Your charity will not decrease your wealth. - Prophet Muhammad (PBUH) 💝",
+      "If you want to live a happy life, do not dwell on the past. - Umar bin Khattab",
+      "Knowledge is not what is memorized. Knowledge is what benefits. - Imam Shafi'i 📚",
+      "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself. - Rumi",
+      "Trust Allah, but tie your camel (Tawakkal) ",
+      "Do not lose hope, nor be sad. - Quran 3:139",
+      "Knowledge doesn't come but you have to go for it. -Imam Malik",
+      "If you cannot bear the fatigue of studying, you will have to endure the bitterness of ignorance. -Imam Syafi'i.",
     ];
 
     function pickRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
     function getMessage(arr) {
-      return Math.random() < 0.2 ? pickRandom(psychQuotes) : pickRandom(arr);
+      return Math.random() < 0.2 ? pickRandom(psychQuotes) : Math.random() < 0.4 ?pickRandom(islamicQuotes) : pickRandom(arr);
     }
 
     const greetings = [
@@ -379,7 +440,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </td>
                 <td class="p-4 align-top text-gray-700 dark:text-gray-300">
-                    <a href="${toSebLink(course.link)}"class="${course.methodColorClass} text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                    <a href="${toSebLink(course.link)}"class="${
+              course.methodColorClass
+            } text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                         ${course.method}
                     </a>
                     <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Closedbook</div>

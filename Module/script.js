@@ -254,16 +254,18 @@ document.addEventListener("DOMContentLoaded", () => {
       "Besok masih ada hari 🛌",
     ];
     const psychQuotes = [
-      '"The good life is a process." - Rogers',
+      'The quality of your life is the quality of your relationships. - Tony Robbinss',
+      'Luck is a matter of preparation meeting opportunity. - Oprah Winfrey',
+      'The good life is a process. - Rogers',
       "Mental health matters 💚",
-      '"Today you are you, that is truer than true. There is no one alive who is you-er than you." - Dr. Seuss',
-      '"Be happy now, without reason - or you never will be at all" - Dan Millman',
-      '"True kindness is not what drives relationships of mere utility, but it is at the core of relationships of goodness.” — Suzann Pileggi Pawelski, MAPP, and James Pawelski, PhD',
+      'Today you are you, that is truer than true. There is no one alive who is you-er than you. - Dr. Seuss',
+      'Be happy now, without reason - or you never will be at all - Dan Millman',
+      'True kindness is not what drives relationships of mere utility, but it is at the core of relationships of goodness.” — Suzann Pileggi Pawelski, MAPP, and James Pawelski, PhD',
       '“Without effort, your talent is nothing more than your unmet potential.”— Angela Duckworth, PhD',
-      `"It's in responsibility that most people find the meaning that sustains them through life. It's not in happiness. It's not in impulsive pleasure." - Jordan Peterson`,
-      `"Life is really simple, but we insist on making it complicated. - Confucius"`,
-      'The best way to find yourself is to lose yourself in the service of others". - Mahatma Gandhi',
-      '"It is better to be violent, if there is violence in our hearts, than to put on the cloak of nonviolence to cover impotence."- Mahatma Gandhi',
+      `It's in responsibility that most people find the meaning that sustains them through life. It's not in happiness. It's not in impulsive pleasure. - Jordan Peterson`,
+      `Life is really simple, but we insist on making it complicated. - Confucius`,
+      'The best way to find yourself is to lose yourself in the service of others. - Mahatma Gandhi',
+      'It is better to be violent, if there is violence in our hearts, than to put on the cloak of nonviolence to cover impotence.- Mahatma Gandhi',
     ];
 
     function pickRandom(arr) {

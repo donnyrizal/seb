@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
               els.empty.classList.remove("hidden");
           }
           if (historyEvents.length > 0) {
-              const reversedHistory = [...historyEvents].sort((a, b) => b.end - a.end);
+              const reversedHistory = [...historyEvents].sort((a, b) => a.end - b.end); // Ascending 
               renderGroupedEvents(reversedHistory, els.historyContainer, true);
               els.historyWrapper.classList.remove("hidden");
           }

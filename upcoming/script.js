@@ -286,6 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return { name: "Offline / Paper Based", url: "#" };
           if (l.includes("tugas"))
             return { name: "Tugas", url: "#" };
+          if (l.includes("tba"))
+            return { name: "To Be Announced!", url: "#" };
           return { name: "SEB", url: "https://donnyrizal.github.io/seb" };
         }
         function getMethodColor(methodName) {

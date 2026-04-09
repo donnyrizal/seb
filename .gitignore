@@ -1,2 +1,4 @@
 **/desktop.ini
 *.ini
+*.code-workspace
+.vscode/

@@ -256,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Trust the process, even the messy parts.",
       "Duit ora teko dewe, ayo kerjo! 💸",
       "ƪ(˘⌣˘)ʃ",
+      "Kerja mulu kaya kagak",
     ];
     const eveningQuotes = [
       "(●ˇ∀ˇ●)",
@@ -305,6 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "Knowing your own darkness is the best method for dealing with the darknesses of other people. - Carl Jung",
       "Boundaries are the distance at which I can love you and me simultaneously. - Prentis Hemphill",
       "Vulnerability is not winning or losing; it's having the courage to show up when you can't control the outcome. - Brené Brown",
+      "Yesterday is history, tomorrow is a mystery, today is a gift, that is why it is called the present - Master Oogway",
+      "Among the things you can give and still keep are your word, a smile, and a grateful heart. - Zig Ziglar",
+      "No man is happy who does not think himself so - Norman Vincent Peale",
+      "Wherever there is danger, there lurks opportunity; wherever there is opportunity, there lurks danger. The two are inseparable - Earl Nightingale",
     ];
 
     const islamicQuotes = [

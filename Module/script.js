@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const els = {
+    examTitle: document.getElementById("exam-title"),
+    examTerm: document.getElementById("exam-term"),
     clock: document.getElementById("live-clock"),
     date: document.getElementById("live-date"),
     scheduleContainer: document.getElementById("schedule-container"),
@@ -136,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderActiveSchedules();
       updateTime();
       setGreeting();
+      setExamHeaders();
       setInterval(updateTime, 1000);
       setInterval(renderActiveSchedules, 1000);
     } catch (error) {
@@ -224,6 +227,48 @@ document.addEventListener("DOMContentLoaded", () => {
       year: "numeric",
       timeZone: "Asia/Jakarta",
     }).format(now);
+  }
+
+  function setExamHeaders() {
+    const now = getServerTime(); 
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    let term = "";
+    let startYear, endYear;
+
+    if (month === 0) {
+      term = "Gasal";
+      startYear = year - 1;
+      endYear = year;
+    } else if (month >= 1 && month <= 7) {
+      term = "Genap";
+      startYear = year - 1;
+      endYear = year;
+    } else {
+      term = "Gasal";
+      startYear = year;
+      endYear = year + 1;
+    }
+
+    if (els.examTerm) {
+      els.examTerm.textContent = `${term} ${startYear}-${endYear}`;
+    }
+
+    let examType = "Jadwal Ujian";
+
+    if (month === 9 || month === 10) {
+      examType = "Ujian Tengah Semester";
+    } else if (month === 0 || month === 1) {
+      examType = "Ujian Akhir Semester";
+    } else if (month >= 3 && month <= 4) {
+      examType = "Ujian Tengah Semester";
+    } else if (month >= 5 && month <= 7) {
+      examType = "Ujian Akhir Semester";
+    }
+
+    if (els.examTitle) {
+      els.examTitle.textContent = examType;
+    }
   }
 
   function setGreeting() {

@@ -73,27 +73,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const lowerLink = originalLink.toLowerCase();
         let finalMethod = "SEB";
         let finalLink = originalLink;
+        let isSebLink = true; // Track if link should use sebs: protocol
         let methodColorClass =
           "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
 
         if (lowerLink.includes("myujian")) {
           finalMethod = "MyUjian";
           finalLink = "https://myujian.ums.ac.id";
+          isSebLink = false; // Open as regular web link
           methodColorClass =
             "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
         } else if (lowerLink.includes("spada")) {
           finalMethod = "SPADA";
           finalLink = "https://spada12.ums.ac.id";
+          isSebLink = false; // Open as regular web link
           methodColorClass =
             "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
         } else if (lowerLink.includes("tugas")) {
           finalMethod = "Tugas";
           finalLink = "#";
+          isSebLink = false; // No real link, just placeholder
           methodColorClass =
             "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
         } else if (lowerLink.includes("paper")) {
           finalMethod = "Paper";
           finalLink = "#";
+          isSebLink = false; // No real link, just placeholder
           methodColorClass =
             "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
         }
@@ -130,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
               link: finalLink,
               method: finalMethod,
               methodColorClass: methodColorClass,
+              isSebLink: isSebLink,
             },
           ],
         };
@@ -461,12 +467,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                 <td class="p-4 align-top">
                     <div class="flex items-center gap-3">
-    <a href="${toSebLink(course.link)}" 
+    <a href="${course.isSebLink ? toSebLink(course.link) : course.link}"
        class="text-lg font-bold text-seb hover:text-seb-dark dark:text-purple-400 dark:hover:text-purple-300 transition-colors">
         ${course.name}
     </a>
 
-    <a href="${course.link}" 
+    <a href="${course.isSebLink ? course.link : '#'}"
        class="animate-pulse inline-flex items-center justify-center p-1.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors"
        title="unduh">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -490,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </td>
                 <td class="p-4 align-top text-gray-700 dark:text-gray-300">
-                    <a href="${toSebLink(course.link)}"class="${
+                    <a href="${course.isSebLink ? toSebLink(course.link) : course.link}" class="${
               course.methodColorClass
             } text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                         ${course.method}

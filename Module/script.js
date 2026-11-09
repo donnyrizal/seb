@@ -71,36 +71,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const originalLink = row.Link || "";
         const lowerLink = originalLink.toLowerCase();
-        let finalMethod = "SEB";
+        const csvMethod = (row.Method || "").trim();
+        let finalMethod = csvMethod || "SEB";
         let finalLink = originalLink;
-        let isSebLink = true; // Track if link should use sebs: protocol
+        let isSebLink = true;
         let methodColorClass =
           "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
 
-        if (lowerLink.includes("myujian")) {
-          finalMethod = "MyUjian";
-          finalLink = "https://myujian.ums.ac.id";
-          isSebLink = false; // Open as regular web link
-          methodColorClass =
-            "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
-        } else if (lowerLink.includes("spada")) {
-          finalMethod = "SPADA";
-          finalLink = "https://spada12.ums.ac.id";
-          isSebLink = false; // Open as regular web link
-          methodColorClass =
-            "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
-        } else if (lowerLink.includes("tugas")) {
-          finalMethod = "Tugas";
-          finalLink = "#";
-          isSebLink = false; // No real link, just placeholder
-          methodColorClass =
-            "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
-        } else if (lowerLink.includes("paper")) {
-          finalMethod = "Paper";
-          finalLink = "#";
-          isSebLink = false; // No real link, just placeholder
-          methodColorClass =
-            "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+        if (csvMethod) {
+          // Method column is authoritative — only set link/color from it
+          const m = csvMethod.toLowerCase();
+          if (m === "myujian") {
+            finalLink = "https://myujian.ums.ac.id";
+            isSebLink = false;
+            methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+          } else if (m === "spada") {
+            finalLink = "https://spada12.ums.ac.id";
+            isSebLink = false;
+            methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+          } else if (m === "tugas") {
+            finalLink = "#";
+            isSebLink = false;
+            methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+          } else if (m === "paper") {
+            finalLink = "#";
+            isSebLink = false;
+            methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+          }
+          // e.g. "SEB GForm" or "SEB" — keep originalLink, isSebLink = true
+        } else {
+          // Fallback: infer from link
+          if (lowerLink.includes("myujian")) {
+            finalMethod = "MyUjian";
+            finalLink = "https://myujian.ums.ac.id";
+            isSebLink = false;
+            methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+          } else if (lowerLink.includes("spada")) {
+            finalMethod = "SPADA";
+            finalLink = "https://spada12.ums.ac.id";
+            isSebLink = false;
+            methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+          } else if (lowerLink.includes("tugas")) {
+            finalMethod = "Tugas";
+            finalLink = "#";
+            isSebLink = false;
+            methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+          } else if (lowerLink.includes("paper")) {
+            finalMethod = "Paper";
+            finalLink = "#";
+            isSebLink = false;
+            methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+          }
         }
 
         let lecturersList = [];

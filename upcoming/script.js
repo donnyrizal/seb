@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   course: row.Course,
                   lecturers: lecturersList,
                   duration: row["Waktu Ujian"],
-                  method: determineMethod(row.Link),
+                  method: determineMethod(row.Method, row.Link),
                 };
               })
               .filter((item) => !isNaN(item.start.getTime()));
@@ -275,19 +275,24 @@ document.addEventListener("DOMContentLoaded", () => {
             hour12: false,
           });
         }
-        function determineMethod(link) {
+        function determineMethod(method, link) {
+          const m = (method || "").trim();
+          if (m) {
+            const mLower = m.toLowerCase();
+            if (mLower === "myujian") return { name: m, url: "https://myujian.ums.ac.id" };
+            if (mLower === "spada") return { name: m, url: "https://spada12.ums.ac.id" };
+            if (mLower === "paper") return { name: "Offline / Paper Based", url: "#" };
+            if (mLower === "tugas") return { name: m, url: "#" };
+            return { name: m, url: link || "#" };
+          }
+
           if (!link) return { name: "To Be Announced!", url: "#" };
           const l = link.toLowerCase();
-          if (l.includes("myujian"))
-            return { name: "MyUjian", url: "https://myujian.ums.ac.id" };
-          if (l.includes("spada"))
-            return { name: "SPADA", url: "https://spada12.ums.ac.id" };
-          if (l.includes("paper"))
-            return { name: "Offline / Paper Based", url: "#" };
-          if (l.includes("tugas"))
-            return { name: "Tugas", url: "#" };
-          if (l.includes("tba"))
-            return { name: "To Be Announced!", url: "#" };
+          if (l.includes("myujian")) return { name: "MyUjian", url: "https://myujian.ums.ac.id" };
+          if (l.includes("spada")) return { name: "SPADA", url: "https://spada12.ums.ac.id" };
+          if (l.includes("paper")) return { name: "Offline / Paper Based", url: "#" };
+          if (l.includes("tugas")) return { name: "Tugas", url: "#" };
+          if (l.includes("tba")) return { name: "To Be Announced!", url: "#" };
           return { name: "SEB", url: "https://donnyrizal.github.io/seb" };
         }
         function getMethodColor(methodName) {

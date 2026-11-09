@@ -51,14 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
           if (parts.length === 3)
             datePart = `${parts[2]}-${parts[1].padStart(
               2,
-              "0"
+              "0",
             )}-${parts[0].padStart(2, "0")}`;
         } else if (datePart.includes(",")) {
           const parts = datePart.split(",");
           if (parts.length === 3)
             datePart = `${parts[2]}-${parts[1].padStart(
               2,
-              "0"
+              "0",
             )}-${parts[0].padStart(2, "0")}`;
         }
 
@@ -74,53 +74,71 @@ document.addEventListener("DOMContentLoaded", () => {
         const csvMethod = (row.Method || "").trim();
         let finalMethod = csvMethod || "SEB";
         let finalLink = originalLink;
-        let isSebLink = true;
+
+        // If the link explicitly points to a .seb file, prioritize that
+        const isSebFile = lowerLink.includes(".seb");
+        let isSebLink = isSebFile || !lowerLink.startsWith("http");
+
         let methodColorClass =
           "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
 
         if (csvMethod) {
-          // Method column is authoritative — only set link/color from it
           const m = csvMethod.toLowerCase();
           if (m === "myujian") {
-            finalLink = "https://myujian.ums.ac.id";
-            isSebLink = false;
-            methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+            methodColorClass =
+              "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+            if (!isSebFile) {
+              finalLink = "https://myujian.ums.ac.id";
+              isSebLink = false;
+            }
           } else if (m === "spada") {
-            finalLink = "https://spada12.ums.ac.id";
-            isSebLink = false;
-            methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+            methodColorClass =
+              "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+            if (!isSebFile) {
+              finalLink = "https://spada12.ums.ac.id";
+              isSebLink = false;
+            }
           } else if (m === "tugas") {
-            finalLink = "#";
-            isSebLink = false;
-            methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+            methodColorClass =
+              "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+            if (!isSebFile) {
+              finalLink = "#";
+              isSebLink = false;
+            }
           } else if (m === "paper") {
-            finalLink = "#";
-            isSebLink = false;
-            methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+            methodColorClass =
+              "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+            if (!isSebFile) {
+              finalLink = "#";
+              isSebLink = false;
+            }
           }
-          // e.g. "SEB GForm" or "SEB" — keep originalLink, isSebLink = true
         } else {
           // Fallback: infer from link
-          if (lowerLink.includes("myujian")) {
+          if (lowerLink.includes("myujian") && !isSebFile) {
             finalMethod = "MyUjian";
             finalLink = "https://myujian.ums.ac.id";
             isSebLink = false;
-            methodColorClass = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
-          } else if (lowerLink.includes("spada")) {
+            methodColorClass =
+              "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+          } else if (lowerLink.includes("spada") && !isSebFile) {
             finalMethod = "SPADA";
             finalLink = "https://spada12.ums.ac.id";
             isSebLink = false;
-            methodColorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+            methodColorClass =
+              "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
           } else if (lowerLink.includes("tugas")) {
             finalMethod = "Tugas";
             finalLink = "#";
             isSebLink = false;
-            methodColorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
+            methodColorClass =
+              "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
           } else if (lowerLink.includes("paper")) {
             finalMethod = "Paper";
             finalLink = "#";
             isSebLink = false;
-            methodColorClass = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+            methodColorClass =
+              "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
           }
         }
 
@@ -132,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             lecturersList = rawLec.split('", "');
           else lecturersList = [rawLec];
           lecturersList = lecturersList.map((name) =>
-            name.trim().replace(/^["']+|["']+$/g, "")
+            name.trim().replace(/^["']+|["']+$/g, ""),
           );
         }
 
@@ -257,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function setExamHeaders() {
-    const now = getServerTime(); 
+    const now = getServerTime();
     const month = now.getMonth();
     const year = now.getFullYear();
     let term = "";
@@ -305,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hour: "2-digit",
         hour12: false,
         timeZone: "Asia/Jakarta",
-      })
+      }),
     );
 
     const morningQuotes = [
@@ -410,7 +428,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return arr[Math.floor(Math.random() * arr.length)];
     }
     function getMessage(arr) {
-      return Math.random() < 0.2 ? pickRandom(psychQuotes) : Math.random() < 0.4 ?pickRandom(islamicQuotes) : pickRandom(arr);
+      return Math.random() < 0.2
+        ? pickRandom(psychQuotes)
+        : Math.random() < 0.4
+          ? pickRandom(islamicQuotes)
+          : pickRandom(arr);
     }
 
     const greetings = [
@@ -487,15 +509,27 @@ document.addEventListener("DOMContentLoaded", () => {
             (course) => `
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                 <td class="p-4 align-top">
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 flex-wrap">
     <a href="${course.isSebLink ? toSebLink(course.link) : course.link}"
        class="text-lg font-bold text-seb hover:text-seb-dark dark:text-purple-400 dark:hover:text-purple-300 transition-colors">
         ${course.name}
     </a>
+    ${course.method.toLowerCase().includes("myujian")
+      ? `<a href="https://myujian.ums.ac.id" target="_blank" rel="noopener"
+           class="ml-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/50 dark:text-green-300 dark:hover:bg-green-900 transition-colors border border-green-300 dark:border-green-700">
+           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+           MyUjian</a>`
+      : ""}
+    ${course.method.toLowerCase().includes("spada")
+      ? `<a href="https://spada12.ums.ac.id" target="_blank" rel="noopener"
+           class="ml-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded bg-orange-100 text-orange-800 hover:bg-orange-200 dark:bg-orange-900/50 dark:text-orange-300 dark:hover:bg-orange-900 transition-colors border border-orange-300 dark:border-orange-700">
+           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+           SPADA</a>`
+      : ""}
 
-    <a href="${course.isSebLink ? course.link : '#'}"
+    <a href="${course.isSebLink ? course.link : "#"}"
        class="animate-pulse inline-flex items-center justify-center p-1.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors"
-       title="unduh">
+       title="Unduh SEB">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"></path>
        </svg>
@@ -518,14 +552,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </td>
                 <td class="p-4 align-top text-gray-700 dark:text-gray-300">
                     <a href="${course.isSebLink ? toSebLink(course.link) : course.link}" class="${
-              course.methodColorClass
-            } text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                      course.methodColorClass
+                    } text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                         ${course.method}
                     </a>
                     <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Closedbook</div>
                 </td>
             </tr>
-        `
+        `,
           )
           .join("");
 

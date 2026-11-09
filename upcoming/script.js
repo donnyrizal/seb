@@ -277,8 +277,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         function determineMethod(method, link) {
           const m = (method || "").trim();
+          const isSebFile = link && link.toLowerCase().includes(".seb");
+
           if (m) {
             const mLower = m.toLowerCase();
+            // .seb file in Link → keep the file link regardless of method name
+            if (isSebFile) return { name: m, url: link };
             if (mLower === "myujian") return { name: m, url: "https://myujian.ums.ac.id" };
             if (mLower === "spada") return { name: m, url: "https://spada12.ums.ac.id" };
             if (mLower === "paper") return { name: "Offline / Paper Based", url: "#" };
@@ -288,6 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (!link) return { name: "To Be Announced!", url: "#" };
           const l = link.toLowerCase();
+          if (isSebFile) return { name: "SEB", url: link };
           if (l.includes("myujian")) return { name: "MyUjian", url: "https://myujian.ums.ac.id" };
           if (l.includes("spada")) return { name: "SPADA", url: "https://spada12.ums.ac.id" };
           if (l.includes("paper")) return { name: "Offline / Paper Based", url: "#" };

@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      </span></div>` 
                   : ``;
 
-                const btnClass = isHistory ? "hidden" : `badge-link inline-flex items-center px-4 py-2 text-xs font-bold rounded-lg transition-all hover:scale-105 hover:shadow-md ${getMethodColor(item.method.name)}`;
+                const btnClass = isHistory ? "hidden" : `badge-link inline-flex items-center px-4 py-2 text-xs font-bold rounded-lg transition-none cursor-not-allowed ${getMethodColor(item.method.name)}`;
 
                 return `
                   <div class="course-card relative flex flex-col md:flex-row rounded-xl border p-5 gap-4 md:gap-6 ${containerClass} transition-all duration-300 group">
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                       ${item.course}
                                   </h3>
                                    <div class="flex flex-wrap gap-2">
-                                      ${item.lecturers.map(l => 
+                                      ${item.lecturers.map(l =>
                                           `<span class="inline-flex items-center text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded">
                                               <svg class="w-3 h-3 mr-1 opacity-50" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
                                               ${l}
@@ -229,12 +229,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                    </div>
                               </div>
                                   <div class="flex-shrink-0 mt-2 md:mt-0">
-                                   <a href="${item.method.url}" 
-                                      target="_blank"
-                                      class="${btnClass}">
+                                   <span class="${btnClass}">
                                       <span>${item.method.name}</span>
                                       <svg class="w-3 h-3 ml-2 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                  </a>
+                                   </span>
                               </div>
                           </div>
                       </div>
@@ -306,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (methodName === "SPADA")
             return "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200 border border-orange-200 dark:border-orange-800";
           if (methodName === "Offline / Paper Based")
-            return "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200 border border-red-200 dark:border-red-800";
+            return "bg-black text-white dark:bg-black dark:text-white border border-black";
           if (methodName === "To Be Announced!")
             return "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200 border border-amber-200 dark:border-amber-800";
           if (methodName === "Tugas")

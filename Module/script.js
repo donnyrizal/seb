@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           } else if (m === "paper") {
             methodColorClass =
-              "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+              "bg-black text-white dark:bg-black dark:text-white border border-black";
             if (!isSebFile) {
               finalLink = "#";
               isSebLink = false;
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
             finalLink = "#";
             isSebLink = false;
             methodColorClass =
-              "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+              "bg-black text-white dark:bg-black dark:text-white border border-black";
           }
         }
 

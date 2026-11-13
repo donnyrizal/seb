@@ -98,14 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
               finalLink = "https://spada12.ums.ac.id";
               isSebLink = false;
             }
-          } else if (m === "tugas") {
+          } else if (m.includes("tugas")) {
             methodColorClass =
               "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
             if (!isSebFile) {
               finalLink = "#";
               isSebLink = false;
             }
-          } else if (m === "paper") {
+          } else if (m.includes("paper")) {
             methodColorClass =
               "bg-black text-white dark:bg-black dark:text-white border border-black";
             if (!isSebFile) {
@@ -134,12 +134,20 @@ document.addEventListener("DOMContentLoaded", () => {
             methodColorClass =
               "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300";
           } else if (lowerLink.includes("paper")) {
-            finalMethod = "Paper";
+            finalMethod = "Paper Based";
             finalLink = "#";
             isSebLink = false;
             methodColorClass =
               "bg-black text-white dark:bg-black dark:text-white border border-black";
           }
+        }
+
+        if (
+          finalMethod.toLowerCase().includes("paper") ||
+          finalMethod.toLowerCase().includes("tugas")
+        ) {
+          isSebLink = false;
+          finalLink = "#";
         }
 
         let lecturersList = [];
@@ -510,30 +518,49 @@ document.addEventListener("DOMContentLoaded", () => {
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                 <td class="p-4 align-top">
                     <div class="flex items-center gap-3 flex-wrap">
-    <a href="${course.isSebLink ? toSebLink(course.link) : course.link}"
+    ${
+      course.isSebLink && course.link && course.link !== "#"
+        ? `<a href="${toSebLink(course.link)}"
        class="text-lg font-bold text-seb hover:text-seb-dark dark:text-purple-400 dark:hover:text-purple-300 transition-colors">
         ${course.name}
-    </a>
-    ${course.method.toLowerCase().includes("myujian")
-      ? `<a href="https://myujian.ums.ac.id" target="_blank" rel="noopener"
+    </a>`
+        : course.link && course.link !== "#"
+          ? `<a href="${course.link}" target="_blank" rel="noopener"
+       class="text-lg font-bold text-seb hover:text-seb-dark dark:text-purple-400 dark:hover:text-purple-300 transition-colors">
+        ${course.name}
+    </a>`
+          : `<span class="text-lg font-bold text-gray-800 dark:text-gray-200">
+        ${course.name}
+    </span>`
+    }
+    ${
+      course.method.toLowerCase().includes("myujian")
+        ? `<a href="https://myujian.ums.ac.id" target="_blank" rel="noopener"
            class="ml-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/50 dark:text-green-300 dark:hover:bg-green-900 transition-colors border border-green-300 dark:border-green-700">
            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
            MyUjian</a>`
-      : ""}
-    ${course.method.toLowerCase().includes("spada")
-      ? `<a href="https://spada12.ums.ac.id" target="_blank" rel="noopener"
+        : ""
+    }
+    ${
+      course.method.toLowerCase().includes("spada")
+        ? `<a href="https://spada12.ums.ac.id" target="_blank" rel="noopener"
            class="ml-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded bg-orange-100 text-orange-800 hover:bg-orange-200 dark:bg-orange-900/50 dark:text-orange-300 dark:hover:bg-orange-900 transition-colors border border-orange-300 dark:border-orange-700">
            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
            SPADA</a>`
-      : ""}
+        : ""
+    }
 
-    <a href="${course.isSebLink ? course.link : "#"}"
+    ${
+      course.isSebLink && course.link && course.link !== "#"
+        ? `<a href="${course.link}"
        class="animate-pulse inline-flex items-center justify-center p-1.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors"
        title="Unduh SEB">
        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"></path>
        </svg>
-    </a>
+    </a>`
+        : ""
+    }
 </div>
                 </td>
                 <td class="p-4 align-top">
@@ -551,12 +578,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </td>
                 <td class="p-4 align-top text-gray-700 dark:text-gray-300">
-                    <a href="${course.isSebLink ? toSebLink(course.link) : course.link}" class="${
-                      course.methodColorClass
-                    } text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                        ${course.method}
-                    </a>
-                    <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Closedbook</div>
+                    <div class="flex items-center gap flex-wrap">
+                        ${
+                          course.link && course.link !== "#"
+                            ? `<a href="${course.isSebLink ? toSebLink(course.link) : course.link}" ${!course.isSebLink ? 'target="_blank" rel="noopener"' : ""} class="${course.methodColorClass} text-xs font-semibold px-2.5 py-0.5 rounded whitespace-nowrap">
+                            ${course.method}
+                        </a>`
+                            : `<span class="${course.methodColorClass} text-xs font-semibold px-2.5 py-0.5 rounded whitespace-nowrap">
+                            ${course.method}
+                        </span>`
+                        }
+                        <div class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">Closedbook</div>
+                    </div>
                 </td>
             </tr>
         `,
